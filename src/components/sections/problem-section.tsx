@@ -21,13 +21,17 @@ const problems = [
   },
 ];
 
+/**
+ * No top hairline on this section: the social-proof block above already closes
+ * the first viewport with its own rule, and a second one 25px below it reads
+ * as a mistake. Later sections keep their own top border.
+ */
 export function ProblemSection() {
   return (
     <Section
       id="problem"
       spacing="lg"
       aria-labelledby="problem-heading"
-      className="border-t border-foreground/12"
     >
       <Container width="full">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
