@@ -48,11 +48,14 @@ export function IndexedItem({
   return (
     <div
       className={cn(
-        "grid grid-cols-[2.25rem_1fr] gap-x-4 sm:grid-cols-[4rem_1fr] sm:gap-x-6",
+        // items-baseline lines the index up with the title's first baseline.
+        // The two use different families and sizes (DM Mono 12 vs Asta Sans
+        // 16), so any fixed padding nudge would drift by breakpoint.
+        "grid grid-cols-[2.25rem_1fr] items-baseline gap-x-4 sm:grid-cols-[4rem_1fr] sm:gap-x-6",
         className,
       )}
     >
-      <span className="pt-0.5 font-mono text-eyebrow font-medium text-foreground/50 tabular-nums sm:pt-1">
+      <span className="font-mono text-eyebrow font-medium text-foreground/50 tabular-nums">
         {index}
       </span>
       <div>{body}</div>
