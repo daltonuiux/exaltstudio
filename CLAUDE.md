@@ -34,9 +34,15 @@ values. Figma variables map onto them:
 | corner radius    | `--radius-*`     |
 | frame widths     | `--container-*` / `--breakpoint-*` |
 
-Current values are **temporary neutral placeholders** — no visual identity has
-been chosen. Figma is the source of truth for colour, type, spacing, sizing,
-grid, borders, radius, imagery, layout and responsive behaviour.
+**Colour is decided: Tailwind's built-in `mauve` scale** (a near-neutral grey,
+hue ~322, chroma 0.003–0.034). Semantic tokens (`--color-background`,
+`--color-foreground`, …) map onto `mauve-*` steps, so components should use the
+semantic names and a palette change stays a one-line edit. `mauve-*` utilities
+remain available for one-offs Figma calls for.
+
+Type, spacing, sizing and radius are still **temporary placeholders**. Figma is
+the source of truth for type, spacing, sizing, grid, borders, radius, imagery,
+layout and responsive behaviour.
 
 ## Layout primitives
 

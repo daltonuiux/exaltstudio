@@ -19,20 +19,27 @@
 --------------------------------------------------------------------------- */
 
 @theme {
-  /* --- Colour: semantic roles, not raw palette names --------------------- */
-  --color-background: #ffffff;
-  --color-foreground: #0a0a0a;
+  /* --- Colour: semantic roles mapped onto Tailwind's `mauve` scale -------
+     Components should use the semantic names below, not `mauve-*` directly,
+     so a palette change stays a one-line edit here. The raw scale is still
+     available (bg-mauve-200 etc.) for one-off cases Figma calls for. */
+  --color-background: var(--color-mauve-50);
+  --color-foreground: var(--color-mauve-950);
 
-  --color-muted: #f4f4f5;
-  --color-muted-foreground: #6b7280;
+  --color-muted: var(--color-mauve-100);
+  --color-muted-foreground: var(--color-mauve-600);
 
-  --color-border: #e5e5e5;
-  --color-border-strong: #d4d4d4;
+  /* Hairline separators. Deliberately low-contrast (~1.2:1) — fine for
+     decorative rules, but WCAG 1.4.11 wants 3:1 for a border that is the
+     only affordance marking an interactive control. Inputs and similar
+     need mauve-500 or darker (mauve-400 measures 2.5:1 and misses). */
+  --color-border: var(--color-mauve-200);
+  --color-border-strong: var(--color-mauve-300);
 
-  --color-accent: #171717;
-  --color-accent-foreground: #ffffff;
+  --color-accent: var(--color-mauve-900);
+  --color-accent-foreground: var(--color-mauve-50);
 
-  --color-focus: #2563eb;
+  --color-focus: var(--color-mauve-900);
 
   /* --- Typography -------------------------------------------------------- */
   /* Placeholder family. The real family arrives from Figma via next/font. */
