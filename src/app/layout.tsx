@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Asta_Sans, DM_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
 import { siteConfig } from "@/lib/site";
@@ -7,14 +7,21 @@ import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
 /**
- * PLACEHOLDER typeface. The final family, weights, sizing, tracking and
- * line-heights come from Figma. To swap: change the import and the loader
- * below — the CSS variable name stays the same, so nothing else changes.
+ * Typefaces per Figma: Asta Sans for UI and headings, DM Mono for the
+ * uppercase eyebrow labels. Asta Sans is loaded as a variable font (300-800)
+ * so Regular and SemiBold share a single file.
  */
-const sans = Inter({
+const sans = Asta_Sans({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-sans-placeholder",
+  variable: "--font-sans-family",
+});
+
+const mono = DM_Mono({
+  subsets: ["latin"],
+  weight: "500",
+  display: "swap",
+  variable: "--font-mono-family",
 });
 
 export const metadata: Metadata = {
@@ -68,7 +75,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-GB" className={sans.variable}>
+    <html lang="en-GB" className={`${sans.variable} ${mono.variable}`}>
       <body>
         <a
           href="#main"

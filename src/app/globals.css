@@ -24,7 +24,7 @@
      so a palette change stays a one-line edit here. The raw scale is still
      available (bg-mauve-200 etc.) for one-off cases Figma calls for. */
   --color-background: var(--color-mauve-50);
-  --color-foreground: var(--color-mauve-950);
+  --color-foreground: var(--color-mauve-800);
 
   --color-muted: var(--color-mauve-100);
   --color-muted-foreground: var(--color-mauve-600);
@@ -42,9 +42,9 @@
   --color-focus: var(--color-mauve-900);
 
   /* --- Typography -------------------------------------------------------- */
-  /* Placeholder family. The real family arrives from Figma via next/font. */
-  --font-sans: var(--font-sans-placeholder), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Families per Figma, injected by next/font in the root layout. */
+  --font-sans: var(--font-sans-family), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-family), ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* Fluid type scale — replace sizes/line-heights/tracking with Figma values. */
   --text-xs: 0.75rem;
@@ -65,6 +65,16 @@
   --text-4xl--line-height: 1.12;
   --text-5xl: clamp(2.75rem, 1.9rem + 4vw, 4.5rem);
   --text-5xl--line-height: 1.05;
+
+  /* Figma hero: 60px / 72px / -1.8px tracking at 1440. Scales down fluidly. */
+  --text-hero: clamp(2.25rem, 1.6rem + 2.9vw, 3.75rem);
+  --text-hero--line-height: 1.2;
+  --text-hero--letter-spacing: -0.03em;
+
+  /* Figma eyebrow: DM Mono Medium 12px, +0.24px tracking, uppercase. */
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1.4;
+  --text-eyebrow--letter-spacing: 0.02em;
 
   /* --- Spacing ----------------------------------------------------------- */
   /* Base step for every spacing utility (p-4 = 4 * 0.25rem). */
@@ -92,6 +102,19 @@
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
+
+  /* --- Motion ------------------------------------------------------------ */
+  --animate-marquee: marquee var(--marquee-duration, 60s) linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      /* Exactly one copy of the track; the second copy takes its place. */
+      transform: translateX(-50%);
+    }
+  }
 
   /* --- Breakpoints ------------------------------------------------------- */
   /* Mobile-first. Interpret Figma frames as ranges, not fixed viewports. */
@@ -170,5 +193,41 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Marquee
+--------------------------------------------------------------------------- */
+
+/* True opacity fade at both edges — independent of what sits behind it,
+   unlike a background-coloured gradient overlay. */
+@utility marquee-fade {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black var(--marquee-fade, 8%),
+    black calc(100% - var(--marquee-fade, 8%)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black var(--marquee-fade, 8%),
+    black calc(100% - var(--marquee-fade, 8%)),
+    transparent 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The global reset would otherwise collapse the loop to 0.01ms and snap it
+     to its end state. Stop it outright and let the row be scrolled by hand. */
+  [data-marquee-track] {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  [data-marquee-viewport] {
+    overflow-x: auto;
   }
 }

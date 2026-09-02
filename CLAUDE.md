@@ -40,9 +40,22 @@ hue ~322, chroma 0.003–0.034). Semantic tokens (`--color-background`,
 semantic names and a palette change stays a one-line edit. `mauve-*` utilities
 remain available for one-offs Figma calls for.
 
-Type, spacing, sizing and radius are still **temporary placeholders**. Figma is
-the source of truth for type, spacing, sizing, grid, borders, radius, imagery,
-layout and responsive behaviour.
+**Type is decided: Asta Sans** (variable 300-800) for UI and headings, **DM Mono
+Medium** for uppercase eyebrow labels. Both load via `next/font/google` in the
+root layout and are exposed as `--font-sans` / `--font-mono`.
+
+Spacing, sizing and radius are still **temporary placeholders**. Figma remains
+the source of truth for spacing, sizing, grid, borders, radius, imagery, layout
+and responsive behaviour.
+
+## Logos
+
+Brand SVGs live in `public/images/logos/`, exported from Figma and cleaned of
+export artefacts (backdrop rect, page-background rect, baked-in 50% opacity).
+They keep Figma's literal `#2A252E` fill — do **not** convert them to
+`currentColor`: they render via `<img>`, where `currentColor` resolves to black.
+Every export reuses the same clip/mask ids, so they must stay separate
+documents rather than being inlined into one page.
 
 ## Layout primitives
 
