@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
-type ButtonVariant = "solid" | "soft" | "ghost";
+type ButtonVariant = "solid" | "soft" | "ghost" | "inverse";
 type ButtonSize = "sm" | "md";
 
 const variantClasses: Record<ButtonVariant, string> = {
@@ -13,6 +13,8 @@ const variantClasses: Record<ButtonVariant, string> = {
   soft: "bg-foreground/12 text-foreground hover:bg-foreground/20",
   /* Figma: nav items — no fill until hovered */
   ghost: "text-foreground hover:bg-foreground/8",
+  /* For use on the dark foreground ground (final CTA). */
+  inverse: "bg-background text-foreground hover:bg-background/90",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {

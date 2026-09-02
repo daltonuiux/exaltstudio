@@ -4,16 +4,12 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 
-/**
- * Nav labels are still the placeholder "Menu" from the Figma frame.
- * Replace once the real navigation is designed.
- */
 const navItems = [
-  { label: "Menu", href: "#work" },
-  { label: "Menu", href: "#services" },
-  { label: "Menu", href: "#about" },
-  { label: "Menu", href: "#process" },
-  { label: "Menu", href: "#contact" },
+  { label: "Work", href: "#work" },
+  { label: "Services", href: "#services" },
+  { label: "Process", href: "#process" },
+  { label: "About", href: "#about" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export function SiteHeader() {
@@ -32,8 +28,8 @@ export function SiteHeader() {
 
         {/* Hidden below lg — the mobile navigation has not been designed yet. */}
         <nav aria-label="Main" className="hidden items-center gap-2 lg:flex">
-          {navItems.map((item, i) => (
-            <Button key={i} href={item.href} variant="ghost" size="sm" className="font-normal">
+          {navItems.map((item) => (
+            <Button key={item.label} href={item.href} variant="ghost" size="sm" className="font-normal">
               {item.label}
             </Button>
           ))}
