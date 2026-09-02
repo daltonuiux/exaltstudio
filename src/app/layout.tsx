@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 
 import { siteConfig } from "@/lib/site";
 
@@ -76,6 +77,8 @@ export default function RootLayout({
           Skip to content
         </a>
         {children}
+        {/* Cookieless page-view analytics. Inert outside production. */}
+        <Analytics />
       </body>
     </html>
   );
