@@ -1,4 +1,5 @@
 import { CtaSection } from "@/components/sections/cta-section";
+import { FaqSection } from "@/components/sections/faq-section";
 import { Hero } from "@/components/sections/hero";
 import { ProblemSection } from "@/components/sections/problem-section";
 import { ProcessSection } from "@/components/sections/process-section";
@@ -26,6 +27,7 @@ export default function Home() {
         <ProcessSection />
         <TrustSection />
         <CtaSection />
+        <FaqSection />
       </main>
       <SiteFooter />
     </div>
