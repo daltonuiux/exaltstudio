@@ -26,8 +26,8 @@ export default function Home() {
         <ServicesSection />
         <ProcessSection />
         <TrustSection />
-        <CtaSection />
         <FaqSection />
+        <CtaSection />
       </main>
       <SiteFooter />
     </div>
