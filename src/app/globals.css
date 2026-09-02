@@ -71,6 +71,11 @@
   --text-hero--line-height: 1.2;
   --text-hero--letter-spacing: -0.03em;
 
+  /* Figma "Selected Work" header: 48px / 60px / -1.44px tracking at 1440. */
+  --text-display: clamp(2rem, 1.5rem + 1.8vw, 3rem);
+  --text-display--line-height: 1.25;
+  --text-display--letter-spacing: -0.03em;
+
   /* Figma eyebrow: DM Mono Medium 12px, +0.24px tracking, uppercase. */
   --text-eyebrow: 0.75rem;
   --text-eyebrow--line-height: 1.4;

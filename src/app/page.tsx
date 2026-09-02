@@ -8,6 +8,7 @@ import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 import { SocialProof } from "@/components/sections/social-proof";
 import { TrustSection } from "@/components/sections/trust-section";
+import { WorkSamplesSection } from "@/components/sections/work-samples-section";
 import { WorkSection } from "@/components/sections/work-section";
 
 export default function Home() {
@@ -26,6 +27,7 @@ export default function Home() {
         <ServicesSection />
         <ProcessSection />
         <TrustSection />
+        <WorkSamplesSection />
         <FaqSection />
         <CtaSection />
       </main>
