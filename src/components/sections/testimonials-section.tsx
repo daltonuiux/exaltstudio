@@ -10,7 +10,19 @@ import { testimonials } from "@/lib/testimonials";
 import { cn } from "@/lib/utils";
 
 /** How long each testimonial stays up before auto-advancing. */
-const INTERVAL_MS = 7000;
+const INTERVAL_MS = 4000;
+
+/**
+ * Tallest the quote gets at each breakpoint, measured by rendering the
+ * longest of the three real testimonials (Jake Wells') at a sweep of
+ * viewport widths — height isn't monotonic with width here, since the box
+ * widens (fewer lines) while the fluid text-3xl font is simultaneously
+ * growing (more lines), so it dips around 768px before climbing again as
+ * the font keeps scaling up past it. Applied as a min-height on the
+ * blockquote so switching to a shorter quote doesn't shrink the section
+ * and shunt everything below it up the page.
+ */
+const QUOTE_MIN_HEIGHT = "min-h-[620px] sm:min-h-[380px] md:min-h-[390px]";
 
 export function TestimonialsSection() {
   const [active, setActive] = useState(0);
@@ -20,23 +32,32 @@ export function TestimonialsSection() {
     setActive((i) => (i + 1) % testimonials.length);
   }, []);
 
-  // A fresh timeout scheduled on every index change — rather than one
-  // long-running setInterval — so a manual dot click always buys a full
-  // interval before the next auto-advance, instead of firing early.
+  // A single self-rescheduling timer, not one setTimeout re-armed on every
+  // `active` change: that version's callback was `advance` itself, so a
+  // timeout already in flight when the user hovered (paused) fired anyway —
+  // pausing didn't actually stop the pending advance, just the next one.
+  // Checking pausedRef inside the tick (fired every INTERVAL_MS regardless)
+  // means a paused tick is genuinely skipped, and the loop always keeps
+  // rescheduling itself so it can't stall out.
   useEffect(() => {
     if (testimonials.length < 2) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let id: number | undefined;
 
     const schedule = () => {
-      if (reduced.matches || pausedRef.current) return;
-      return window.setTimeout(advance, INTERVAL_MS);
+      if (reduced.matches) return;
+      id = window.setTimeout(tick, INTERVAL_MS);
+    };
+    const tick = () => {
+      if (!pausedRef.current) advance();
+      schedule();
     };
 
-    let id = schedule();
+    schedule();
     // If motion preference flips mid-visit, stop or (re)start accordingly.
     const onChange = () => {
       window.clearTimeout(id);
-      id = schedule();
+      schedule();
     };
     reduced.addEventListener("change", onChange);
 
@@ -44,7 +65,7 @@ export function TestimonialsSection() {
       reduced.removeEventListener("change", onChange);
       window.clearTimeout(id);
     };
-  }, [active, advance]);
+  }, [advance]);
 
   const pause = useCallback(() => {
     pausedRef.current = true;
@@ -79,8 +100,13 @@ export function TestimonialsSection() {
               so screen readers get one clean quote rather than several
               stacked, opacity-hidden ones. */}
           <figure key={active} className="mt-8 flex flex-col items-center animate-fade-in">
-            <blockquote className="max-w-[720px]">
-              <p className="text-display font-medium text-balance">
+            <blockquote
+              className={cn(
+                "flex max-w-[720px] items-center justify-center",
+                QUOTE_MIN_HEIGHT,
+              )}
+            >
+              <p className="text-3xl font-medium text-balance">
                 &ldquo;{current.quote}&rdquo;
               </p>
             </blockquote>
