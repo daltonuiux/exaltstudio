@@ -127,12 +127,7 @@ function ProjectRow({ project, flipped }: { project: Project; flipped: boolean }
 
 export function WorkSection() {
   return (
-    <Section
-      id="work"
-      spacing="lg"
-      aria-labelledby="work-heading"
-      className="border-t border-foreground/12"
-    >
+    <Section id="work" spacing="lg" aria-labelledby="work-heading">
       <Container width="full">
         <SectionHeader
           label="Selected work"
