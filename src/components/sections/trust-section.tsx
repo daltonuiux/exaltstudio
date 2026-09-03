@@ -5,12 +5,7 @@ import { SectionLabel } from "@/components/ui/section-label";
 
 export function TrustSection() {
   return (
-    <Section
-      id="about"
-      spacing="lg"
-      aria-labelledby="about-heading"
-      className="border-t border-foreground/12"
-    >
+    <Section id="about" spacing="lg" aria-labelledby="about-heading">
       <Container width="full">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">

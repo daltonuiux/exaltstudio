@@ -29,12 +29,7 @@ const stages = [
 
 export function ServicesSection() {
   return (
-    <Section
-      id="services"
-      spacing="lg"
-      aria-labelledby="services-heading"
-      className="border-t border-foreground/12"
-    >
+    <Section id="services" spacing="lg" aria-labelledby="services-heading">
       <Container width="full">
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
           <SectionHeader
