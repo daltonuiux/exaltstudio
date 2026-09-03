@@ -7,7 +7,7 @@ import { clientLogos, investorLogos } from "@/lib/logos";
 /** Figma: DM Mono Medium 12px, +0.24px tracking, uppercase, 50% foreground. */
 function GroupLabel({ children, id }: { children: React.ReactNode; id: string }) {
   return (
-    <SectionLabel id={id} className="text-background/70">
+    <SectionLabel id={id} className="text-background">
       {children}
     </SectionLabel>
   );
@@ -17,7 +17,7 @@ export function SocialProof() {
   return (
     <section aria-labelledby="social-proof-clients" className="w-full py-6">
       <Container width="full" className="flex flex-col gap-6">
-        <hr className="border-background/20" />
+        <hr className="border-background/24" />
 
         <div className="flex flex-col gap-4">
           <GroupLabel id="social-proof-clients">
@@ -30,11 +30,11 @@ export function SocialProof() {
             duration={60}
             hoverRate={0.25}
             fade="7%"
-            className="opacity-90 [&_img]:invert"
+
           />
         </div>
 
-        <hr className="border-background/20" />
+        <hr className="border-background/24" />
 
         <div className="flex flex-col gap-4">
           <GroupLabel id="social-proof-investors">
@@ -42,7 +42,7 @@ export function SocialProof() {
           </GroupLabel>
           <ul
             aria-labelledby="social-proof-investors"
-            className="flex flex-wrap items-center gap-x-[38px] gap-y-5 opacity-90 [&_img]:invert"
+            className="flex flex-wrap items-center gap-x-[38px] gap-y-5"
           >
             {investorLogos.map((logo) => (
               <li key={logo.name} className="flex shrink-0 items-center">
@@ -52,7 +52,7 @@ export function SocialProof() {
           </ul>
         </div>
 
-        <hr className="border-background/20" />
+        <hr className="border-background/12" />
       </Container>
     </section>
   );

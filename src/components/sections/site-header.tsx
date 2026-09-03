@@ -19,14 +19,11 @@ export function SiteHeader() {
       <Container width="full" className="flex h-full items-center justify-between gap-4">
         <Link href="/" aria-label="Exalt Studio — home" className="shrink-0">
           <Image
-            src="/images/logos/exalt-studio.svg"
+            src="/images/logos/exalt-studio-white.svg"
             alt="Exalt Studio"
             width={152}
             height={24}
             priority
-            // The mark is a dark monochrome SVG; inverting yields near-white
-            // without needing a second asset.
-            className="invert"
           />
         </Link>
 
