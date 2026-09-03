@@ -27,10 +27,11 @@ export function IndexedItem({
   const body = (
     <>
       {/* tracking-[-0.03em] matches every other heading on the site
-          (SectionHeader, WorkSection, OfferingsSection, TrustSection…) —
-          not a size-specific value, just the site's one heading tracking
-          convention. */}
-      <h3 className="text-sm font-semibold tracking-[-0.03em] text-foreground sm:text-base">
+          (SectionHeader, WorkSection, OfferingsSection…) — not a
+          size-specific value, just the site's one heading tracking
+          convention. text-xl is a fixed 20px per Luke's request, not
+          responsive like the rest of the scale. */}
+      <h3 className="text-xl font-semibold tracking-[-0.03em] text-foreground">
         {title}
       </h3>
       <p className="mt-3 max-w-[46ch] text-base leading-6 text-foreground/66">

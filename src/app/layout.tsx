@@ -29,13 +29,33 @@ const mono = DM_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: siteConfig.title,
+    // Just "Exalt Studio" in the browser tab — siteConfig.title keeps the
+    // fuller descriptive version for OpenGraph/Twitter previews below.
+    default: "Exalt Studio",
     template: siteConfig.titleTemplate,
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
   alternates: {
     canonical: "/",
+  },
+  icons: {
+    // Light/dark browser-chrome variants, per Luke's exported assets — the
+    // mark itself, not a redraw. `media` picks the right one per OS/browser
+    // colour scheme, where supported (Safari/Chrome; Firefox falls back to
+    // the first entry regardless of scheme).
+    icon: [
+      {
+        url: "/favicon/light.png",
+        media: "(prefers-color-scheme: light)",
+        type: "image/png",
+      },
+      {
+        url: "/favicon/dark.png",
+        media: "(prefers-color-scheme: dark)",
+        type: "image/png",
+      },
+    ],
   },
   openGraph: {
     type: "website",

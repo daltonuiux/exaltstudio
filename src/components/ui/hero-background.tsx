@@ -3,8 +3,10 @@ import Image from "next/image";
 /**
  * Full-bleed sky behind the first viewport.
  *
- * Extends 4rem above its container so it also sits behind the header, which
- * is a fixed 4rem tall and paints above it via z-index.
+ * Fills its container edge to edge — the container itself now starts at
+ * true page y-0 (SiteHeader is position:fixed, so it no longer pushes this
+ * down), so the sky reaches all the way up and shows through the
+ * transparent header at the top of the page via z-index.
  */
 export function HeroBackground() {
   return (
@@ -13,7 +15,7 @@ export function HeroBackground() {
       // z-0 rather than a negative z-index: as a negative-z child of an
       // isolated parent this paints beneath that parent's background and never
       // shows. The content above is raised instead.
-      className="pointer-events-none absolute inset-x-0 -top-16 bottom-0 z-0 overflow-hidden"
+      className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
     >
       <Image
         src="/images/decorative/hero-sky.webp"
