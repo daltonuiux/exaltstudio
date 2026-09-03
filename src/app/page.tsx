@@ -3,7 +3,7 @@ import { FaqSection } from "@/components/sections/faq-section";
 import { Hero } from "@/components/sections/hero";
 import { FooterBackground } from "@/components/ui/footer-background";
 import { HeroBackground } from "@/components/ui/hero-background";
-import { ProcessSection } from "@/components/sections/process-section";
+import { OfferingsSection } from "@/components/sections/offerings-section";
 import { ServicesSection } from "@/components/sections/services-section";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
@@ -32,7 +32,7 @@ export default function Home() {
         <StatementSection />
         <WorkSection />
         <ServicesSection />
-        <ProcessSection />
+        <OfferingsSection />
         <TestimonialsSection />
         <TrustSection />
         <WorkSamplesSection />
