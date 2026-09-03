@@ -1,4 +1,5 @@
 import { Container } from "@/components/ui/container";
+import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { SectionHeader } from "@/components/ui/section-header";
 import { siteConfig } from "@/lib/site";
@@ -100,25 +101,31 @@ export function FaqSection() {
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-16">
-              <SectionHeader
-                label="FAQ"
-                titleId="faq-heading"
-                title={
-                  <>
-                    Common
-                    <br />
-                    questions
-                  </>
-                }
-              />
+              <Reveal>
+                <SectionHeader
+                  label="FAQ"
+                  titleId="faq-heading"
+                  title={
+                    <>
+                      Common
+                      <br />
+                      questions
+                    </>
+                  }
+                />
+              </Reveal>
             </div>
           </div>
 
           {/* Native <details>: keyboard accessible and fully functional with
-              no JavaScript, and the answers stay in the DOM for search. */}
+              no JavaScript, and the answers stay in the DOM for search.
+              Reveal renders as the `details` itself — `summary` has to stay
+              its direct child for the native disclosure behaviour to work,
+              so it can't sit inside an extra wrapper div. */}
           <div className="lg:col-span-7 lg:col-start-6">
             {faqs.map((faq) => (
-              <details
+              <Reveal
+                as="details"
                 key={faq.question}
                 className="group border-t border-foreground/12 last:border-b"
               >
@@ -149,7 +156,7 @@ export function FaqSection() {
                     </p>
                   ) : null}
                 </div>
-              </details>
+              </Reveal>
             ))}
           </div>
         </div>

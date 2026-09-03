@@ -1,4 +1,5 @@
 import { Container } from "@/components/ui/container";
+import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { SectionHeader } from "@/components/ui/section-header";
 
@@ -36,15 +37,18 @@ export function OfferingsSection() {
   return (
     <Section id="process" spacing="lg" aria-labelledby="offerings-heading">
       <Container width="full">
-        <SectionHeader
-          label="Services"
-          titleId="offerings-heading"
-          title="Ways to work together"
-        />
+        <Reveal>
+          <SectionHeader
+            label="Services"
+            titleId="offerings-heading"
+            title="Ways to work together"
+          />
+        </Reveal>
 
         <ol className="mt-14 lg:mt-20">
           {offerings.map((offering) => (
-            <li
+            <Reveal
+              as="li"
               key={offering.title}
               // The title column is sized to the longest title ("New Product
               // & MVP Design", ~358px unwrapped) plus headroom, so all four
@@ -57,6 +61,11 @@ export function OfferingsSection() {
               // the (smaller-font) body up and leaves the index looking too
               // high above the title. Top-aligning keeps index, title and
               // body flush along one edge regardless of how the body wraps.
+              //
+              // Reveal renders as the `li` itself (not a wrapping div around
+              // its contents) — the grid-cols template below applies to the
+              // li's direct children, so a wrapper div in between would
+              // collapse them into a single column.
               className="grid grid-cols-[2.25rem_1fr] gap-x-4 gap-y-3 border-t border-foreground/12 py-8 last:pb-0 sm:grid-cols-[4rem_1fr] sm:gap-x-6 lg:grid-cols-[4rem_24rem_1fr] lg:items-start lg:gap-x-10 lg:py-10"
             >
               <span className="font-mono text-eyebrow font-medium text-foreground/50 tabular-nums">
@@ -68,7 +77,7 @@ export function OfferingsSection() {
               <p className="col-span-2 text-base leading-6 text-foreground/66 lg:col-span-1 lg:max-w-[46ch]">
                 {offering.body}
               </p>
-            </li>
+            </Reveal>
           ))}
         </ol>
       </Container>

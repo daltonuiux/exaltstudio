@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Container } from "@/components/ui/container";
 import { ImagePlaceholder } from "@/components/ui/image-placeholder";
+import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { SectionLabel } from "@/components/ui/section-label";
 import { testimonials } from "@/lib/testimonials";
@@ -80,7 +81,7 @@ export function TestimonialsSection() {
   return (
     <Section id="testimonials" spacing="lg" aria-labelledby="testimonials-heading">
       <Container width="full">
-        <div
+        <Reveal
           className="flex flex-col items-center text-center"
           onMouseEnter={pause}
           onMouseLeave={resume}
@@ -148,7 +149,7 @@ export function TestimonialsSection() {
               ))}
             </div>
           ) : null}
-        </div>
+        </Reveal>
       </Container>
     </Section>
   );

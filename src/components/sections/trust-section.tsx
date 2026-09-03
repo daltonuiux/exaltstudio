@@ -1,5 +1,6 @@
 import { Container } from "@/components/ui/container";
 import { ImagePlaceholder } from "@/components/ui/image-placeholder";
+import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { SectionLabel } from "@/components/ui/section-label";
 
@@ -8,15 +9,18 @@ export function TrustSection() {
     <Section id="about" spacing="lg" aria-labelledby="about-heading">
       <Container width="full">
         <div className="grid gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-5">
+          <Reveal className="lg:col-span-5">
             <ImagePlaceholder
               ratio="4 / 5"
               caption="Founder portrait to come"
               className="max-w-sm lg:max-w-none"
             />
-          </div>
+          </Reveal>
 
-          <div className="lg:col-span-6 lg:col-start-7 lg:self-center">
+          <Reveal
+            delayMs={120}
+            className="lg:col-span-6 lg:col-start-7 lg:self-center"
+          >
             <SectionLabel>Founder-led</SectionLabel>
             <h2
               id="about-heading"
@@ -36,7 +40,7 @@ export function TrustSection() {
               From the first product discussion through to developer handoff,
               you work directly with me.
             </p>
-          </div>
+          </Reveal>
         </div>
       </Container>
     </Section>

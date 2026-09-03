@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { Container } from "@/components/ui/container";
+import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { SectionLabel } from "@/components/ui/section-label";
 import { workSamples } from "@/lib/work-samples";
@@ -9,7 +10,7 @@ export function WorkSamplesSection() {
   return (
     <Section id="work-samples" spacing="lg" aria-labelledby="work-samples-heading">
       <Container width="full">
-        <div className="flex flex-col gap-2 text-center">
+        <Reveal className="flex flex-col gap-2 text-center">
           <SectionLabel>Our work</SectionLabel>
           <h2
             id="work-samples-heading"
@@ -17,12 +18,18 @@ export function WorkSamplesSection() {
           >
             Selected Work
           </h2>
-        </div>
+        </Reveal>
 
         <ul className="mt-10 grid gap-6 sm:grid-cols-2">
-          {workSamples.map((sample) => (
-            <li
+          {workSamples.map((sample, i) => (
+            <Reveal
+              as="li"
               key={sample.src}
+              // Small stagger between the two columns only, not per item —
+              // rows already stagger naturally as they cross into view one
+              // after another; this just keeps a row's pair from popping in
+              // simultaneously.
+              delayMs={(i % 2) * 100}
               // Figma tile: 668 x 472, expressed as a ratio so it holds at any width.
               className="flex aspect-[668/472] items-center justify-center overflow-hidden rounded-lg bg-foreground/4"
             >
@@ -37,7 +44,7 @@ export function WorkSamplesSection() {
                 sizes="(min-width: 640px) 40vw, 80vw"
                 className="h-[68.86%] w-auto"
               />
-            </li>
+            </Reveal>
           ))}
         </ul>
       </Container>

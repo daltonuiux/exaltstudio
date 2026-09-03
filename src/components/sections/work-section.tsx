@@ -1,5 +1,6 @@
 import { BrowserMockup } from "@/components/ui/browser-mockup";
 import { Container } from "@/components/ui/container";
+import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { SectionHeader } from "@/components/ui/section-header";
 import { SectionLabel } from "@/components/ui/section-label";
@@ -82,15 +83,20 @@ export function WorkSection() {
   return (
     <Section id="work" spacing="lg" aria-labelledby="work-heading">
       <Container width="full">
-        <SectionHeader
-          label="Selected work"
-          titleId="work-heading"
-          title="Better products for ambitious teams"
-        />
+        <Reveal>
+          <SectionHeader
+            label="Selected work"
+            titleId="work-heading"
+            title="Better products for ambitious teams"
+            className="items-center text-center"
+          />
+        </Reveal>
 
         <div className="mt-14 flex flex-col gap-6 lg:mt-20 lg:gap-8">
           {caseStudies.map((study) => (
-            <CaseStudyCard key={study.client} study={study} />
+            <Reveal key={study.client}>
+              <CaseStudyCard study={study} />
+            </Reveal>
           ))}
         </div>
       </Container>

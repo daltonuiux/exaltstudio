@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { SectionLabel } from "@/components/ui/section-label";
 import { siteConfig } from "@/lib/site";
@@ -18,7 +19,7 @@ export function CtaSection() {
       className="pt-10 pb-16 md:pb-24 lg:pb-[160px]"
     >
       <Container width="full">
-        <div className="flex flex-col gap-10 rounded-lg border border-background/14 bg-background/12 px-6 py-10 backdrop-blur-md sm:px-10 sm:py-[50px] lg:flex-row lg:items-end lg:justify-between">
+        <Reveal className="flex flex-col gap-10 rounded-lg border border-background/14 bg-background/12 px-6 py-10 backdrop-blur-md sm:px-10 sm:py-[50px] lg:flex-row lg:items-end lg:justify-between">
           <div className="flex flex-col gap-2 lg:flex-1">
             <SectionLabel className="text-background/50">
               Let&rsquo;s talk
@@ -47,7 +48,7 @@ export function CtaSection() {
               Book intro call
             </Button>
           </div>
-        </div>
+        </Reveal>
       </Container>
     </Section>
   );

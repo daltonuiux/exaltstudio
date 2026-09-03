@@ -337,3 +337,15 @@ html.lenis {
     opacity: 1;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Scroll-revealed blocks (Reveal)
+--------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Belt and braces: the component also skips the classList toggle entirely. */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
