@@ -32,7 +32,7 @@ const navGroups: { label: string; width?: string; links: FooterLink[] }[] = [
     links: [
       {
         label: "Dribbble Trendsetter",
-        href: "https://dribbble.com",
+        href: "https://dribbble.com/resources/agencies/trendsetter-product-design-agencies#exalt-studio",
         external: true,
       },
     ],
