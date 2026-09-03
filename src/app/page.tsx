@@ -1,11 +1,11 @@
 import { CtaSection } from "@/components/sections/cta-section";
 import { FaqSection } from "@/components/sections/faq-section";
 import { Hero } from "@/components/sections/hero";
-import { ProblemSection } from "@/components/sections/problem-section";
 import { ProcessSection } from "@/components/sections/process-section";
 import { ServicesSection } from "@/components/sections/services-section";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
+import { StatementSection } from "@/components/sections/statement-section";
 import { SocialProof } from "@/components/sections/social-proof";
 import { TrustSection } from "@/components/sections/trust-section";
 import { WorkSamplesSection } from "@/components/sections/work-samples-section";
@@ -22,7 +22,7 @@ export default function Home() {
           <SocialProof />
         </div>
 
-        <ProblemSection />
+        <StatementSection />
         <WorkSection />
         <ServicesSection />
         <ProcessSection />

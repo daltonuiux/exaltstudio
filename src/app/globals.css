@@ -273,3 +273,42 @@ html.lenis {
 .lenis.lenis-smooth iframe {
   pointer-events: none;
 }
+
+/* ---------------------------------------------------------------------------
+   Scroll-revealed text
+   Each word derives its opacity from one `--reveal` value written by JS, so
+   the effect costs a single style write per frame rather than a re-render.
+--------------------------------------------------------------------------- */
+
+[data-reveal-text] {
+  /* Fully revealed by default so the sentence is legible without JavaScript —
+     the script drops this to the scroll-derived value once it is running. */
+  --reveal: 1;
+}
+
+[data-reveal-text] > span {
+  /* The leading edge sits at `--reveal` through the sentence, feathered over
+     `--reveal-feather` words either side of it. Adding the feather to the word
+     count means a progress of 1 clears the final word too. */
+  opacity: clamp(
+    0.25,
+    calc(
+      0.25 + 0.75 *
+        (
+          (
+              var(--reveal) *
+                (var(--reveal-words) + var(--reveal-feather)) -
+                var(--reveal-index)
+            ) / var(--reveal-feather)
+        )
+    ),
+    1
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Belt and braces: the component also skips the scroll work entirely. */
+  [data-reveal-text] > span {
+    opacity: 1;
+  }
+}
