@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { WorkSampleCycler } from "@/components/ui/work-sample-cycler";
 import { SectionLabel } from "@/components/ui/section-label";
 import { siteConfig } from "@/lib/site";
+import { workSamples } from "@/lib/work-samples";
 import { cn } from "@/lib/utils";
 
 export function Hero({ className }: { className?: string }) {
@@ -11,8 +13,11 @@ export function Hero({ className }: { className?: string }) {
       aria-labelledby="hero-heading"
       className={cn("flex items-center py-16 md:py-20", className)}
     >
-      <Container width="full">
-        <div className="flex w-full max-w-[566px] flex-col gap-8">
+      <Container
+        width="full"
+        className="flex flex-col gap-12 lg:flex-row lg:items-center lg:justify-between lg:gap-10"
+      >
+        <div className="flex w-full max-w-[566px] flex-col gap-8 lg:shrink-0">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <SectionLabel>Product design for B2B AI &amp; SaaS</SectionLabel>
@@ -44,6 +49,11 @@ export function Hero({ className }: { className?: string }) {
             </Button>
           </div>
         </div>
+
+        <WorkSampleCycler
+          samples={workSamples}
+          className="w-full max-w-[539px] lg:shrink-0"
+        />
       </Container>
     </section>
   );
