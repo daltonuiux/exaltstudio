@@ -21,10 +21,13 @@ const navGroups: { label: string; width?: string; links: FooterLink[] }[] = [
   {
     label: "Social",
     links: [
-      // Placeholder profiles — swap for the real handles.
-      { label: "X", href: "https://x.com", external: true },
-      { label: "LinkedIn", href: "https://www.linkedin.com", external: true },
-      { label: "Dribbble", href: "https://dribbble.com", external: true },
+      { label: "X", href: "https://x.com/exaltxstudio", external: true },
+      {
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/company/exalt-studio",
+        external: true,
+      },
+      { label: "Dribbble", href: "https://dribbble.com/exaltstudio", external: true },
     ],
   },
   {
