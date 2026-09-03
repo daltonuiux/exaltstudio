@@ -1,6 +1,7 @@
 import { CtaSection } from "@/components/sections/cta-section";
 import { FaqSection } from "@/components/sections/faq-section";
 import { Hero } from "@/components/sections/hero";
+import { FooterBackground } from "@/components/ui/footer-background";
 import { HeroBackground } from "@/components/ui/hero-background";
 import { ProcessSection } from "@/components/sections/process-section";
 import { ServicesSection } from "@/components/sections/services-section";
@@ -34,9 +35,18 @@ export default function Home() {
         <TrustSection />
         <WorkSamplesSection />
         <FaqSection />
-        <CtaSection />
       </main>
-      <SiteFooter />
+
+      {/* CTA + footer share one continuous sky image, matching Figma's own
+          frame, which models both as one unit — the CTA card floating on
+          the same photo the footer content sits on below it. */}
+      <div className="relative isolate">
+        <FooterBackground />
+        <div className="relative z-10">
+          <CtaSection />
+          <SiteFooter />
+        </div>
+      </div>
     </div>
   );
 }

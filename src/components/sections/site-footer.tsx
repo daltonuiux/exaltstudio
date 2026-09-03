@@ -50,30 +50,34 @@ const navGroups: { label: string; width?: string; links: FooterLink[] }[] = [
   },
 ];
 
-/* Figma: Asta Sans Medium 14/20 on full-strength foreground. */
+/* Figma: Asta Sans Medium 14/20, full-white now the footer sits on the
+   shared sky rather than the page's white background. */
 const linkClass =
-  "text-sm leading-5 font-medium text-foreground transition-opacity duration-200 hover:opacity-60";
+  "text-sm leading-5 font-medium text-background transition-opacity duration-200 hover:opacity-60";
 
 export function SiteFooter() {
   return (
     <footer>
-      <Container width="full" className="flex flex-col gap-10 py-10">
+      <Container
+        width="full"
+        className="flex flex-col gap-16 pb-10 md:gap-24 lg:gap-[160px]"
+      >
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
           {/* Brand column */}
           <div className="flex flex-col gap-6 lg:w-[509px] lg:shrink-0">
-            <Link href="/" aria-label="Exalt Studio — home" className="w-fit">
+            <Link href="/" aria-label="Exalt Studio — home" className="shrink-0">
               <Image
-                src="/images/logos/exalt-studio.svg"
+                src="/images/logos/exalt-studio-white.svg"
                 alt="Exalt Studio"
                 width={203}
                 height={32}
               />
             </Link>
 
-            <p className="text-base leading-6 text-foreground/55">
-              Award-winning design studio for
+            <p className="text-base leading-6 text-background">
+              Your product works.
               <br />
-              venture-backed AI startups
+              Now it needs to scale.
             </p>
 
             <ul className="flex flex-wrap items-center gap-5">
@@ -106,7 +110,7 @@ export function SiteFooter() {
                   (i < navGroups.length - 1 ? "lg:w-[180px]" : "")
                 }
               >
-                <SectionLabel className="text-foreground/55">
+                <SectionLabel className="text-background/75">
                   {group.label}
                 </SectionLabel>
                 <ul className="flex flex-col gap-1">
@@ -134,11 +138,16 @@ export function SiteFooter() {
           </nav>
         </div>
 
-        <hr className="border-foreground/12" />
+        <div className="flex flex-col gap-10">
+          <hr className="border-background/24" />
 
-        <p className="text-xs leading-4 text-foreground/55">
-          &copy; 2026 Exalt Digital Ltd.
-        </p>
+          {/* Figma right-aligns this; kept left per Luke's earlier request on
+              the previous footer, so it stays flush with the wordmark and
+              rule above it rather than reverting that decision. */}
+          <p className="text-xs leading-4 text-background/50">
+            &copy; 2026 Exalt Digital Ltd.
+          </p>
+        </div>
       </Container>
     </footer>
   );
