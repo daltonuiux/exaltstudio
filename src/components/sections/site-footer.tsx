@@ -137,7 +137,7 @@ export function SiteFooter() {
 
         <hr className="border-foreground/12" />
 
-        <p className="text-right text-xs leading-4 text-foreground/55">
+        <p className="text-xs leading-4 text-foreground/55">
           &copy; 2026 Exalt Digital Ltd.
         </p>
       </Container>
