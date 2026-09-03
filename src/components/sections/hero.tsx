@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { SectionLabel } from "@/components/ui/section-label";
+import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export function Hero({ className }: { className?: string }) {
@@ -31,7 +32,13 @@ export function Hero({ className }: { className?: string }) {
           </div>
 
           <div className="flex flex-wrap items-start gap-3">
-            <Button href="#contact">Book intro call</Button>
+            <Button
+              href={siteConfig.bookingUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              Book intro call
+            </Button>
             <Button href="#work" variant="soft">
               View selected work
             </Button>

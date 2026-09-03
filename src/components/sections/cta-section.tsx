@@ -50,7 +50,12 @@ export function CtaSection() {
               and the milestone you&rsquo;re working towards.
             </p>
             <div className="flex flex-wrap items-center gap-6">
-              <Button href={mailto} variant="inverse">
+              <Button
+                href={siteConfig.bookingUrl}
+                variant="inverse"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
                 Book intro call
               </Button>
               <a

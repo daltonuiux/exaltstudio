@@ -63,4 +63,7 @@ export const siteConfig = {
   url: resolveSiteOrigin(),
   locale: "en_GB",
   email: "luke@exaltstudio.co",
+  /** Cal.com scheduling link behind every "Book intro call" CTA. */
+  bookingUrl:
+    "https://cal.com/luke-dalton-wp2kwb/intro-exalt-studio?overlayCalendar=true",
 } as const;
