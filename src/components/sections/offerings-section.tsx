@@ -50,7 +50,14 @@ export function OfferingsSection() {
               // & MVP Design", ~358px unwrapped) plus headroom, so all four
               // stay on one line rather than two of four wrapping while the
               // others don't.
-              className="grid grid-cols-[2.25rem_1fr] gap-x-4 gap-y-3 border-t border-foreground/12 py-8 last:pb-0 sm:grid-cols-[4rem_1fr] sm:gap-x-6 lg:grid-cols-[4rem_24rem_1fr] lg:items-baseline lg:gap-x-10 lg:py-10"
+              //
+              // items-start, not items-baseline: the body column wraps to two
+              // lines while the index and title are always one, and aligning
+              // by baseline pins everything to that first line — which pulls
+              // the (smaller-font) body up and leaves the index looking too
+              // high above the title. Top-aligning keeps index, title and
+              // body flush along one edge regardless of how the body wraps.
+              className="grid grid-cols-[2.25rem_1fr] gap-x-4 gap-y-3 border-t border-foreground/12 py-8 last:pb-0 sm:grid-cols-[4rem_1fr] sm:gap-x-6 lg:grid-cols-[4rem_24rem_1fr] lg:items-start lg:gap-x-10 lg:py-10"
             >
               <span className="font-mono text-eyebrow font-medium text-foreground/50 tabular-nums">
                 {offering.index}
