@@ -8,6 +8,11 @@ import { siteConfig } from "@/lib/site";
 
 type FooterLink = { label: string; href: string; external?: boolean };
 
+/* Shared with the badge in the brand column below, so both point at the
+   same listing rather than drifting apart if one is ever edited. */
+const DRIBBBLE_TRENDSETTER_URL =
+  "https://dribbble.com/resources/agencies/trendsetter-product-design-agencies#exalt-studio";
+
 const navGroups: { label: string; width?: string; links: FooterLink[] }[] = [
   {
     label: "Menu",
@@ -36,7 +41,7 @@ const navGroups: { label: string; width?: string; links: FooterLink[] }[] = [
     links: [
       {
         label: "Dribbble Trendsetter",
-        href: "https://dribbble.com/resources/agencies/trendsetter-product-design-agencies#exalt-studio",
+        href: DRIBBBLE_TRENDSETTER_URL,
         external: true,
       },
     ],
@@ -82,14 +87,21 @@ export function SiteFooter() {
 
             <ul className="flex flex-wrap items-center gap-5">
               <li className="flex shrink-0 items-center">
-                {/* eslint-disable-next-line @next/next/no-img-element -- static SVG badge at a fixed size */}
-                <img
-                  src="/images/logos/award-dribbble-select.svg"
-                  alt="Dribbble Select — Top Product Company"
-                  width={55}
-                  height={55}
-                  decoding="async"
-                />
+                <a
+                  href={DRIBBBLE_TRENDSETTER_URL}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="transition-opacity duration-200 hover:opacity-60"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element -- static SVG badge at a fixed size */}
+                  <img
+                    src="/images/logos/award-dribbble-select.svg"
+                    alt="Dribbble Select — Top Product Company"
+                    width={55}
+                    height={55}
+                    decoding="async"
+                  />
+                </a>
               </li>
               <li className="flex shrink-0 items-center">
                 <GoodFirmsBadge />
