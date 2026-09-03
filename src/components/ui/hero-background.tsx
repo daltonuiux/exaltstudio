@@ -24,8 +24,9 @@ export function HeroBackground() {
         sizes="100vw"
         className="object-cover"
       />
-      {/* Figma: rgba(22,18,24,0.2) over the image, to hold the type. */}
-      <div className="absolute inset-0 bg-foreground/20" />
+      {/* A 10% foreground wash over the image, to hold the type.
+          Figma specifies 20%; lightened at Luke's request. */}
+      <div className="absolute inset-0 bg-foreground/10" />
     </div>
   );
 }
