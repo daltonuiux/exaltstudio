@@ -51,17 +51,9 @@ export function ServicesSection() {
           </p>
         </div>
 
-        {/* Horizontal rule across the top, fine vertical rules between columns. */}
-        <ol className="mt-14 grid sm:grid-cols-2 sm:gap-x-10 lg:mt-20 lg:grid-cols-4 lg:gap-x-0 lg:border-t lg:border-foreground/12 lg:pt-10">
+        <ol className="mt-14 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4 lg:gap-y-0">
           {stages.map((stage) => (
-            <li
-              key={stage.index}
-              className={
-                "border-t border-foreground/12 pt-6 pb-8 last:pb-0 " +
-                "lg:border-t-0 lg:border-l lg:pt-0 lg:pb-0 lg:pl-8 " +
-                "lg:first:border-l-0 lg:first:pl-0"
-              }
-            >
+            <li key={stage.index}>
               <IndexedItem
                 layout="stacked"
                 index={stage.index}
