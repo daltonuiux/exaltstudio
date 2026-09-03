@@ -7,7 +7,7 @@ type ButtonVariant = "solid" | "soft" | "ghost" | "inverse";
 type ButtonSize = "sm" | "md";
 
 const variantClasses: Record<ButtonVariant, string> = {
-  /* Figma: #2a252e fill, white label */
+  /* Figma pill: solid foreground fill, white label */
   solid: "bg-foreground text-background hover:bg-foreground/90",
   /* Figma: rgba(42,37,46,0.12) fill */
   soft: "bg-foreground/12 text-foreground hover:bg-foreground/20",

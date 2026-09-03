@@ -22,9 +22,14 @@
   /* --- Colour: semantic roles mapped onto Tailwind's `mauve` scale -------
      Components should use the semantic names below, not `mauve-*` directly,
      so a palette change stays a one-line edit here. The raw scale is still
-     available (bg-mauve-200 etc.) for one-off cases Figma calls for. */
+     available (bg-mauve-200 etc.) for one-off cases Figma calls for.
+
+     `foreground` is the exception: it is an explicit hex rather than a scale
+     step, sitting between mauve-900 (#1d161e) and mauve-950 (#0c090c). Every
+     text tint on the site derives from it via opacity, so it drives far more
+     than body copy. */
   --color-background: var(--color-mauve-50);
-  --color-foreground: var(--color-mauve-800);
+  --color-foreground: #161218;
 
   --color-muted: var(--color-mauve-100);
   --color-muted-foreground: var(--color-mauve-600);

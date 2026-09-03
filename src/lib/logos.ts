@@ -3,7 +3,7 @@
  *
  * Dimensions are the display sizes from the design — each logo is optically
  * sized rather than normalised to a common height, so keep them as-is.
- * The SVGs carry Figma's #2A252E fill; the 50% wash is applied in CSS.
+ * The SVGs carry the #161218 brand fill; the 50% wash is applied in CSS.
  */
 export type Logo = {
   readonly name: string;

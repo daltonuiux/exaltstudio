@@ -52,7 +52,7 @@ and responsive behaviour.
 
 Brand SVGs live in `public/images/logos/`, exported from Figma and cleaned of
 export artefacts (backdrop rect, page-background rect, baked-in 50% opacity).
-They keep Figma's literal `#2A252E` fill — do **not** convert them to
+They carry a literal `#161218` fill — do **not** convert them to
 `currentColor`: they render via `<img>`, where `currentColor` resolves to black.
 Every export reuses the same clip/mask ids, so they must stay separate
 documents rather than being inlined into one page.
