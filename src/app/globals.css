@@ -28,7 +28,9 @@
      step, sitting between mauve-900 (#1d161e) and mauve-950 (#0c090c). Every
      text tint on the site derives from it via opacity, so it drives far more
      than body copy. */
-  --color-background: var(--color-mauve-50);
+  /* Pure white, not a mauve step. Also drives `text-background`, so it is the
+     label colour on the inverted CTA block as well as the page ground. */
+  --color-background: #ffffff;
   --color-foreground: #161218;
 
   --color-muted: var(--color-mauve-100);
