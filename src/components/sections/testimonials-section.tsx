@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Container } from "@/components/ui/container";
@@ -112,10 +113,17 @@ export function TestimonialsSection() {
             </blockquote>
 
             <figcaption className="mt-8 flex flex-col items-center gap-3">
-              <ImagePlaceholder
-                ratio="1 / 1"
-                className="w-14 rounded-lg"
-              />
+              {current.avatarSrc ? (
+                <Image
+                  src={current.avatarSrc}
+                  alt=""
+                  width={56}
+                  height={56}
+                  className="h-14 w-14 rounded-full object-cover"
+                />
+              ) : (
+                <ImagePlaceholder ratio="1 / 1" className="w-14 rounded-full" />
+              )}
               <div>
                 <p className="text-sm font-semibold text-foreground">
                   {current.name}
