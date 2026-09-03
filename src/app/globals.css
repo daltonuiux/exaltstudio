@@ -136,6 +136,23 @@
     }
   }
 
+  /* Retriggers automatically whenever the element it's on is (re)created —
+     pair with `key={activeIndex}` on a swapped block rather than any JS
+     timing logic. Free reduced-motion compliance too: the global block below
+     already forces every animation-duration to 0.01ms. */
+  --animate-fade-in: fade-in 500ms ease-out;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
   /* --- Breakpoints ------------------------------------------------------- */
   /* Mobile-first. Interpret Figma frames as ranges, not fixed viewports. */
   --breakpoint-sm: 40rem; /* 640px  - large phone */

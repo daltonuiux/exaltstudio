@@ -12,21 +12,7 @@ export function TrustSection() {
       className="border-t border-foreground/12"
     >
       <Container width="full">
-        {/* The testimonial gets the full measure of the grid rather than a card. */}
-        <figure className="grid gap-8 lg:grid-cols-12 lg:gap-10">
-          <blockquote className="lg:col-span-8">
-            <p className="text-3xl font-medium tracking-[-0.03em] text-balance lg:text-4xl">
-              &ldquo;Exalt joined our team and immediately made an impact,
-              helping us ship new features that drive our growth.&rdquo;
-            </p>
-          </blockquote>
-          <figcaption className="flex flex-col gap-1 self-end lg:col-span-3 lg:col-start-10">
-            <SectionLabel>Bryan Chappell</SectionLabel>
-            <p className="text-sm text-foreground/66">CEO, ScoutOS</p>
-          </figcaption>
-        </figure>
-
-        <div className="mt-16 grid gap-10 border-t border-foreground/12 pt-12 lg:mt-24 lg:grid-cols-12 lg:pt-16">
+        <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <ImagePlaceholder
               ratio="4 / 5"
