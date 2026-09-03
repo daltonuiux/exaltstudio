@@ -1,81 +1,145 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/ui/container";
 import { SectionLabel } from "@/components/ui/section-label";
 import { siteConfig } from "@/lib/site";
 
-const navLinks = [
-  { label: "Work", href: "#work" },
-  { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+type FooterLink = { label: string; href: string; external?: boolean };
+
+const navGroups: { label: string; width?: string; links: FooterLink[] }[] = [
+  {
+    label: "Menu",
+    links: [
+      { label: "Case Studies", href: "#work" },
+      { label: "Services", href: "#services" },
+      { label: "Process", href: "#process" },
+      { label: "Selected Work", href: "#work-samples" },
+      { label: "FAQ", href: "#faq" },
+    ],
+  },
+  {
+    label: "Social",
+    links: [
+      // Placeholder profiles — swap for the real handles.
+      { label: "X", href: "https://x.com", external: true },
+      { label: "LinkedIn", href: "https://www.linkedin.com", external: true },
+      { label: "Dribbble", href: "https://dribbble.com", external: true },
+    ],
+  },
+  {
+    label: "Press",
+    links: [
+      {
+        label: "Dribbble Trendsetter",
+        href: "https://dribbble.com",
+        external: true,
+      },
+    ],
+  },
+  {
+    label: "Contact",
+    links: [
+      { label: siteConfig.email, href: `mailto:${siteConfig.email}` },
+      { label: "ellie@exaltstudio.co", href: "mailto:ellie@exaltstudio.co" },
+    ],
+  },
 ];
 
-const socialLinks = [
-  { label: "X", href: "https://x.com" },
-  { label: "LinkedIn", href: "https://www.linkedin.com" },
-];
-
+/* Figma: Asta Sans Medium 14/20 on full-strength foreground. */
 const linkClass =
-  "text-sm text-foreground/66 transition-colors duration-200 hover:text-foreground";
+  "text-sm leading-5 font-medium text-foreground transition-opacity duration-200 hover:opacity-60";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-foreground/12">
-      <Container width="full" className="py-12 lg:py-16">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-12 lg:gap-10">
-          <div className="col-span-2 lg:col-span-4">
-            <p className="text-base font-semibold">{siteConfig.name}</p>
-            <p className="mt-2 max-w-[32ch] text-sm text-foreground/66">
-              Product design for B2B AI &amp; SaaS.
+    <footer>
+      <Container width="full" className="flex flex-col gap-10 py-10">
+        <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
+          {/* Brand column */}
+          <div className="flex flex-col gap-6 lg:w-[509px] lg:shrink-0">
+            <Link href="/" aria-label="Exalt Studio — home" className="w-fit">
+              <Image
+                src="/images/logos/exalt-studio.svg"
+                alt="Exalt Studio"
+                width={203}
+                height={32}
+              />
+            </Link>
+
+            <p className="text-base leading-6 text-foreground/55">
+              Award-winning design studio for
+              <br />
+              venture-backed AI startups
             </p>
+
+            <ul className="flex items-center gap-5">
+              <li className="flex shrink-0 items-center">
+                {/* eslint-disable-next-line @next/next/no-img-element -- static SVG badge at a fixed size */}
+                <img
+                  src="/images/logos/award-dribbble-select.svg"
+                  alt="Dribbble Select — Top Product Company"
+                  width={55}
+                  height={55}
+                  decoding="async"
+                />
+              </li>
+              <li className="flex shrink-0 items-center">
+                <Image
+                  src="/images/logos/award-goodfirms.webp"
+                  alt="GoodFirms — rated 5 out of 5"
+                  width={122}
+                  height={45}
+                />
+              </li>
+            </ul>
           </div>
 
-          <nav aria-label="Footer" className="lg:col-span-2 lg:col-start-6">
-            <SectionLabel>Sections</SectionLabel>
-            <ul className="mt-4 flex flex-col gap-2">
-              {navLinks.map((link) => (
-                <li key={link.label}>
-                  <Link href={link.href} className={linkClass}>
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {/* Nav groups */}
+          <nav
+            aria-label="Footer"
+            className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4 lg:flex lg:gap-10"
+          >
+            {navGroups.map((group, i) => (
+              <div
+                key={group.label}
+                className={
+                  "flex flex-col gap-6 " +
+                  (i < navGroups.length - 1 ? "lg:w-[180px]" : "")
+                }
+              >
+                <SectionLabel className="text-foreground/55">
+                  {group.label}
+                </SectionLabel>
+                <ul className="flex flex-col gap-1">
+                  {group.links.map((link) => (
+                    <li key={link.label}>
+                      {link.external ? (
+                        <a
+                          href={link.href}
+                          className={linkClass}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link href={link.href} className={linkClass}>
+                          {link.label}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </nav>
-
-          <div className="lg:col-span-2 lg:col-start-8">
-            <SectionLabel>Social</SectionLabel>
-            <ul className="mt-4 flex flex-col gap-2">
-              {socialLinks.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className={linkClass}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="col-span-2 lg:col-span-3 lg:col-start-10">
-            <SectionLabel>Contact</SectionLabel>
-            <p className="mt-4">
-              <a href={`mailto:${siteConfig.email}`} className={linkClass}>
-                {siteConfig.email}
-              </a>
-            </p>
-          </div>
         </div>
 
-        <div className="mt-12 border-t border-foreground/12 pt-6 lg:mt-16">
-          <SectionLabel>&copy; 2026 {siteConfig.name}</SectionLabel>
-        </div>
+        <hr className="border-foreground/12" />
+
+        <p className="text-right text-xs leading-4 text-foreground/55">
+          &copy; 2026 Exalt Digital Ltd.
+        </p>
       </Container>
     </footer>
   );
