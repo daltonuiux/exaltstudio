@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Asta_Sans, DM_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
+import { SmoothScroll } from "@/components/ui/smooth-scroll";
+
 import { siteConfig } from "@/lib/site";
 
 import "./globals.css";
@@ -84,6 +86,7 @@ export default function RootLayout({
           Skip to content
         </a>
         {children}
+        <SmoothScroll />
         {/* Cookieless page-view analytics. Inert outside production. */}
         <Analytics />
       </body>

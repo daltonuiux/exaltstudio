@@ -243,3 +243,33 @@
     overflow-x: auto;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Smooth scrolling (Lenis)
+   Only applies while the instance is running — it adds these classes itself,
+   so with reduced motion (where we never start it) none of this engages.
+--------------------------------------------------------------------------- */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+/* Native smooth scrolling would fight Lenis's per-frame positioning. Keyed on
+   `lenis`, which persists for the instance's lifetime — `lenis-smooth` is only
+   present *during* a scroll, so it would engage too late to help. */
+html.lenis {
+  scroll-behavior: auto !important;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
