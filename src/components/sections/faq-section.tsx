@@ -107,7 +107,7 @@ export function FaqSection() {
                   <>
                     Common
                     <br />
-                    questions.
+                    questions
                   </>
                 }
               />

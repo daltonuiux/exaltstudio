@@ -40,7 +40,7 @@ export function ServicesSection() {
               <>
                 From complex product
                 <br />
-                to scalable system.
+                to scalable system
               </>
             }
           />

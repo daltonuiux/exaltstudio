@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { BrowserMockup } from "@/components/ui/browser-mockup";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -10,7 +8,6 @@ type CaseStudy = {
   client: string;
   headline: string;
   tags: string[];
-  href: string;
   /** Shown in the mock browser's address bar. */
   domain: string;
 };
@@ -25,52 +22,41 @@ const caseStudies: CaseStudy[] = [
   {
     client: "Client One",
     headline:
-      "Placeholder headline describing the product and business outcome for this case study.",
+      "Placeholder headline describing the product and business outcome for this case study",
     tags: ["Product", "Brand", "Web"],
-    href: "#work",
     domain: "clientone.com",
   },
   {
     client: "Client Two",
     headline:
-      "Placeholder headline describing the product and business outcome for this case study.",
+      "Placeholder headline describing the product and business outcome for this case study",
     tags: ["Product", "MVP", "Design system"],
-    href: "#work",
     domain: "clienttwo.com",
   },
   {
     client: "Client Three",
     headline:
-      "Placeholder headline describing the product and business outcome for this case study.",
+      "Placeholder headline describing the product and business outcome for this case study",
     tags: ["Brand", "Web", "UX/UI"],
-    href: "#work",
     domain: "clientthree.com",
   },
   {
     client: "Client Four",
     headline:
-      "Placeholder headline describing the product and business outcome for this case study.",
+      "Placeholder headline describing the product and business outcome for this case study",
     tags: ["Product", "Crypto", "Web"],
-    href: "#work",
     domain: "clientfour.com",
   },
 ];
 
 function CaseStudyCard({ study }: { study: CaseStudy }) {
   return (
-    <article className="group relative grid gap-10 rounded-3xl bg-muted p-8 sm:p-10 lg:grid-cols-12 lg:items-center lg:gap-14 lg:p-14">
+    <article className="grid gap-10 rounded-3xl bg-foreground/4 p-8 sm:p-10 lg:grid-cols-12 lg:items-center lg:gap-14 lg:p-14">
       <div className="lg:col-span-4">
         <SectionLabel>{study.client}</SectionLabel>
 
         <h3 className="mt-5 text-2xl font-semibold text-balance tracking-[-0.03em] sm:text-3xl">
-          <Link
-            href={study.href}
-            className="transition-opacity duration-200 group-hover:opacity-70"
-          >
-            {/* Stretches the hit area over the whole card, mockup included. */}
-            <span className="absolute inset-0 z-10" aria-hidden />
-            {study.headline}
-          </Link>
+          {study.headline}
         </h3>
 
         <ul className="mt-6 flex flex-wrap gap-2">
@@ -83,23 +69,10 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
             </li>
           ))}
         </ul>
-
-        <span className="mt-8 inline-flex items-center gap-2 text-sm font-semibold">
-          View case study
-          <span
-            aria-hidden
-            className="transition-transform duration-200 group-hover:translate-x-1"
-          >
-            &rarr;
-          </span>
-        </span>
       </div>
 
       <div className="lg:col-span-8">
-        <BrowserMockup
-          url={study.domain}
-          className="transition-transform duration-500 ease-out group-hover:scale-[1.01]"
-        />
+        <BrowserMockup url={study.domain} />
       </div>
     </article>
   );
@@ -112,13 +85,7 @@ export function WorkSection() {
         <SectionHeader
           label="Selected work"
           titleId="work-heading"
-          title={
-            <>
-              Complex products,
-              <br />
-              made clear.
-            </>
-          }
+          title="Better products for ambitious teams"
         />
 
         <div className="mt-14 flex flex-col gap-6 lg:mt-20 lg:gap-8">

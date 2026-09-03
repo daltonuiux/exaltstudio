@@ -39,7 +39,7 @@ export function OfferingsSection() {
         <SectionHeader
           label="Services"
           titleId="offerings-heading"
-          title="Ways to work together."
+          title="Ways to work together"
         />
 
         <ol className="mt-14 lg:mt-20">

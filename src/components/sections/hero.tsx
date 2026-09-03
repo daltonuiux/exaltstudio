@@ -24,7 +24,7 @@ export function Hero({ className }: { className?: string }) {
               >
                 Your product works.
                 <br />
-                Now it needs to scale.
+                Now it needs to scale
               </h1>
             </div>
             <p className="text-base leading-6 text-background/80">

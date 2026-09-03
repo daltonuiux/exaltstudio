@@ -24,7 +24,7 @@ export function TrustSection() {
             >
               You&rsquo;ll work directly
               <br />
-              with the person doing the work.
+              with the person doing the work
             </h2>
             <p className="mt-6 max-w-[52ch] text-base leading-6 text-foreground/66">
               Exalt is led by Luke Dalton, a senior product designer who has
