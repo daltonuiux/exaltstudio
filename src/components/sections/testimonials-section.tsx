@@ -98,7 +98,7 @@ export function TestimonialsSection() {
           <figure key={active} className="mt-8 flex flex-col items-center animate-fade-in">
             <blockquote
               className={cn(
-                "flex max-w-[720px] items-center justify-center",
+                "flex max-w-[840px] items-center justify-center",
                 QUOTE_MIN_HEIGHT,
               )}
             >
