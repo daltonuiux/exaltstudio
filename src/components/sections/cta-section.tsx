@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -5,23 +7,36 @@ import { SectionLabel } from "@/components/ui/section-label";
 import { siteConfig } from "@/lib/site";
 
 export function CtaSection() {
+  const mailto = `mailto:${siteConfig.email}`;
+
   return (
-    <Section
-      id="contact"
-      spacing="lg"
-      aria-labelledby="contact-heading"
-      // Inverted ground: the page's deliberate full stop.
-      className="bg-foreground text-background"
-    >
+    // Figma frames the block with 40px of its own padding rather than the
+    // page's section rhythm; the FAQ above supplies the rest of the gap.
+    <Section id="contact" spacing="none" aria-labelledby="contact-heading" className="py-10">
       <Container width="full">
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-7">
-            <SectionLabel className="text-background/60">
+        <div className="relative flex flex-col gap-10 overflow-hidden rounded-lg bg-foreground px-6 py-10 sm:px-10 sm:py-[50px] lg:flex-row lg:items-end lg:justify-between">
+          {/* Contour texture, anchored left. `lighten` at 25% lifts only the
+              contour lines out of the near-black ground. */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 left-0 w-[69%] opacity-25 mix-blend-lighten"
+          >
+            <Image
+              src="/images/decorative/cta-topography.webp"
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 70vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+
+          <div className="relative flex flex-col gap-2 lg:flex-1">
+            <SectionLabel className="text-background/50">
               Let&rsquo;s talk
             </SectionLabel>
             <h2
               id="contact-heading"
-              className="mt-4 text-hero font-semibold text-balance"
+              className="text-display font-semibold text-background"
             >
               Have a good product
               <br />
@@ -29,18 +44,18 @@ export function CtaSection() {
             </h2>
           </div>
 
-          <div className="flex flex-col gap-8 lg:col-span-4 lg:col-start-9 lg:self-end">
-            <p className="max-w-[46ch] text-base leading-6 text-background/70">
+          <div className="relative flex flex-col items-start gap-6 lg:shrink-0">
+            <p className="max-w-[391px] text-base leading-6 text-background/50">
               Tell us where the product is today, what&rsquo;s creating friction
               and the milestone you&rsquo;re working towards.
             </p>
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
-              <Button href={`mailto:${siteConfig.email}`} variant="inverse">
+            <div className="flex flex-wrap items-center gap-6">
+              <Button href={mailto} variant="inverse">
                 Book intro call
               </Button>
               <a
-                href={`mailto:${siteConfig.email}`}
-                className="text-sm text-background/70 underline underline-offset-4 transition-colors duration-200 hover:text-background"
+                href={mailto}
+                className="text-base leading-6 text-background underline underline-offset-4 transition-opacity duration-200 hover:opacity-70"
               >
                 {siteConfig.email}
               </a>
