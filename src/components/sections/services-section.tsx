@@ -2,6 +2,7 @@ import { Container } from "@/components/ui/container";
 import { IndexedItem } from "@/components/ui/indexed-item";
 import { Section } from "@/components/ui/section";
 import { SectionHeader } from "@/components/ui/section-header";
+import { SectionLabel } from "@/components/ui/section-label";
 
 const stages = [
   {
@@ -77,10 +78,10 @@ export function ServicesSection() {
           ))}
         </ol>
 
-        <p className="mt-10 border-t border-foreground/12 pt-6 font-mono text-eyebrow text-foreground/50 uppercase lg:mt-14">
+        <SectionLabel className="mt-10 border-t border-foreground/12 pt-6 lg:mt-14">
           Typically delivered over 6–8 weeks, shaped around your product and
           next commercial milestone.
-        </p>
+        </SectionLabel>
       </Container>
     </Section>
   );

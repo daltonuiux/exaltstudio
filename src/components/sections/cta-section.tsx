@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
+import { SectionLabel } from "@/components/ui/section-label";
 import { siteConfig } from "@/lib/site";
 
 export function CtaSection() {
@@ -15,9 +16,9 @@ export function CtaSection() {
       <Container width="full">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-7">
-            <p className="font-mono text-eyebrow font-medium text-background/60 uppercase">
+            <SectionLabel className="text-background/60">
               Let&rsquo;s talk
-            </p>
+            </SectionLabel>
             <h2
               id="contact-heading"
               className="mt-4 text-hero font-semibold text-balance"

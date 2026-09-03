@@ -2,6 +2,7 @@ import { Container } from "@/components/ui/container";
 import { IndexedItem } from "@/components/ui/indexed-item";
 import { Section } from "@/components/ui/section";
 import { SectionHeader } from "@/components/ui/section-header";
+import { SectionLabel } from "@/components/ui/section-label";
 
 const stages = [
   {
@@ -58,11 +59,14 @@ export function ProcessSection() {
                 engagement.
               </p>
 
-              <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-eyebrow text-foreground/50 uppercase">
+              <SectionLabel
+                as="ul"
+                className="mt-6 flex flex-wrap gap-x-6 gap-y-2"
+              >
                 {engagementMeta.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
-              </ul>
+              </SectionLabel>
             </div>
           </div>
 

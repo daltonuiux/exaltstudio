@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { SectionLabel } from "@/components/ui/section-label";
 
 type ImagePlaceholderProps = {
   /** CSS aspect-ratio, e.g. "16 / 10". */
@@ -43,9 +44,9 @@ export function ImagePlaceholder({
           />
         ) : null}
         {caption ? (
-          <span className="font-mono text-eyebrow text-foreground/30 uppercase">
+          <SectionLabel as="span" className="text-foreground/30">
             {caption}
-          </span>
+          </SectionLabel>
         ) : null}
       </div>
     </div>

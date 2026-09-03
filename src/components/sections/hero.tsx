@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { SectionLabel } from "@/components/ui/section-label";
 import { cn } from "@/lib/utils";
 
 export function Hero({ className }: { className?: string }) {
@@ -13,9 +14,7 @@ export function Hero({ className }: { className?: string }) {
         <div className="flex w-full max-w-[566px] flex-col gap-8">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <p className="font-mono text-eyebrow font-medium text-foreground/50 uppercase">
-                Product design for B2B AI &amp; SaaS
-              </p>
+              <SectionLabel>Product design for B2B AI &amp; SaaS</SectionLabel>
               <h1
                 id="hero-heading"
                 className="text-hero font-semibold text-balance text-foreground"

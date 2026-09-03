@@ -63,9 +63,9 @@ function ProjectRow({ project, flipped }: { project: Project; flipped: boolean }
         )}
       >
         <div className="flex items-baseline gap-4">
-          <span className="font-mono text-eyebrow font-medium text-foreground/50 tabular-nums">
+          <SectionLabel as="span" className="tabular-nums">
             {project.index}
-          </span>
+          </SectionLabel>
           <SectionLabel>{project.category}</SectionLabel>
         </div>
 

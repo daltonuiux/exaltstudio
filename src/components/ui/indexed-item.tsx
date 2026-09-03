@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
+import { SectionLabel } from "@/components/ui/section-label";
 
 type IndexedItemProps = {
   /** Two-digit index, e.g. "01". */
@@ -37,9 +38,9 @@ export function IndexedItem({
   if (layout === "stacked") {
     return (
       <div className={cn(className)}>
-        <span className="font-mono text-eyebrow font-medium text-foreground/50 tabular-nums">
+        <SectionLabel as="span" className="tabular-nums">
           {index}
-        </span>
+        </SectionLabel>
         <div className="mt-5">{body}</div>
       </div>
     );
@@ -55,9 +56,9 @@ export function IndexedItem({
         className,
       )}
     >
-      <span className="font-mono text-eyebrow font-medium text-foreground/50 tabular-nums">
+      <SectionLabel as="span" className="tabular-nums">
         {index}
-      </span>
+      </SectionLabel>
       <div>{body}</div>
     </div>
   );

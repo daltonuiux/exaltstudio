@@ -1,14 +1,13 @@
 import { Container } from "@/components/ui/container";
 import { LogoImage } from "@/components/ui/logo-image";
 import { LogoMarquee } from "@/components/ui/logo-marquee";
+import { SectionLabel } from "@/components/ui/section-label";
 import { clientLogos, investorLogos } from "@/lib/logos";
 
 /** Figma: DM Mono Medium 12px, +0.24px tracking, uppercase, 50% foreground. */
 function GroupLabel({ children, id }: { children: React.ReactNode; id: string }) {
   return (
-    <p id={id} className="font-mono text-eyebrow font-medium text-foreground/50 uppercase">
-      {children}
-    </p>
+    <SectionLabel id={id}>{children}</SectionLabel>
   );
 }
 
