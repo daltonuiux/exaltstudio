@@ -14,8 +14,8 @@ type IndexedItemProps = {
 };
 
 /**
- * A numbered editorial item: index marker, uppercase title, supporting line.
- * Used by the problem, capabilities and process sections.
+ * A numbered editorial item: index marker, title, supporting line. Used by
+ * the problem, capabilities and process sections.
  */
 export function IndexedItem({
   index,
@@ -26,7 +26,11 @@ export function IndexedItem({
 }: IndexedItemProps) {
   const body = (
     <>
-      <h3 className="text-sm font-semibold tracking-[0.06em] text-foreground uppercase sm:text-base">
+      {/* tracking-[-0.03em] matches every other heading on the site
+          (SectionHeader, WorkSection, OfferingsSection, TrustSection…) —
+          not a size-specific value, just the site's one heading tracking
+          convention. */}
+      <h3 className="text-sm font-semibold tracking-[-0.03em] text-foreground sm:text-base">
         {title}
       </h3>
       <p className="mt-3 max-w-[46ch] text-base leading-6 text-foreground/66">
