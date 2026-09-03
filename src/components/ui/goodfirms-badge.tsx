@@ -27,14 +27,20 @@ export function GoodFirmsBadge() {
   return (
     <>
       <div
-        className="goodfirm-widget w-[250px] max-w-full"
+        className="goodfirm-widget w-[195px] max-w-full"
         data-widget-type="goodfirms-widget-t9"
-        data-widget-pattern="horizontal-inline"
-        data-height="61"
+        data-widget-pattern="score-focused"
+        data-height="98"
         data-company-id="168168"
         // Reserves the widget's height up front, so the iframe it injects
-        // doesn't shift the footer layout once it finishes loading.
-        style={{ minHeight: 61 }}
+        // doesn't shift the footer layout once it finishes loading. Width is
+        // sized close to the pattern's own measured content width (~185px)
+        // rather than generously oversized: the widget's white card is only
+        // as wide as its content (a shrink-to-fit flex row internally), and
+        // our iframe is transparent outside it, so extra width here would
+        // show as dead space beside a left-aligned card rather than a wider
+        // card.
+        style={{ minHeight: 98 }}
       />
       <Script
         src="https://assets.goodfirms.co/assets/js/widget.min.js"
