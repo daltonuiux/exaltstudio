@@ -29,7 +29,7 @@ export function WorkSamplesSection() {
             <li
               key={sample.src}
               // Figma tile: 668 x 472, expressed as a ratio so it holds at any width.
-              className="flex aspect-[668/472] items-center justify-center overflow-hidden rounded-lg border border-foreground/12 bg-foreground/4"
+              className="flex aspect-[668/472] items-center justify-center overflow-hidden rounded-lg bg-foreground/4"
             >
               {/* Figma sizes the artwork by height — 325 of the tile's 472 —
                   and lets width follow the source aspect. That is why the one
