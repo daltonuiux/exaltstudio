@@ -28,6 +28,16 @@ type LogoMarqueeProps = {
  * slow-down: `updatePlaybackRate` retimes the running animation smoothly,
  * whereas swapping `animation-duration` in CSS recomputes progress as
  * elapsed/duration and visibly jumps the track backwards.
+ *
+ * `duration` is set as a real `animation-duration` inline style, not a CSS
+ * custom property. It used to be the latter (`--marquee-duration`, read back
+ * via `var(--marquee-duration, 60s)` inside the theme's `--animate-marquee`
+ * token), which silently never worked for any value other than the 60s
+ * fallback: browsers don't re-resolve a var()-with-fallback per element when
+ * the composite custom property containing it is only declared once, up at
+ * :root. Every instance inherited the same substituted duration regardless
+ * of its own local override. Real longhand properties don't have that
+ * failure mode, so duration goes through one instead.
  */
 export function LogoMarquee({
   logos,
@@ -68,7 +78,7 @@ export function LogoMarquee({
           ref={trackRef}
           data-marquee-track
           className="flex w-max animate-marquee will-change-transform"
-          style={{ "--marquee-duration": `${duration}s` } as CSSProperties}
+          style={{ animationDuration: `${duration}s` }}
         >
           {/* Two identical copies. Each logo carries its gap as a trailing
               margin, so the track is exactly two equal periods and the

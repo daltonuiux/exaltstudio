@@ -116,7 +116,15 @@
   --radius-2xl: 1.5rem;
 
   /* --- Motion ------------------------------------------------------------ */
-  --animate-marquee: marquee var(--marquee-duration, 60s) linear infinite;
+  /* Name/timing-function/iteration-count only — duration is set per instance
+     as a real `animation-duration` inline style (see LogoMarquee), not as a
+     nested custom property here. A var() fallback like `var(--x, 60s)`
+     doesn't re-resolve per element when the composite token that contains it
+     is itself only declared once, up at :root: every element that inherits
+     --animate-marquee got the same substituted duration regardless of what
+     --marquee-duration was set to locally. Real longhand properties don't
+     have that problem, so duration goes through one instead. */
+  --animate-marquee: marquee 60s linear infinite;
 
   @keyframes marquee {
     from {

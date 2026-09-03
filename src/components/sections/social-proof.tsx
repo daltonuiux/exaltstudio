@@ -30,7 +30,6 @@ export function SocialProof() {
             duration={60}
             hoverRate={0.25}
             fade="7%"
-
           />
         </div>
 
@@ -44,11 +43,16 @@ export function SocialProof() {
           {/* Below sm, five logos wrap onto two ragged rows — a marquee
               keeps them on the one row the client logos already use. From sm
               up there's room for a static row, so the animation (and its JS)
-              is dropped entirely rather than just hidden. */}
+              is dropped entirely rather than just hidden.
+
+              Duration is scaled to match the client row's actual px/s speed,
+              not just its lap time: this track is ~622.95px per copy against
+              the client row's ~1767.45px, so running both at 60s would have
+              made this one visibly crawl. 622.95 / (1767.45 / 60) ≈ 21.1s. */}
           <LogoMarquee
             logos={investorLogos}
             gap={38}
-            duration={32}
+            duration={21}
             hoverRate={0.25}
             fade="7%"
             className="sm:hidden"
