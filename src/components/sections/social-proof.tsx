@@ -40,9 +40,22 @@ export function SocialProof() {
           <GroupLabel id="social-proof-investors">
             Our clients have raised $15m+ from
           </GroupLabel>
+
+          {/* Below sm, five logos wrap onto two ragged rows — a marquee
+              keeps them on the one row the client logos already use. From sm
+              up there's room for a static row, so the animation (and its JS)
+              is dropped entirely rather than just hidden. */}
+          <LogoMarquee
+            logos={investorLogos}
+            gap={38}
+            duration={32}
+            hoverRate={0.25}
+            fade="7%"
+            className="sm:hidden"
+          />
           <ul
             aria-labelledby="social-proof-investors"
-            className="flex flex-wrap items-center gap-x-[38px] gap-y-5"
+            className="hidden flex-wrap items-center gap-x-[38px] gap-y-5 sm:flex"
           >
             {investorLogos.map((logo) => (
               <li key={logo.name} className="flex shrink-0 items-center">
