@@ -8,7 +8,6 @@ import { SectionLabel } from "@/components/ui/section-label";
 import { cn } from "@/lib/utils";
 
 type Project = {
-  index: string;
   name: string;
   category: string;
   description: string;
@@ -20,7 +19,6 @@ type Project = {
 
 const projects: Project[] = [
   {
-    index: "01",
     name: "Onefin",
     category: "Enterprise fintech",
     description:
@@ -30,7 +28,6 @@ const projects: Project[] = [
     markSrc: "/images/logos/onefin.svg",
   },
   {
-    index: "02",
     name: "Meshed",
     category: "Insurtech",
     description:
@@ -40,7 +37,6 @@ const projects: Project[] = [
     markSrc: "/images/logos/meshed.svg",
   },
   {
-    index: "03",
     name: "Perlon AI",
     category: "AI sales",
     description:
@@ -62,12 +58,7 @@ function ProjectRow({ project, flipped }: { project: Project; flipped: boolean }
           flipped ? "lg:col-start-9" : "lg:col-start-1",
         )}
       >
-        <div className="flex items-baseline gap-4">
-          <SectionLabel as="span" className="tabular-nums">
-            {project.index}
-          </SectionLabel>
-          <SectionLabel>{project.category}</SectionLabel>
-        </div>
+        <SectionLabel>{project.category}</SectionLabel>
 
         <h3 className="mt-5 text-3xl font-semibold tracking-[-0.03em]">
           <Link
