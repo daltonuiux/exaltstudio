@@ -7,12 +7,7 @@ import { workSamples } from "@/lib/work-samples";
 
 export function WorkSamplesSection() {
   return (
-    <Section
-      id="work-samples"
-      spacing="lg"
-      aria-labelledby="work-samples-heading"
-      className="border-t border-foreground/12"
-    >
+    <Section id="work-samples" spacing="lg" aria-labelledby="work-samples-heading">
       <Container width="full">
         <div className="flex flex-col gap-2 text-center">
           <SectionLabel>Our work</SectionLabel>
