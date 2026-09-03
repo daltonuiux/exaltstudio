@@ -15,8 +15,8 @@ const navItems = [
   { label: "Contact", href: "#contact" },
 ];
 
-/** Scroll offset past which the header leaves its transparent hero state. */
-const SCROLLED_AT = 8;
+/** Matches the header's own h-16. */
+const HEADER_HEIGHT = 64;
 
 export function SiteHeader() {
   // `scrolled`: past the hero, so on a white ground — swaps the logo, nav
@@ -36,19 +36,31 @@ export function SiteHeader() {
   // frame first.
   useLayoutEffect(() => {
     lastY.current = window.scrollY;
+    const heroRegion = document.getElementById("hero-region");
 
     // Direct classList toggling would dodge the re-render entirely, same as
     // Reveal/ScrollRevealText — but this state also drives real prop
     // changes (which logo file, which Button variant), so it has to be
     // React state either way. What actually costs a render is scroll
-    // *position*; scroll *direction reversals* are what we care about here,
-    // and those are inherently rare relative to scroll events, so gating
-    // every setState behind an equality check keeps re-renders down to one
-    // per genuine transition rather than one per scroll frame.
+    // *position*; scroll *direction reversals* (and the one-time hero
+    // exit) are what we care about here, and those are inherently rare
+    // relative to scroll events, so gating every setState behind an
+    // equality check keeps re-renders down to one per genuine transition
+    // rather than one per scroll frame.
     const measure = () => {
       ticking.current = false;
       const y = window.scrollY;
-      const isScrolled = y > SCROLLED_AT;
+
+      // Switches the instant the hero's own bottom edge passes behind the
+      // header, not at some arbitrary scroll offset — tying it to a fixed
+      // pixel count (e.g. "8px scrolled") meant the header turned solid
+      // white while still floating most of the way up the (much taller)
+      // hero image, which read as a mistimed, un-smooth jump cut. Once the
+      // hero's edge is at or above the header's own bottom, the header's
+      // full band sits over the section that follows, so going opaque
+      // exactly then is both correct and the earliest it can be.
+      const heroBottom = heroRegion?.getBoundingClientRect().bottom ?? -1;
+      const isScrolled = heroBottom <= HEADER_HEIGHT;
       const goingDown = y > lastY.current;
       lastY.current = y;
 

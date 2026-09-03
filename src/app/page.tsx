@@ -25,7 +25,10 @@ export default function Home() {
             behind fills this whole block from true y-0, showing through
             the transparent header at the top of the page exactly as
             before. */}
-        <div className="relative isolate flex min-h-svh flex-col pt-16">
+        <div
+          id="hero-region"
+          className="relative isolate flex min-h-svh flex-col pt-16"
+        >
           <HeroBackground />
           <div className="relative z-10 flex flex-1 flex-col">
             <Hero className="flex-1" />
