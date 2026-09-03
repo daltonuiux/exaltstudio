@@ -1,6 +1,7 @@
 import { CtaSection } from "@/components/sections/cta-section";
 import { FaqSection } from "@/components/sections/faq-section";
 import { Hero } from "@/components/sections/hero";
+import { HeroBackground } from "@/components/ui/hero-background";
 import { ProcessSection } from "@/components/sections/process-section";
 import { ServicesSection } from "@/components/sections/services-section";
 import { SiteFooter } from "@/components/sections/site-footer";
@@ -16,10 +17,14 @@ export default function Home() {
     <div className="flex min-h-svh flex-col">
       <SiteHeader />
       <main id="main" className="flex flex-1 flex-col">
-        {/* Hero + social proof fill the first viewport, as designed in Figma. */}
-        <div className="flex min-h-[calc(100svh-4rem)] flex-col">
-          <Hero className="flex-1" />
-          <SocialProof />
+        {/* Hero + social proof fill the first viewport over the sky, which
+            extends up behind the 4rem header. */}
+        <div className="relative isolate flex min-h-[calc(100svh-4rem)] flex-col">
+          <HeroBackground />
+          <div className="relative z-10 flex flex-1 flex-col">
+            <Hero className="flex-1" />
+            <SocialProof />
+          </div>
         </div>
 
         <StatementSection />

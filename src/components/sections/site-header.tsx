@@ -14,8 +14,9 @@ const navItems = [
 
 export function SiteHeader() {
   return (
-    <header className="w-full py-4">
-      <Container width="full" className="flex items-center justify-between gap-4">
+    // relative z-10 so the hero sky, which extends up behind it, stays below.
+    <header className="relative z-10 h-16 w-full">
+      <Container width="full" className="flex h-full items-center justify-between gap-4">
         <Link href="/" aria-label="Exalt Studio — home" className="shrink-0">
           <Image
             src="/images/logos/exalt-studio.svg"
@@ -23,19 +24,28 @@ export function SiteHeader() {
             width={152}
             height={24}
             priority
+            // The mark is a dark monochrome SVG; inverting yields near-white
+            // without needing a second asset.
+            className="invert"
           />
         </Link>
 
         {/* Hidden below lg — the mobile navigation has not been designed yet. */}
         <nav aria-label="Main" className="hidden items-center gap-2 lg:flex">
           {navItems.map((item) => (
-            <Button key={item.label} href={item.href} variant="ghost" size="sm" className="font-normal">
+            <Button
+              key={item.label}
+              href={item.href}
+              variant="inverse-ghost"
+              size="sm"
+              className="font-normal"
+            >
               {item.label}
             </Button>
           ))}
         </nav>
 
-        <Button href="#contact" size="sm" className="shrink-0">
+        <Button href="#contact" variant="inverse" size="sm" className="shrink-0">
           Book call
         </Button>
       </Container>
