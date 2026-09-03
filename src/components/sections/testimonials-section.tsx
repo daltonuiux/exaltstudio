@@ -78,12 +78,7 @@ export function TestimonialsSection() {
   const current = testimonials[active];
 
   return (
-    <Section
-      id="testimonials"
-      spacing="lg"
-      aria-labelledby="testimonials-heading"
-      className="border-t border-foreground/12"
-    >
+    <Section id="testimonials" spacing="lg" aria-labelledby="testimonials-heading">
       <Container width="full">
         <div
           className="flex flex-col items-center text-center"
