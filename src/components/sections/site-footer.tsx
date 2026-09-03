@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/ui/container";
+import { GoodFirmsBadge } from "@/components/ui/goodfirms-badge";
 import { SectionLabel } from "@/components/ui/section-label";
 import { siteConfig } from "@/lib/site";
 
@@ -75,7 +76,7 @@ export function SiteFooter() {
               venture-backed AI startups
             </p>
 
-            <ul className="flex items-center gap-5">
+            <ul className="flex flex-wrap items-center gap-5">
               <li className="flex shrink-0 items-center">
                 {/* eslint-disable-next-line @next/next/no-img-element -- static SVG badge at a fixed size */}
                 <img
@@ -87,12 +88,7 @@ export function SiteFooter() {
                 />
               </li>
               <li className="flex shrink-0 items-center">
-                <Image
-                  src="/images/logos/award-goodfirms.webp"
-                  alt="GoodFirms — rated 5 out of 5"
-                  width={122}
-                  height={45}
-                />
+                <GoodFirmsBadge />
               </li>
             </ul>
           </div>
