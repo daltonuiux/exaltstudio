@@ -73,7 +73,16 @@ export function ServicesSection() {
               // pl-6 (24px) wherever there's a vertical rule (even items at
               // sm, everything but the first at lg) — content otherwise
               // started flush against the line.
-              className="border-t border-foreground/12 first:border-t-0 sm:even:border-t-0 sm:even:border-l sm:even:pl-6 lg:border-t-0 lg:border-l lg:pl-6 lg:first:border-l-0 lg:first:pl-0"
+              //
+              // pt-8 wherever there's a horizontal rule (mirrors border-t's
+              // own conditions exactly): the grid's gap-y-8 already puts
+              // 32px between the previous item's body and the line, but
+              // nothing put any space on the *other* side, so content
+              // started flush against it there — same issue pl-6 fixes for
+              // the vertical rules, and the same fix OfferingsSection's own
+              // py-8 already gives its rows, which is the actual mismatch
+              // Luke's comparison screenshots were showing.
+              className="border-t border-foreground/12 pt-8 first:border-t-0 first:pt-0 sm:even:border-t-0 sm:even:pt-0 sm:even:border-l sm:even:pl-6 lg:border-t-0 lg:pt-0 lg:border-l lg:pl-6 lg:first:border-l-0 lg:first:pl-0"
             >
               <Reveal delayMs={i * 80}>
                 <IndexedItem
