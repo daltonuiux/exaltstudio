@@ -89,7 +89,14 @@ export function OfferingsSection() {
               // its contents) — the grid-cols template below applies to the
               // li's direct children, so a wrapper div in between would
               // collapse them into a single column.
-              className="group relative grid grid-cols-[2.25rem_1fr] items-center gap-x-4 gap-y-3 border-t border-foreground/12 py-8 last:pb-0 sm:grid-cols-[4rem_1fr] sm:gap-x-6 lg:grid-cols-[4rem_24rem_1fr_auto] lg:gap-x-10 lg:py-10"
+              //
+              // No last:pb-0: that trimmed the final row's own bottom
+              // padding to avoid doubling up with the section's own spacing
+              // below it, but it also made the last row's hover fill visibly
+              // shorter than every other row's — same top/bottom padding on
+              // every row, hover fill included, matters more than trimming
+              // that little bit of now-doubled space.
+              className="group relative grid grid-cols-[2.25rem_1fr] items-center gap-x-4 gap-y-3 border-t border-foreground/12 py-8 sm:grid-cols-[4rem_1fr] sm:gap-x-6 lg:grid-cols-[4rem_24rem_1fr_auto] lg:gap-x-10 lg:py-10"
             >
               <div
                 aria-hidden
@@ -110,7 +117,12 @@ export function OfferingsSection() {
                 href={siteConfig.bookingUrl}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="col-span-2 inline-flex w-fit items-center gap-2 text-sm font-semibold text-foreground lg:col-span-1 lg:col-start-4 lg:justify-self-end"
+                // Hover-revealed on desktop only (lg:opacity-0, shown via
+                // group-hover) — always visible below that, since touch
+                // devices have no real hover to reveal it with. Also shown
+                // on group-focus-within, so tabbing to the link doesn't
+                // land keyboard focus on something invisible.
+                className="col-span-2 inline-flex w-fit items-center gap-2 text-sm font-semibold text-foreground transition-opacity duration-200 lg:col-span-1 lg:col-start-4 lg:justify-self-end lg:opacity-0 lg:group-hover:opacity-100 lg:group-focus-within:opacity-100"
               >
                 Book a call
                 <span className="sr-only"> about {offering.title}</span>
