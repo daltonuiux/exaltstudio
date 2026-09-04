@@ -17,14 +17,24 @@ const INTERVAL_MS = 4000;
 /**
  * Tallest the quote gets at each breakpoint, measured by rendering the
  * longest of the three real testimonials (Jake Wells') at a sweep of
- * viewport widths — height isn't monotonic with width here, since the box
- * widens (fewer lines) while the fluid text-3xl font is simultaneously
- * growing (more lines), so it dips around 768px before climbing again as
- * the font keeps scaling up past it. Applied as a min-height on the
- * blockquote so switching to a shorter quote doesn't shrink the section
- * and shunt everything below it up the page.
+ * viewport widths — re-measured for text-2xl (was text-3xl). Height isn't
+ * monotonic with width here, since the box widens (fewer lines) while the
+ * fluid font is simultaneously growing (more lines): at this size it falls
+ * the whole way from 320px to 1024px, then climbs again and plateaus once
+ * both the font and the 840px box cap out, around 1280px. Applied as a
+ * min-height on the blockquote so switching to a shorter quote doesn't
+ * shrink the section and shunt everything below it up the page.
+ *
+ * The base tier is split in two rather than one value covering 0-639px:
+ * that range's own worst case (320px, 437px tall) is a lot taller than
+ * what an actual iPhone-width viewport (375px, 350px tall) ever needs, and
+ * reserving the 320px figure for every phone was exactly the "far too
+ * much space above the photo" Luke flagged on an ordinary phone width.
+ * min-[375px] instead of sm (640px) keeps that split where the real drop
+ * in required height is, not at the next arbitrary layout breakpoint.
  */
-const QUOTE_MIN_HEIGHT = "min-h-[620px] sm:min-h-[380px] md:min-h-[390px]";
+const QUOTE_MIN_HEIGHT =
+  "min-h-[440px] min-[375px]:min-h-[360px] sm:min-h-[250px] md:min-h-[220px] lg:min-h-[240px]";
 
 export function TestimonialsSection() {
   const [active, setActive] = useState(0);
@@ -103,7 +113,7 @@ export function TestimonialsSection() {
                 QUOTE_MIN_HEIGHT,
               )}
             >
-              <p className="text-3xl font-medium text-balance">
+              <p className="text-2xl font-medium text-balance">
                 &ldquo;{current.quote}&rdquo;
               </p>
             </blockquote>
