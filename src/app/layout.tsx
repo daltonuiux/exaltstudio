@@ -56,6 +56,10 @@ export const metadata: Metadata = {
         type: "image/png",
       },
     ],
+    // /favicon.ico at the public root also covers legacy crawlers that
+    // request that path directly regardless of these tags — no separate
+    // entry needed here for that.
+    apple: [{ url: "/apple-touch-icon.png", type: "image/png" }],
   },
   openGraph: {
     type: "website",
