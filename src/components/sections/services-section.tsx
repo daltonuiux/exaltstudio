@@ -69,7 +69,11 @@ export function ServicesSection() {
               // lg (4 cols, one row): vertical rules between all four —
               // border-l on everything but the first — and no horizontal
               // rule at all, since there's only one row.
-              className="border-t border-foreground/12 first:border-t-0 sm:even:border-t-0 sm:even:border-l lg:border-t-0 lg:border-l lg:first:border-l-0"
+              //
+              // pl-6 (24px) wherever there's a vertical rule (even items at
+              // sm, everything but the first at lg) — content otherwise
+              // started flush against the line.
+              className="border-t border-foreground/12 first:border-t-0 sm:even:border-t-0 sm:even:border-l sm:even:pl-6 lg:border-t-0 lg:border-l lg:pl-6 lg:first:border-l-0 lg:first:pl-0"
             >
               <Reveal delayMs={i * 80}>
                 <IndexedItem
