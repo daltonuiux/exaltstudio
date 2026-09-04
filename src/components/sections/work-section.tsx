@@ -14,32 +14,34 @@ type CaseStudy = {
 };
 
 /**
- * All four are placeholders — client, headline and tags alike — pending
- * real case-study copy. Deliberately generic ("Client One") rather than
- * real client names paired with invented outcomes, so nothing here reads
- * as an actual claim about a real client before the real copy lands.
+ * Real copy for the first three, from Luke. The fourth is still a
+ * placeholder — he's supplying that one later, and said reordering is
+ * coming too, so the array order isn't final either.
+ *
+ * `domain` is decorative (the mock browser's address bar) and was never
+ * confirmed against each client's actual URL — just the company name,
+ * lowercased — worth a look before this reads as a verified live link.
  */
 const caseStudies: CaseStudy[] = [
   {
-    client: "Client One",
+    client: "Onefin",
     headline:
-      "Placeholder headline describing the product and business outcome for this case study",
-    tags: ["Product", "Brand", "Web"],
-    domain: "clientone.com",
+      "Elevating enterprise finance with a scalable, modern product experience",
+    tags: ["UI Design", "UX Strategy", "Design System"],
+    domain: "onefin.com",
   },
   {
-    client: "Client Two",
+    client: "Meshed",
     headline:
-      "Placeholder headline describing the product and business outcome for this case study",
-    tags: ["Product", "MVP", "Design system"],
-    domain: "clienttwo.com",
+      "Reimagining business insurance with a data-driven, AI-powered platform design",
+    tags: ["UI Design", "UX Strategy", "Raised $1.2mil"],
+    domain: "meshed.com",
   },
   {
-    client: "Client Three",
-    headline:
-      "Placeholder headline describing the product and business outcome for this case study",
-    tags: ["Brand", "Web", "UX/UI"],
-    domain: "clientthree.com",
+    client: "Perlon AI",
+    headline: "Enhancing Perlon AI’s user experience for sales success",
+    tags: ["UI Design", "UX Strategy", "Raised $1.1mil"],
+    domain: "perlonai.com",
   },
   {
     client: "Client Four",
