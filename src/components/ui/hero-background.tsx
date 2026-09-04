@@ -23,7 +23,18 @@ export function HeroBackground() {
         fill
         // The LCP candidate: preload it rather than letting it queue.
         priority
-        sizes="100vw"
+        // `sizes` describes the CONTAINER's width (100vw), but object-cover
+        // scales the image to cover the container's *height* whenever the
+        // container is more portrait than the image's own aspect ratio —
+        // true on any phone (this section is min-h-svh, so essentially a
+        // full-height container on a narrow screen). There the image is
+        // actually rendered far wider than 100vw's worth of source detail,
+        // so a plain "100vw" hint starved mobile Safari down to a ~750px
+        // image stretched to cover a ~2900px-equivalent area — the reported
+        // blur. Bumped generously on narrow viewports to land Next on its
+        // largest generated size instead of guessing an exact multiplier.
+        sizes="(max-width: 768px) 300vw, 100vw"
+        quality={90}
         className="object-cover"
       />
       {/* A 10% foreground wash over the image, to hold the type.

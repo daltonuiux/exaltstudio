@@ -21,7 +21,12 @@ export function FooterBackground() {
         src="/images/decorative/hero-sky.webp"
         alt=""
         fill
-        sizes="100vw"
+        // See HeroBackground's comment — same fix, same reasoning. This
+        // container is even taller relatively (CTA card + full footer
+        // content stacked on mobile), so the object-cover deficit is at
+        // least as bad here.
+        sizes="(max-width: 768px) 300vw, 100vw"
+        quality={90}
         className="object-cover"
       />
       {/* Figma: rgba(22,18,24,0.2) over the image, to hold the type. Left at
