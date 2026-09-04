@@ -91,12 +91,7 @@ function Chevron() {
 
 export function FaqSection() {
   return (
-    <Section
-      id="faq"
-      spacing="lg"
-      aria-labelledby="faq-heading"
-      className="border-t border-foreground/12"
-    >
+    <Section id="faq" spacing="lg" aria-labelledby="faq-heading">
       <Container width="full">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
