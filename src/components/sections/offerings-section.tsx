@@ -24,6 +24,11 @@ const offerings = [
     title: "Embedded Product Design",
     body: "Senior product design support without making a full-time hire.",
   },
+  {
+    index: "05",
+    title: "Design Engineering",
+    body: "Take approved product designs from Figma to a production-ready frontend.",
+  },
 ];
 
 /**
@@ -55,18 +60,22 @@ export function OfferingsSection() {
               // stay on one line rather than two of four wrapping while the
               // others don't.
               //
-              // items-start, not items-baseline: the body column wraps to two
-              // lines while the index and title are always one, and aligning
-              // by baseline pins everything to that first line — which pulls
-              // the (smaller-font) body up and leaves the index looking too
-              // high above the title. Top-aligning keeps index, title and
-              // body flush along one edge regardless of how the body wraps.
+              // items-center, not items-baseline or items-start: baseline
+              // pinned everything to the body's first line, which pulled the
+              // (smaller-font) body up and left the index floating too high
+              // above the title; items-start fixed that but left the index
+              // sitting at the row's top edge rather than against the
+              // title's own visual centre. items-center sidesteps both —
+              // index and title are both single-line, so centering aligns
+              // them with each other regardless of the row's total height,
+              // which the (possibly two-line) body doesn't disturb since
+              // it's centered by that same rule too.
               //
               // Reveal renders as the `li` itself (not a wrapping div around
               // its contents) — the grid-cols template below applies to the
               // li's direct children, so a wrapper div in between would
               // collapse them into a single column.
-              className="grid grid-cols-[2.25rem_1fr] gap-x-4 gap-y-3 border-t border-foreground/12 py-8 last:pb-0 sm:grid-cols-[4rem_1fr] sm:gap-x-6 lg:grid-cols-[4rem_24rem_1fr] lg:items-start lg:gap-x-10 lg:py-10"
+              className="grid grid-cols-[2.25rem_1fr] items-center gap-x-4 gap-y-3 border-t border-foreground/12 py-8 last:pb-0 sm:grid-cols-[4rem_1fr] sm:gap-x-6 lg:grid-cols-[4rem_24rem_1fr] lg:gap-x-10 lg:py-10"
             >
               <span className="font-mono text-eyebrow font-medium text-foreground/50 tabular-nums">
                 {offering.index}
