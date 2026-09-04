@@ -6,6 +6,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -126,7 +127,9 @@ export function SiteHeader() {
         </nav>
 
         <Button
-          href="#contact"
+          href={siteConfig.bookingUrl}
+          target="_blank"
+          rel="noreferrer noopener"
           variant={scrolled ? "solid" : "inverse"}
           size="sm"
           className="shrink-0"
