@@ -39,7 +39,7 @@ export function ServicesSection() {
               titleId="services-heading"
               title={
                 <>
-                  From complex product
+                  From complex product{" "}
                   <br />
                   to scalable system
                 </>

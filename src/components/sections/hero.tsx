@@ -22,7 +22,7 @@ export function Hero({ className }: { className?: string }) {
                 id="hero-heading"
                 className="text-hero font-semibold text-balance text-background"
               >
-                Your product works.
+                Your product works.{" "}
                 <br />
                 Now it needs to scale
               </h1>

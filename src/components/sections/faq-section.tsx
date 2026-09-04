@@ -102,7 +102,7 @@ export function FaqSection() {
                   titleId="faq-heading"
                   title={
                     <>
-                      Common
+                      Common{" "}
                       <br />
                       questions
                     </>

@@ -28,7 +28,7 @@ export function CtaSection() {
               id="contact-heading"
               className="text-display font-semibold text-background"
             >
-              Have a good product
+              Have a good product{" "}
               <br />
               that&rsquo;s becoming hard to scale?
             </h2>

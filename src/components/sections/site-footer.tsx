@@ -80,7 +80,7 @@ export function SiteFooter() {
             </Link>
 
             <p className="text-base leading-6 text-background">
-              Your product works.
+              Your product works.{" "}
               <br />
               Now it needs to scale.
             </p>
