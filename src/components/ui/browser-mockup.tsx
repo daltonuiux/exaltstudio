@@ -1,3 +1,4 @@
+import { type CycleImage, ImageCycle } from "@/components/ui/image-cycle";
 import { ImagePlaceholder } from "@/components/ui/image-placeholder";
 import { cn } from "@/lib/utils";
 
@@ -6,17 +7,31 @@ type BrowserMockupProps = {
   url: string;
   /** Optional brand mark shown faintly in the placeholder centre. */
   markSrc?: string;
+  /**
+   * Real product screenshots. When present these replace the placeholder
+   * and autoplay through a crossfade instead of showing one static frame —
+   * omit until a case study actually has artwork to show.
+   */
+  images?: readonly CycleImage[];
+  /** Accessible description for `images` — the client's name, not the URL. */
+  imagesAlt?: string;
   className?: string;
 };
 
 /**
  * Case-study artwork framed as a browser window: a chrome bar (traffic
- * lights + address pill) over a placeholder for the product screenshot.
- * The dots are monochrome rather than macOS red/amber/green, so the chrome
- * reads as "browser window" without importing candy colours into an
- * otherwise all-mauve palette.
+ * lights + address pill) over either a placeholder or a cycling set of real
+ * screenshots. The dots are monochrome rather than macOS red/amber/green, so
+ * the chrome reads as "browser window" without importing candy colours into
+ * an otherwise all-mauve palette.
  */
-export function BrowserMockup({ url, markSrc, className }: BrowserMockupProps) {
+export function BrowserMockup({
+  url,
+  markSrc,
+  images,
+  imagesAlt,
+  className,
+}: BrowserMockupProps) {
   return (
     <div
       className={cn(
@@ -35,12 +50,16 @@ export function BrowserMockup({ url, markSrc, className }: BrowserMockupProps) {
         </div>
       </div>
 
-      <ImagePlaceholder
-        ratio="16 / 10"
-        markSrc={markSrc}
-        caption="Product screenshot to come"
-        className="border-0"
-      />
+      {images && images.length > 0 ? (
+        <ImageCycle images={images} alt={imagesAlt ?? `${url} product screenshot`} />
+      ) : (
+        <ImagePlaceholder
+          ratio="16 / 10"
+          markSrc={markSrc}
+          caption="Product screenshot to come"
+          className="border-0"
+        />
+      )}
     </div>
   );
 }

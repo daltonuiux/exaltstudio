@@ -1,5 +1,6 @@
 import { BrowserMockup } from "@/components/ui/browser-mockup";
 import { Container } from "@/components/ui/container";
+import type { CycleImage } from "@/components/ui/image-cycle";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -11,7 +12,24 @@ type CaseStudy = {
   tags: string[];
   /** Shown in the mock browser's address bar. */
   domain: string;
+  /**
+   * Product screenshots to autoplay through. Omit until a case study
+   * actually has artwork — BrowserMockup falls back to the placeholder.
+   */
+  images?: readonly CycleImage[];
 };
+
+/** Meshed's 5 screenshots, committed at 2880x1800 (16:10, matching every
+ * other case study's frame) — resized down from the 4800x3000 originals
+ * Luke supplied, which was far more resolution than any real viewport
+ * needs (see the earlier sizing discussion) and converted to WebP. */
+const meshedImages: readonly CycleImage[] = [
+  { src: "/images/work/meshed/01.webp", width: 2880, height: 1800 },
+  { src: "/images/work/meshed/02.webp", width: 2880, height: 1800 },
+  { src: "/images/work/meshed/03.webp", width: 2880, height: 1800 },
+  { src: "/images/work/meshed/04.webp", width: 2880, height: 1800 },
+  { src: "/images/work/meshed/05.webp", width: 2880, height: 1800 },
+];
 
 /**
  * Real copy for all four now, from Luke. He mentioned reordering is
@@ -35,6 +53,7 @@ const caseStudies: CaseStudy[] = [
       "Reimagining business insurance with a data-driven, AI-powered platform design",
     tags: ["UI Design", "UX Strategy", "Raised $1.2mil"],
     domain: "meshed.com",
+    images: meshedImages,
   },
   {
     client: "Perlon AI",
@@ -73,7 +92,11 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
       </div>
 
       <div className="lg:col-span-8">
-        <BrowserMockup url={study.domain} />
+        <BrowserMockup
+          url={study.domain}
+          images={study.images}
+          imagesAlt={`${study.client} product screenshot`}
+        />
       </div>
     </article>
   );
