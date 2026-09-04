@@ -9,10 +9,10 @@ import { Container } from "@/components/ui/container";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { label: "Work", href: "#work" },
-  { label: "Services", href: "#services" },
+  { label: "Case Studies", href: "#work" },
   { label: "Process", href: "#process" },
-  { label: "Contact", href: "#contact" },
+  { label: "Services", href: "#services" },
+  { label: "Selected Work", href: "#work-samples" },
 ];
 
 /** Matches the header's own h-16. */

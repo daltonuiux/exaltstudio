@@ -29,13 +29,13 @@ const offerings = [
 /**
  * What was ProcessSection ("How we work" — the muted 3-stage engagement
  * outline) is now this: a plain-white list of the four services themselves.
- * Kept the id at "process" since the header/footer nav still link to
- * #process — worth a look if "Process" still reads right as the label for
- * a services list.
+ * id is "services" (not "process") to match — ServicesSection is the one
+ * that actually describes the studio's process (Clarify/Redesign/Systemise/
+ * Ship) and now owns id="process" accordingly.
  */
 export function OfferingsSection() {
   return (
-    <Section id="process" spacing="lg" aria-labelledby="offerings-heading">
+    <Section id="services" spacing="lg" aria-labelledby="offerings-heading">
       <Container width="full">
         <Reveal>
           <SectionHeader

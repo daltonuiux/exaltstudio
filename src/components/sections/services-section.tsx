@@ -30,13 +30,13 @@ const stages = [
 
 export function ServicesSection() {
   return (
-    <Section id="services" spacing="lg" aria-labelledby="services-heading">
+    <Section id="process" spacing="lg" aria-labelledby="services-heading">
       <Container width="full">
         <Reveal>
           <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
             <SectionHeader
               className="lg:col-span-6"
-              label="What we do"
+              label="Process"
               titleId="services-heading"
               title={
                 <>
