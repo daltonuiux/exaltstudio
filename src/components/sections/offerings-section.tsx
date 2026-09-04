@@ -83,7 +83,15 @@ export function OfferingsSection() {
               // index and title are both single-line, so centering aligns
               // them with each other regardless of the row's total height,
               // which the (possibly two-line) body doesn't disturb since
-              // it's centered by that same rule too.
+              // it's centered by that same rule too. lg-only: below that,
+              // the row is a single stacked column, not a row, so cross-axis
+              // alignment between columns doesn't apply.
+              //
+              // Below lg it's one column — index above title above body,
+              // same as IndexedItem's "stacked" layout in ProcessSection
+              // just above this one on the page — rather than index beside
+              // title, which read as a different pattern for what's visibly
+              // the same kind of numbered list.
               //
               // Reveal renders as the `li` itself (not a wrapping div around
               // its contents) — the grid-cols template below applies to the
@@ -98,7 +106,7 @@ export function OfferingsSection() {
               // that little bit of now-doubled space. last:border-b closes
               // the list off with the same rule the other rows open with,
               // rather than leaving it open underneath.
-              className="group relative grid grid-cols-[2.25rem_1fr] items-center gap-x-4 gap-y-3 border-t border-foreground/12 py-8 last:border-b sm:grid-cols-[4rem_1fr] sm:gap-x-6 lg:grid-cols-[4rem_24rem_1fr_auto] lg:gap-x-10 lg:py-10"
+              className="group relative grid grid-cols-1 gap-y-3 border-t border-foreground/12 py-8 last:border-b lg:grid-cols-[4rem_24rem_1fr_auto] lg:items-center lg:gap-x-10 lg:py-10"
             >
               <div
                 aria-hidden
@@ -108,31 +116,38 @@ export function OfferingsSection() {
               <span className="font-mono text-eyebrow font-medium text-foreground/50 tabular-nums lg:pl-4">
                 {offering.index}
               </span>
-              <h3 className="text-xl font-semibold text-balance tracking-[-0.03em] sm:text-2xl">
+              {/* mt-2, on top of the row's own gap-y-3, matches
+                  IndexedItem's stacked index-to-title gap (mt-5, 20px)
+                  below lg; lg:mt-0 drops it once index and title are side
+                  by side in one row instead. */}
+              <h3 className="mt-2 text-xl font-semibold text-balance tracking-[-0.03em] sm:text-2xl lg:mt-0">
                 {offering.title}
               </h3>
-              <p className="col-span-2 text-base leading-6 text-foreground/66 lg:col-span-1 lg:max-w-[46ch]">
+              <p className="text-base leading-6 text-foreground/66 lg:max-w-[46ch]">
                 {offering.body}
               </p>
 
-              {/* The whole row is the click target — Book a call is just
-                  the label, not a separate small hit area. The visible
-                  link wraps only the label text (so its accessible name
-                  stays "Book a call about X"); the aria-hidden span inside
-                  it is absolutely positioned against the li (the nearest
-                  positioned ancestor, since this span's own parent — the
-                  link — isn't itself positioned) and stretches to cover
-                  the full row without adding a second, redundant link. */}
+              {/* Desktop only (hidden lg:inline-flex) — a hover-revealed
+                  CTA repeated five times down the page doesn't carry over
+                  to mobile, which has no hover to reveal it with anyway;
+                  showing it plainly on every row there would just be
+                  noise. The whole *row* being the click target goes with
+                  it below lg, same reasoning — it's this link's own
+                  aria-hidden stretched span doing that (see below), so
+                  hiding the link removes both at once.
+
+                  The link wraps only the label text (so its accessible
+                  name stays "Book a call about X"); the aria-hidden span
+                  inside it is absolutely positioned against the li (the
+                  nearest positioned ancestor, since this span's own
+                  parent — the link — isn't itself positioned) and
+                  stretches to cover the full row without adding a second,
+                  redundant link. */}
               <Link
                 href={siteConfig.bookingUrl}
                 target="_blank"
                 rel="noreferrer noopener"
-                // Hover-revealed on desktop only (lg:opacity-0, shown via
-                // group-hover) — always visible below that, since touch
-                // devices have no real hover to reveal it with. Also shown
-                // on group-focus-within, so tabbing to the link doesn't
-                // land keyboard focus on something invisible.
-                className="col-span-2 inline-flex w-fit items-center gap-2 text-sm font-semibold text-foreground transition-opacity duration-200 lg:col-span-1 lg:col-start-4 lg:justify-self-end lg:pr-4 lg:opacity-0 lg:group-hover:opacity-100 lg:group-focus-within:opacity-100"
+                className="hidden text-sm font-semibold text-foreground transition-opacity duration-200 lg:inline-flex lg:w-fit lg:items-center lg:gap-2 lg:col-start-4 lg:justify-self-end lg:pr-4 lg:opacity-0 lg:group-hover:opacity-100 lg:group-focus-within:opacity-100"
               >
                 <span aria-hidden className="absolute inset-0" />
                 Book a call
