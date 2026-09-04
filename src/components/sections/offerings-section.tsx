@@ -1,7 +1,10 @@
+import Link from "next/link";
+
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { SectionHeader } from "@/components/ui/section-header";
+import { siteConfig } from "@/lib/site";
 
 const offerings = [
   {
@@ -55,6 +58,17 @@ export function OfferingsSection() {
             <Reveal
               as="li"
               key={offering.title}
+              // group: the row-wide hover fill and the CTA arrow's nudge
+              // both key off hovering anywhere in the row, not just the
+              // link text itself.
+              //
+              // The hover fill is a separate absolutely-positioned layer
+              // (below) rather than a background-color on the row itself,
+              // so its own transition-colors doesn't fight the row's
+              // transition-[opacity,translate] from Reveal — both set the
+              // `transition-property` CSS property, and a single element
+              // can only have one value for it.
+              //
               // The title column is sized to the longest title ("New Product
               // & MVP Design", ~358px unwrapped) plus headroom, so all four
               // stay on one line rather than two of four wrapping while the
@@ -75,8 +89,13 @@ export function OfferingsSection() {
               // its contents) — the grid-cols template below applies to the
               // li's direct children, so a wrapper div in between would
               // collapse them into a single column.
-              className="grid grid-cols-[2.25rem_1fr] items-center gap-x-4 gap-y-3 border-t border-foreground/12 py-8 last:pb-0 sm:grid-cols-[4rem_1fr] sm:gap-x-6 lg:grid-cols-[4rem_24rem_1fr] lg:gap-x-10 lg:py-10"
+              className="group relative grid grid-cols-[2.25rem_1fr] items-center gap-x-4 gap-y-3 border-t border-foreground/12 py-8 last:pb-0 sm:grid-cols-[4rem_1fr] sm:gap-x-6 lg:grid-cols-[4rem_24rem_1fr_auto] lg:gap-x-10 lg:py-10"
             >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 -z-10 bg-transparent transition-colors duration-200 group-hover:bg-foreground/3"
+              />
+
               <span className="font-mono text-eyebrow font-medium text-foreground/50 tabular-nums">
                 {offering.index}
               </span>
@@ -86,6 +105,22 @@ export function OfferingsSection() {
               <p className="col-span-2 text-base leading-6 text-foreground/66 lg:col-span-1 lg:max-w-[46ch]">
                 {offering.body}
               </p>
+
+              <Link
+                href={siteConfig.bookingUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="col-span-2 inline-flex w-fit items-center gap-2 text-sm font-semibold text-foreground lg:col-span-1 lg:col-start-4 lg:justify-self-end"
+              >
+                Book a call
+                <span className="sr-only"> about {offering.title}</span>
+                <span
+                  aria-hidden
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                >
+                  &rarr;
+                </span>
+              </Link>
             </Reveal>
           ))}
         </ol>
