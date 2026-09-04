@@ -56,7 +56,7 @@ export const siteConfig = {
   name: "Exalt Studio",
   /** Used in the title template, e.g. "Work — Exalt Studio". */
   titleTemplate: "%s — Exalt Studio",
-  title: "Exalt Studio — Product design and development studio",
+  title: "Exalt Studio — B2B SaaS & AI Product Design Studio",
   description:
     "Exalt Studio is a product design and development studio working with B2B SaaS, AI startups and complex enterprise software.",
   /** Canonical origin, no trailing slash. */
