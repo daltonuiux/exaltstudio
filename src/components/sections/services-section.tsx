@@ -55,7 +55,22 @@ export function ServicesSection() {
 
         <ol className="mt-14 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4 lg:gap-y-0">
           {stages.map((stage, i) => (
-            <li key={stage.index}>
+            <li
+              key={stage.index}
+              // Base (1 col): a horizontal rule between each stacked item —
+              // border-t on everything but the first — same look OfferingsSection
+              // now has below lg, which is the "services section" match Luke
+              // asked for.
+              // sm (2 cols): that becomes a vertical rule between the two
+              // items in a row (even items only, via border-l) and a
+              // horizontal rule between the two rows (odd, non-first items
+              // keep their base border-t; even items don't need it, since
+              // they're beside their row's first item, not below it).
+              // lg (4 cols, one row): vertical rules between all four —
+              // border-l on everything but the first — and no horizontal
+              // rule at all, since there's only one row.
+              className="border-t border-foreground/12 first:border-t-0 sm:even:border-t-0 sm:even:border-l lg:border-t-0 lg:border-l lg:first:border-l-0"
+            >
               <Reveal delayMs={i * 80}>
                 <IndexedItem
                   layout="stacked"
