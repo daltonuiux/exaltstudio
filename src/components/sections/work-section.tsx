@@ -14,9 +14,8 @@ type CaseStudy = {
 };
 
 /**
- * Real copy for the first three, from Luke. The fourth is still a
- * placeholder — he's supplying that one later, and said reordering is
- * coming too, so the array order isn't final either.
+ * Real copy for all four now, from Luke. He mentioned reordering is
+ * coming later, so this array order isn't final.
  *
  * `domain` is decorative (the mock browser's address bar) and was never
  * confirmed against each client's actual URL — just the company name,
@@ -44,11 +43,10 @@ const caseStudies: CaseStudy[] = [
     domain: "perlonai.com",
   },
   {
-    client: "Client Four",
-    headline:
-      "Placeholder headline describing the product and business outcome for this case study",
-    tags: ["Product", "Crypto", "Web"],
-    domain: "clientfour.com",
+    client: "Scout",
+    headline: "Refining Scout’s interface and UX for scalable AI automation",
+    tags: ["UI Design", "UX Strategy", "Raised $10.6mil"],
+    domain: "scout.com",
   },
 ];
 
