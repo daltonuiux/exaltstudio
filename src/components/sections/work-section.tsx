@@ -1,6 +1,6 @@
-import { BrowserMockup } from "@/components/ui/browser-mockup";
 import { Container } from "@/components/ui/container";
-import type { CycleImage } from "@/components/ui/image-cycle";
+import { type CycleImage, ImageCycle } from "@/components/ui/image-cycle";
+import { ImagePlaceholder } from "@/components/ui/image-placeholder";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -10,11 +10,9 @@ type CaseStudy = {
   client: string;
   headline: string;
   tags: string[];
-  /** Shown in the mock browser's address bar. */
-  domain: string;
   /**
    * Product screenshots to autoplay through. Omit until a case study
-   * actually has artwork — BrowserMockup falls back to the placeholder.
+   * actually has artwork — falls back to ImagePlaceholder.
    */
   images?: readonly CycleImage[];
 };
@@ -47,13 +45,17 @@ const scoutImages: readonly CycleImage[] = [
   { src: "/images/work/scout/05.webp", width: 2880, height: 1800 },
 ];
 
+const perlonAiImages: readonly CycleImage[] = [
+  { src: "/images/work/perlon-ai/01.webp", width: 2880, height: 1800 },
+  { src: "/images/work/perlon-ai/02.webp", width: 2880, height: 1800 },
+  { src: "/images/work/perlon-ai/03.webp", width: 2880, height: 1800 },
+  { src: "/images/work/perlon-ai/04.webp", width: 2880, height: 1800 },
+  { src: "/images/work/perlon-ai/05.webp", width: 2880, height: 1800 },
+];
+
 /**
  * Real copy for all four now, from Luke. He mentioned reordering is
  * coming later, so this array order isn't final.
- *
- * `domain` is decorative (the mock browser's address bar) and was never
- * confirmed against each client's actual URL — just the company name,
- * lowercased — worth a look before this reads as a verified live link.
  */
 const caseStudies: CaseStudy[] = [
   {
@@ -61,7 +63,6 @@ const caseStudies: CaseStudy[] = [
     headline:
       "Elevating enterprise finance with a scalable, modern product experience",
     tags: ["UI Design", "UX Strategy", "Design System"],
-    domain: "onefin.com",
     images: onefinImages,
   },
   {
@@ -69,20 +70,18 @@ const caseStudies: CaseStudy[] = [
     headline:
       "Reimagining business insurance with a data-driven, AI-powered platform design",
     tags: ["UI Design", "UX Strategy", "Raised $1.2mil"],
-    domain: "meshed.com",
     images: meshedImages,
   },
   {
     client: "Perlon AI",
     headline: "Enhancing Perlon AI’s user experience for sales success",
     tags: ["UI Design", "UX Strategy", "Raised $1.1mil"],
-    domain: "perlonai.com",
+    images: perlonAiImages,
   },
   {
     client: "Scout",
     headline: "Refining Scout’s interface and UX for scalable AI automation",
     tags: ["UI Design", "UX Strategy", "Raised $10.6mil"],
-    domain: "scout.com",
     images: scoutImages,
   },
 ];
@@ -110,11 +109,20 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
       </div>
 
       <div className="lg:col-span-8">
-        <BrowserMockup
-          url={study.domain}
-          images={study.images}
-          imagesAlt={`${study.client} product screenshot`}
-        />
+        {/* A clean, unframed image — no mock browser chrome around it. */}
+        {study.images && study.images.length > 0 ? (
+          <ImageCycle
+            images={study.images}
+            alt={`${study.client} product screenshot`}
+            className="rounded-2xl border border-foreground/12"
+          />
+        ) : (
+          <ImagePlaceholder
+            ratio="16 / 10"
+            caption="Product screenshot to come"
+            className="rounded-2xl"
+          />
+        )}
       </div>
     </article>
   );
