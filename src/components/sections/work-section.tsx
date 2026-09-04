@@ -1,20 +1,62 @@
 import { Container } from "@/components/ui/container";
 import { type CycleImage, ImageCycle } from "@/components/ui/image-cycle";
 import { ImagePlaceholder } from "@/components/ui/image-placeholder";
+import { LogoImage } from "@/components/ui/logo-image";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { SectionHeader } from "@/components/ui/section-header";
-import { SectionLabel } from "@/components/ui/section-label";
+import type { Logo } from "@/lib/logos";
 
 type CaseStudy = {
   client: string;
   headline: string;
   tags: string[];
   /**
+   * Client wordmark shown in place of a text eyebrow — the `-dark` SVGs
+   * (see below), not the white-fill ones SocialProof's marquee uses.
+   */
+  logo: Logo;
+  /**
    * Product screenshots to autoplay through. Omit until a case study
    * actually has artwork — falls back to ImagePlaceholder.
    */
   images?: readonly CycleImage[];
+};
+
+/**
+ * Recoloured (fill="#161218", the standard heading colour) copies of the
+ * same marques' white-fill logos SocialProof uses — those are exported for
+ * the dark hero backdrop, so they'd disappear against this section's light
+ * card background. `-dark` suffix keeps the two variants unambiguous.
+ *
+ * Heights sit in a 24-32px band and widths follow each logo's own (already
+ * tightly-cropped) viewBox aspect ratio, so — like the marquee's own
+ * logos — they read as optically similar in weight rather than literally
+ * identical in height.
+ */
+const onefinLogo: Logo = {
+  name: "Onefin",
+  src: "/images/logos/onefin-dark.svg",
+  width: 126,
+  height: 28,
+};
+const meshedLogo: Logo = {
+  name: "Meshed",
+  src: "/images/logos/meshed-dark.svg",
+  width: 166.75,
+  height: 28,
+};
+const perlonAiLogo: Logo = {
+  name: "Perlon AI",
+  src: "/images/logos/perlon-ai-dark.svg",
+  width: 123.85,
+  height: 28,
+};
+const scoutLogo: Logo = {
+  name: "Scout",
+  src: "/images/logos/scout-dark.svg",
+  width: 133.45,
+  height: 28,
 };
 
 /** Each case study's 5 screenshots, committed at 2880x1800 (16:10, matching
@@ -53,35 +95,36 @@ const perlonAiImages: readonly CycleImage[] = [
   { src: "/images/work/perlon-ai/05.webp", width: 2880, height: 1800 },
 ];
 
-/**
- * Real copy for all four now, from Luke. He mentioned reordering is
- * coming later, so this array order isn't final.
- */
+/** Order per Luke: Perlon AI, Meshed, Onefin, Scout. */
 const caseStudies: CaseStudy[] = [
   {
-    client: "Onefin",
-    headline:
-      "Elevating enterprise finance with a scalable, modern product experience",
-    tags: ["UI Design", "UX Strategy", "Design System"],
-    images: onefinImages,
+    client: "Perlon AI",
+    headline: "Enhancing Perlon AI’s user experience for sales success",
+    tags: ["UI Design", "UX Strategy", "Raised $1.1mil"],
+    logo: perlonAiLogo,
+    images: perlonAiImages,
   },
   {
     client: "Meshed",
     headline:
       "Reimagining business insurance with a data-driven, AI-powered platform design",
     tags: ["UI Design", "UX Strategy", "Raised $1.2mil"],
+    logo: meshedLogo,
     images: meshedImages,
   },
   {
-    client: "Perlon AI",
-    headline: "Enhancing Perlon AI’s user experience for sales success",
-    tags: ["UI Design", "UX Strategy", "Raised $1.1mil"],
-    images: perlonAiImages,
+    client: "Onefin",
+    headline:
+      "Elevating enterprise finance with a scalable, modern product experience",
+    tags: ["UI Design", "UX Strategy", "Design System"],
+    logo: onefinLogo,
+    images: onefinImages,
   },
   {
     client: "Scout",
     headline: "Refining Scout’s interface and UX for scalable AI automation",
     tags: ["UI Design", "UX Strategy", "Raised $10.6mil"],
+    logo: scoutLogo,
     images: scoutImages,
   },
 ];
@@ -90,7 +133,7 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
   return (
     <article className="grid gap-10 rounded-3xl bg-foreground/4 p-8 sm:p-10 lg:grid-cols-12 lg:items-center lg:gap-14 lg:p-14">
       <div className="lg:col-span-4">
-        <SectionLabel>{study.client}</SectionLabel>
+        <LogoImage logo={study.logo} />
 
         <h3 className="mt-5 text-2xl font-semibold text-balance tracking-[-0.03em] sm:text-3xl">
           {study.headline}
