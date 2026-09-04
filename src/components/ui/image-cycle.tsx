@@ -48,30 +48,59 @@ export function ImageCycle({
     setActive((i) => (i + 1) % images.length);
   }, [images.length]);
 
+  // setInterval, not a self-rescheduling setTimeout chain: the chain's
+  // single point of failure — each tick has to itself call schedule() again
+  // or cycling stops forever — turned out to be exactly what broke this on
+  // a first visit. A browser that speculatively prerenders this page ahead
+  // of an actual click (Chrome's Speculation Rules API; a plain search
+  // result or omnibox suggestion is enough to trigger it) runs this effect
+  // while document.hidden is still true, and a setTimeout armed in that
+  // state isn't guaranteed to survive the handoff to a real, activated tab
+  // — so the very first tick silently never fires, and with it gone nothing
+  // was ever going to re-arm the next one. A plain reload is never
+  // prerendered, which is exactly why that "fixed" it. setInterval doesn't
+  // have that failure mode: it's one persistent, browser-managed timer, so
+  // a tick lost to prerendering-era throttling doesn't take the rest down
+  // with it. The visibilitychange re-validation below is the other half —
+  // makes sure a genuinely stuck timer (from this or any other cause) gets
+  // one more chance to establish itself the moment the page is actually
+  // visible to someone, rather than staying stuck until an unrelated reload
+  // happens to reset everything cleanly.
   useEffect(() => {
     if (images.length < 2) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     let id: number | undefined;
 
-    const schedule = () => {
-      if (reduced.matches) return;
-      id = window.setTimeout(tick, intervalMs);
+    const start = () => {
+      if (reduced.matches || id !== undefined || document.hidden) return;
+      id = window.setInterval(() => {
+        if (!pausedRef.current) advance();
+      }, intervalMs);
     };
-    const tick = () => {
-      if (!pausedRef.current) advance();
-      schedule();
+    const stop = () => {
+      if (id === undefined) return;
+      window.clearInterval(id);
+      id = undefined;
     };
 
-    schedule();
-    const onChange = () => {
-      window.clearTimeout(id);
-      schedule();
+    start();
+
+    const onVisibility = () => {
+      if (document.hidden) stop();
+      else start();
     };
-    reduced.addEventListener("change", onChange);
+    const onReducedChange = () => {
+      if (reduced.matches) stop();
+      else start();
+    };
+
+    document.addEventListener("visibilitychange", onVisibility);
+    reduced.addEventListener("change", onReducedChange);
 
     return () => {
-      reduced.removeEventListener("change", onChange);
-      window.clearTimeout(id);
+      document.removeEventListener("visibilitychange", onVisibility);
+      reduced.removeEventListener("change", onReducedChange);
+      stop();
     };
   }, [advance, images.length, intervalMs]);
 

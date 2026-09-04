@@ -44,38 +44,64 @@ export function TestimonialsSection() {
     setActive((i) => (i + 1) % testimonials.length);
   }, []);
 
-  // A single self-rescheduling timer, not one setTimeout re-armed on every
-  // `active` change: that version's callback was `advance` itself, so a
-  // timeout already in flight when the user hovered (paused) fired anyway —
-  // pausing didn't actually stop the pending advance, just the next one.
-  // Checking pausedRef inside the tick (fired every INTERVAL_MS regardless)
-  // means a paused tick is genuinely skipped, and the loop always keeps
-  // rescheduling itself so it can't stall out.
+  // setInterval, not a self-rescheduling setTimeout chain — that version's
+  // single point of failure (each tick has to itself call schedule() again
+  // or rotation stops forever) is exactly what let ImageCycle's identical
+  // pattern get stuck on a first visit: a browser that speculatively
+  // prerenders this page ahead of an actual click (Chrome's Speculation
+  // Rules API; a plain search-result or omnibox suggestion is enough) runs
+  // this effect while document.hidden is still true, and a setTimeout armed
+  // in that state isn't guaranteed to survive the handoff to a real,
+  // activated tab — so the very first tick can silently never fire, and
+  // nothing was ever going to re-arm the next one after that. A plain
+  // reload is never prerendered, which is why that "fixed" it there.
+  // setInterval doesn't have that failure mode (one persistent,
+  // browser-managed timer, not a chain), and the visibilitychange
+  // revalidation below gives a genuinely stuck timer — from this or any
+  // other cause — one more chance to establish itself the moment the page
+  // is actually visible to someone, rather than staying stuck until an
+  // unrelated reload happens to reset everything cleanly.
+  //
+  // pausedRef is still checked inside the tick itself (fired every
+  // INTERVAL_MS regardless) rather than stopping/starting the interval on
+  // hover — same reasoning as before: an advance already due the instant
+  // the user hovers should still be skipped, not fire anyway.
   useEffect(() => {
     if (testimonials.length < 2) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     let id: number | undefined;
 
-    const schedule = () => {
-      if (reduced.matches) return;
-      id = window.setTimeout(tick, INTERVAL_MS);
+    const start = () => {
+      if (reduced.matches || id !== undefined || document.hidden) return;
+      id = window.setInterval(() => {
+        if (!pausedRef.current) advance();
+      }, INTERVAL_MS);
     };
-    const tick = () => {
-      if (!pausedRef.current) advance();
-      schedule();
+    const stop = () => {
+      if (id === undefined) return;
+      window.clearInterval(id);
+      id = undefined;
     };
 
-    schedule();
-    // If motion preference flips mid-visit, stop or (re)start accordingly.
-    const onChange = () => {
-      window.clearTimeout(id);
-      schedule();
+    start();
+
+    const onVisibility = () => {
+      if (document.hidden) stop();
+      else start();
     };
-    reduced.addEventListener("change", onChange);
+    // If motion preference flips mid-visit, stop or (re)start accordingly.
+    const onReducedChange = () => {
+      if (reduced.matches) stop();
+      else start();
+    };
+
+    document.addEventListener("visibilitychange", onVisibility);
+    reduced.addEventListener("change", onReducedChange);
 
     return () => {
-      reduced.removeEventListener("change", onChange);
-      window.clearTimeout(id);
+      document.removeEventListener("visibilitychange", onVisibility);
+      reduced.removeEventListener("change", onReducedChange);
+      stop();
     };
   }, [advance]);
 
