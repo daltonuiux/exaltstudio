@@ -174,8 +174,13 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
-    /* Keeps in-page anchors clear of a future sticky header. */
-    scroll-padding-top: --spacing(20);
+    /* Keeps in-page anchors clear of SiteHeader's fixed h-16 band (64px —
+       matches its own HEADER_HEIGHT constant; keep the two in sync if the
+       header's height ever changes). Was 80px, a placeholder guessed before
+       that header existed — 16px more than the real thing ever needed,
+       which is exactly why a nav click used to leave a sliver of the
+       previous section still visible above the target. */
+    scroll-padding-top: --spacing(16);
   }
 
   body {

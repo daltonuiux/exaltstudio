@@ -34,9 +34,10 @@ export function SmoothScroll() {
         // like it is lagging behind the input.
         lerp: 0.09,
         // Route same-page anchors through Lenis so nav links ease too. The
-        // offset mirrors the scroll-padding-top the CSS applies, which Lenis
-        // bypasses by scrolling imperatively.
-        anchors: { offset: -80 },
+        // offset mirrors the scroll-padding-top the CSS applies (64px —
+        // SiteHeader's own fixed height), which Lenis bypasses by scrolling
+        // imperatively.
+        anchors: { offset: -64 },
         // Touch keeps its native momentum: the OS does it better than we can
         // simulate, and syncing it fights the platform.
         syncTouch: false,
