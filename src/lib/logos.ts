@@ -24,6 +24,7 @@ export const clientLogos: readonly Logo[] = [
   { name: "Acodei", src: "/images/logos/acodei.svg", width: 94.99, height: 20.65 },
   { name: "FactorySense", src: "/images/logos/factorysense.svg", width: 173.84, height: 20.65 },
   { name: "Onefin", src: "/images/logos/onefin.svg", width: 108, height: 24 },
+  { name: "Voren", src: "/images/logos/voren.svg", width: 102, height: 24 },
 ] as const;
 
 /** "Our clients have raised $15m+ from" */
