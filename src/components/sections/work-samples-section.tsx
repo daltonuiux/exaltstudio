@@ -31,7 +31,11 @@ export function WorkSamplesSection() {
               // simultaneously.
               delayMs={(i % 2) * 100}
               // Figma tile: 668 x 472, expressed as a ratio so it holds at any width.
-              className="flex aspect-[668/472] items-center justify-center overflow-hidden rounded-lg bg-foreground/4"
+              // rounded-md sm:rounded-lg, matching WorkSection's case-study
+              // screenshots just above this section on the page — one shared
+              // radius scale for every photo tile on the site rather than
+              // each spot picking its own value.
+              className="flex aspect-[668/472] items-center justify-center overflow-hidden rounded-md bg-foreground/4 sm:rounded-lg"
             >
               {/* Figma sizes the artwork by height — 325 of the tile's 472 —
                   and lets width follow the source aspect. That is why the one

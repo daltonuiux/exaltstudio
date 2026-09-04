@@ -19,6 +19,9 @@ export function CtaSection() {
       className="pt-10 pb-16 md:pb-24 lg:pb-[160px]"
     >
       <Container width="full">
+        {/* rounded-lg is the shared "big card" radius — WorkSection's
+            case-study cards use the same value, rather than their own
+            (previously undefined-token, coincidentally-larger) rounding. */}
         <Reveal className="flex flex-col gap-10 rounded-lg border border-background/14 bg-background/12 px-6 py-10 backdrop-blur-md sm:px-10 sm:py-[50px] lg:flex-row lg:items-end lg:justify-between">
           <div className="flex flex-col gap-2 lg:flex-1">
             <SectionLabel className="text-background/50">

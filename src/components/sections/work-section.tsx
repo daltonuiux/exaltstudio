@@ -131,7 +131,7 @@ const caseStudies: CaseStudy[] = [
 
 function CaseStudyCard({ study }: { study: CaseStudy }) {
   return (
-    <article className="grid gap-10 rounded-3xl bg-foreground/4 p-8 sm:p-10 lg:grid-cols-12 lg:items-center lg:gap-14 lg:p-14">
+    <article className="grid gap-10 rounded-lg bg-foreground/4 p-8 sm:p-10 lg:grid-cols-12 lg:items-center lg:gap-14 lg:p-14">
       <div className="lg:col-span-4">
         <LogoImage logo={study.logo} />
 
@@ -152,18 +152,27 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
       </div>
 
       <div className="lg:col-span-8">
-        {/* A clean, unframed image — no mock browser chrome around it. */}
+        {/* A clean, unframed image — no mock browser chrome around it.
+            rounded-md sm:rounded-lg (not a flat rounded-2xl, and not the
+            same value at every width): capped at the card's own rounded-lg
+            so it's never rounder than its container, and stepped down
+            further on mobile specifically — a 24px corner read fine against
+            an ~1100px desktop screenshot but was disproportionately
+            aggressive at the ~270px width this shrinks to on a phone,
+            visibly eating into the corners of the actual product UI being
+            shown. Matches WorkSamplesSection's grid tiles, the other place
+            on the page a photo sits in its own rounded frame. */}
         {study.images && study.images.length > 0 ? (
           <ImageCycle
             images={study.images}
             alt={`${study.client} product screenshot`}
-            className="rounded-2xl border border-foreground/12"
+            className="rounded-md border border-foreground/12 sm:rounded-lg"
           />
         ) : (
           <ImagePlaceholder
             ratio="16 / 10"
             caption="Product screenshot to come"
-            className="rounded-2xl"
+            className="rounded-md sm:rounded-lg"
           />
         )}
       </div>
