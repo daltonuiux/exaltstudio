@@ -19,16 +19,32 @@ type CaseStudy = {
   images?: readonly CycleImage[];
 };
 
-/** Meshed's 5 screenshots, committed at 2880x1800 (16:10, matching every
- * other case study's frame) — resized down from the 4800x3000 originals
- * Luke supplied, which was far more resolution than any real viewport
- * needs (see the earlier sizing discussion) and converted to WebP. */
+/** Each case study's 5 screenshots, committed at 2880x1800 (16:10, matching
+ * every other case study's frame) — resized down from the 4800x3000
+ * originals Luke supplied, which was far more resolution than any real
+ * viewport needs (see the earlier sizing discussion) and converted to WebP. */
 const meshedImages: readonly CycleImage[] = [
   { src: "/images/work/meshed/01.webp", width: 2880, height: 1800 },
   { src: "/images/work/meshed/02.webp", width: 2880, height: 1800 },
   { src: "/images/work/meshed/03.webp", width: 2880, height: 1800 },
   { src: "/images/work/meshed/04.webp", width: 2880, height: 1800 },
   { src: "/images/work/meshed/05.webp", width: 2880, height: 1800 },
+];
+
+const onefinImages: readonly CycleImage[] = [
+  { src: "/images/work/onefin/01.webp", width: 2880, height: 1800 },
+  { src: "/images/work/onefin/02.webp", width: 2880, height: 1800 },
+  { src: "/images/work/onefin/03.webp", width: 2880, height: 1800 },
+  { src: "/images/work/onefin/04.webp", width: 2880, height: 1800 },
+  { src: "/images/work/onefin/05.webp", width: 2880, height: 1800 },
+];
+
+const scoutImages: readonly CycleImage[] = [
+  { src: "/images/work/scout/01.webp", width: 2880, height: 1800 },
+  { src: "/images/work/scout/02.webp", width: 2880, height: 1800 },
+  { src: "/images/work/scout/03.webp", width: 2880, height: 1800 },
+  { src: "/images/work/scout/04.webp", width: 2880, height: 1800 },
+  { src: "/images/work/scout/05.webp", width: 2880, height: 1800 },
 ];
 
 /**
@@ -46,6 +62,7 @@ const caseStudies: CaseStudy[] = [
       "Elevating enterprise finance with a scalable, modern product experience",
     tags: ["UI Design", "UX Strategy", "Design System"],
     domain: "onefin.com",
+    images: onefinImages,
   },
   {
     client: "Meshed",
@@ -66,6 +83,7 @@ const caseStudies: CaseStudy[] = [
     headline: "Refining Scout’s interface and UX for scalable AI automation",
     tags: ["UI Design", "UX Strategy", "Raised $10.6mil"],
     domain: "scout.com",
+    images: scoutImages,
   },
 ];
 
