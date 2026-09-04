@@ -95,15 +95,17 @@ export function OfferingsSection() {
               // below it, but it also made the last row's hover fill visibly
               // shorter than every other row's — same top/bottom padding on
               // every row, hover fill included, matters more than trimming
-              // that little bit of now-doubled space.
-              className="group relative grid grid-cols-[2.25rem_1fr] items-center gap-x-4 gap-y-3 border-t border-foreground/12 py-8 sm:grid-cols-[4rem_1fr] sm:gap-x-6 lg:grid-cols-[4rem_24rem_1fr_auto] lg:gap-x-10 lg:py-10"
+              // that little bit of now-doubled space. last:border-b closes
+              // the list off with the same rule the other rows open with,
+              // rather than leaving it open underneath.
+              className="group relative grid grid-cols-[2.25rem_1fr] items-center gap-x-4 gap-y-3 border-t border-foreground/12 py-8 last:border-b sm:grid-cols-[4rem_1fr] sm:gap-x-6 lg:grid-cols-[4rem_24rem_1fr_auto] lg:gap-x-10 lg:py-10"
             >
               <div
                 aria-hidden
                 className="pointer-events-none absolute inset-0 -z-10 bg-transparent transition-colors duration-200 group-hover:bg-foreground/3"
               />
 
-              <span className="font-mono text-eyebrow font-medium text-foreground/50 tabular-nums">
+              <span className="font-mono text-eyebrow font-medium text-foreground/50 tabular-nums lg:pl-4">
                 {offering.index}
               </span>
               <h3 className="text-xl font-semibold text-balance tracking-[-0.03em] sm:text-2xl">
@@ -113,6 +115,14 @@ export function OfferingsSection() {
                 {offering.body}
               </p>
 
+              {/* The whole row is the click target — Book a call is just
+                  the label, not a separate small hit area. The visible
+                  link wraps only the label text (so its accessible name
+                  stays "Book a call about X"); the aria-hidden span inside
+                  it is absolutely positioned against the li (the nearest
+                  positioned ancestor, since this span's own parent — the
+                  link — isn't itself positioned) and stretches to cover
+                  the full row without adding a second, redundant link. */}
               <Link
                 href={siteConfig.bookingUrl}
                 target="_blank"
@@ -122,8 +132,9 @@ export function OfferingsSection() {
                 // devices have no real hover to reveal it with. Also shown
                 // on group-focus-within, so tabbing to the link doesn't
                 // land keyboard focus on something invisible.
-                className="col-span-2 inline-flex w-fit items-center gap-2 text-sm font-semibold text-foreground transition-opacity duration-200 lg:col-span-1 lg:col-start-4 lg:justify-self-end lg:opacity-0 lg:group-hover:opacity-100 lg:group-focus-within:opacity-100"
+                className="col-span-2 inline-flex w-fit items-center gap-2 text-sm font-semibold text-foreground transition-opacity duration-200 lg:col-span-1 lg:col-start-4 lg:justify-self-end lg:pr-4 lg:opacity-0 lg:group-hover:opacity-100 lg:group-focus-within:opacity-100"
               >
+                <span aria-hidden className="absolute inset-0" />
                 Book a call
                 <span className="sr-only"> about {offering.title}</span>
                 <span
