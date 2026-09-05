@@ -50,29 +50,33 @@ export function ImageCycle({
 
   // setInterval, not a self-rescheduling setTimeout chain: the chain's
   // single point of failure — each tick has to itself call schedule() again
-  // or cycling stops forever — turned out to be exactly what broke this on
-  // a first visit. A browser that speculatively prerenders this page ahead
-  // of an actual click (Chrome's Speculation Rules API; a plain search
-  // result or omnibox suggestion is enough to trigger it) runs this effect
-  // while document.hidden is still true, and a setTimeout armed in that
-  // state isn't guaranteed to survive the handoff to a real, activated tab
-  // — so the very first tick silently never fires, and with it gone nothing
-  // was ever going to re-arm the next one. A plain reload is never
-  // prerendered, which is exactly why that "fixed" it. setInterval doesn't
+  // or cycling stops forever — was one real bug here. setInterval doesn't
   // have that failure mode: it's one persistent, browser-managed timer, so
-  // a tick lost to prerendering-era throttling doesn't take the rest down
-  // with it. The visibilitychange re-validation below is the other half —
-  // makes sure a genuinely stuck timer (from this or any other cause) gets
-  // one more chance to establish itself the moment the page is actually
-  // visible to someone, rather than staying stuck until an unrelated reload
-  // happens to reset everything cleanly.
+  // a single tick lost to throttling (a backgrounded tab, a busy main
+  // thread right after a cold first load, browser prerendering ahead of an
+  // actual click) doesn't take the rest down with it — it keeps firing on
+  // schedule regardless, just possibly throttled while hidden, never
+  // permanently blocked.
+  //
+  // start() unconditionally establishes the interval on mount (bar reduced
+  // motion) — it deliberately does NOT also gate on document.hidden. That
+  // gate was here in an earlier pass and was itself the remaining bug:
+  // skipping start() while hidden made the *only* way cycling could ever
+  // begin the visibilitychange listener below firing at some later point —
+  // which it won't if the hidden-to-visible transition happens before this
+  // effect even attaches it, or by any path that isn't a plain tab-switch.
+  // That is strictly worse than never checking hidden at all, since
+  // setInterval already tolerates being armed while hidden. hidden is only
+  // used below to stop the interval as a battery courtesy while genuinely
+  // backgrounded, and restart it on return — a real optimisation now, not
+  // the load-bearing recovery path it used to be.
   useEffect(() => {
     if (images.length < 2) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     let id: number | undefined;
 
     const start = () => {
-      if (reduced.matches || id !== undefined || document.hidden) return;
+      if (reduced.matches || id !== undefined) return;
       id = window.setInterval(() => {
         if (!pausedRef.current) advance();
       }, intervalMs);

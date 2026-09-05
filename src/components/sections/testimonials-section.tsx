@@ -46,21 +46,26 @@ export function TestimonialsSection() {
 
   // setInterval, not a self-rescheduling setTimeout chain — that version's
   // single point of failure (each tick has to itself call schedule() again
-  // or rotation stops forever) is exactly what let ImageCycle's identical
-  // pattern get stuck on a first visit: a browser that speculatively
-  // prerenders this page ahead of an actual click (Chrome's Speculation
-  // Rules API; a plain search-result or omnibox suggestion is enough) runs
-  // this effect while document.hidden is still true, and a setTimeout armed
-  // in that state isn't guaranteed to survive the handoff to a real,
-  // activated tab — so the very first tick can silently never fire, and
-  // nothing was ever going to re-arm the next one after that. A plain
-  // reload is never prerendered, which is why that "fixed" it there.
-  // setInterval doesn't have that failure mode (one persistent,
-  // browser-managed timer, not a chain), and the visibilitychange
-  // revalidation below gives a genuinely stuck timer — from this or any
-  // other cause — one more chance to establish itself the moment the page
-  // is actually visible to someone, rather than staying stuck until an
-  // unrelated reload happens to reset everything cleanly.
+  // or rotation stops forever) was one real bug here, shared with
+  // ImageCycle's identical pattern. setInterval doesn't have that failure
+  // mode: it's one persistent, browser-managed timer, so a single tick lost
+  // to throttling (a backgrounded tab, a busy main thread right after a
+  // cold first load, browser prerendering ahead of an actual click) doesn't
+  // take the rest down with it — it keeps firing on schedule regardless,
+  // just possibly throttled while hidden, never permanently blocked.
+  //
+  // start() unconditionally establishes the interval on mount (bar reduced
+  // motion) — it deliberately does NOT also gate on document.hidden. That
+  // gate was here in an earlier pass and was itself the remaining bug:
+  // skipping start() while hidden made the *only* way rotation could ever
+  // begin the visibilitychange listener below firing at some later point —
+  // which it won't if the hidden-to-visible transition happens before this
+  // effect even attaches it, or by any path that isn't a plain tab-switch.
+  // That is strictly worse than never checking hidden at all, since
+  // setInterval already tolerates being armed while hidden. hidden is only
+  // used below to stop the interval as a battery courtesy while genuinely
+  // backgrounded, and restart it on return — a real optimisation now, not
+  // the load-bearing recovery path it used to be.
   //
   // pausedRef is still checked inside the tick itself (fired every
   // INTERVAL_MS regardless) rather than stopping/starting the interval on
@@ -72,7 +77,7 @@ export function TestimonialsSection() {
     let id: number | undefined;
 
     const start = () => {
-      if (reduced.matches || id !== undefined || document.hidden) return;
+      if (reduced.matches || id !== undefined) return;
       id = window.setInterval(() => {
         if (!pausedRef.current) advance();
       }, INTERVAL_MS);
