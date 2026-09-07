@@ -38,10 +38,25 @@ const QUOTE_MIN_HEIGHT =
 
 export function TestimonialsSection() {
   const [active, setActive] = useState(0);
+  // Two representations of the same flag, deliberately: pausedRef is what
+  // the interval tick below actually reads (a ref, not state, so toggling
+  // it doesn't force the effect to tear down and re-subscribe — see the
+  // comment on that effect); `paused` state exists purely to drive the
+  // button's icon/label, which does need a render. togglePaused keeps them
+  // in lockstep in the one place either changes.
+  const [paused, setPaused] = useState(false);
   const pausedRef = useRef(false);
 
   const advance = useCallback(() => {
     setActive((i) => (i + 1) % testimonials.length);
+  }, []);
+
+  const togglePaused = useCallback(() => {
+    setPaused((p) => {
+      const next = !p;
+      pausedRef.current = next;
+      return next;
+    });
   }, []);
 
   // setInterval, not a self-rescheduling setTimeout chain — that version's
@@ -110,26 +125,21 @@ export function TestimonialsSection() {
     };
   }, [advance]);
 
-  const pause = useCallback(() => {
-    pausedRef.current = true;
-  }, []);
-  const resume = useCallback(() => {
-    pausedRef.current = false;
-  }, []);
-
   const current = testimonials[active];
 
   return (
     <Section id="testimonials" spacing="lg" aria-labelledby="testimonials-heading">
       <Container width="full">
-        <Reveal
-          className="flex flex-col items-center text-center"
-          onMouseEnter={pause}
-          onMouseLeave={resume}
-          // Keyboard users tabbing to a dot get the same pause.
-          onFocusCapture={pause}
-          onBlurCapture={resume}
-        >
+        {/* No hover/focus-triggered pause here any more — that used to
+            cover this entire block (quote text included), so simply
+            resting the cursor anywhere near a testimonial while reading it
+            silently stopped the rotation with no visible sign why, and
+            resuming only on the next scheduled tick made the real gap
+            between advances stretch unpredictably past INTERVAL_MS. It also
+            never did anything for touch, which has no hover state at all.
+            Pausing is a deliberate act now: the button below, always
+            visible, always the same control on every input method. */}
+        <Reveal className="flex flex-col items-center text-center">
           <SectionLabel id="testimonials-heading">Testimonials</SectionLabel>
 
           {/* Keying on the active index remounts this on every change, which
@@ -137,7 +147,11 @@ export function TestimonialsSection() {
               timing needed. Only the current testimonial is ever in the DOM,
               so screen readers get one clean quote rather than several
               stacked, opacity-hidden ones. */}
-          <figure key={active} className="mt-8 flex flex-col items-center animate-fade-in">
+          <figure
+            key={active}
+            id="testimonial-content"
+            className="mt-8 flex flex-col items-center animate-fade-in"
+          >
             <blockquote
               className={cn(
                 "flex max-w-[840px] items-center justify-center",
@@ -171,23 +185,56 @@ export function TestimonialsSection() {
           </figure>
 
           {testimonials.length > 1 ? (
-            <div className="mt-10 flex items-center gap-2" role="tablist" aria-label="Testimonials">
-              {testimonials.map((testimonial, i) => (
-                <button
-                  key={testimonial.name + i}
-                  type="button"
-                  role="tab"
-                  aria-selected={i === active}
-                  aria-label={`Show testimonial ${i + 1} of ${testimonials.length}`}
-                  onClick={() => setActive(i)}
-                  className={cn(
-                    "h-1.5 rounded-full transition-all duration-300",
-                    i === active
-                      ? "w-6 bg-foreground"
-                      : "w-1.5 bg-foreground/20 hover:bg-foreground/40",
-                  )}
-                />
-              ))}
+            <div className="mt-10 flex items-center gap-3">
+              <div className="flex items-center gap-2" role="tablist" aria-label="Testimonials">
+                {testimonials.map((testimonial, i) => (
+                  <button
+                    key={testimonial.name + i}
+                    type="button"
+                    role="tab"
+                    aria-selected={i === active}
+                    aria-label={`Show testimonial ${i + 1} of ${testimonials.length}`}
+                    onClick={() => {
+                      // Jumping to a specific testimonial is a deliberate
+                      // choice — letting autoplay override it a few seconds
+                      // later would undo the thing the user just did.
+                      pausedRef.current = true;
+                      setPaused(true);
+                      setActive(i);
+                    }}
+                    className={cn(
+                      "h-1.5 rounded-full transition-all duration-300",
+                      i === active
+                        ? "w-6 bg-foreground"
+                        : "w-1.5 bg-foreground/20 hover:bg-foreground/40",
+                    )}
+                  />
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={togglePaused}
+                aria-pressed={paused}
+                aria-controls="testimonial-content"
+                aria-label={paused ? "Resume testimonials" : "Pause testimonials"}
+                className="flex h-6 w-6 items-center justify-center rounded-full text-foreground/50 transition-colors duration-200 hover:bg-foreground/8 hover:text-foreground"
+              >
+                {paused ? (
+                  // Play: a filled triangle, off-centre by half a pixel so
+                  // its own visual weight looks centred in the circle —
+                  // true geometric centring reads as left-heavy for a
+                  // triangle pointing right.
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden>
+                    <path d="M1 0.5v9l8-4.5-8-4.5Z" fill="currentColor" />
+                  </svg>
+                ) : (
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden>
+                    <rect x="1" y="0.5" width="2.5" height="9" fill="currentColor" />
+                    <rect x="6.5" y="0.5" width="2.5" height="9" fill="currentColor" />
+                  </svg>
+                )}
+              </button>
             </div>
           ) : null}
         </Reveal>
