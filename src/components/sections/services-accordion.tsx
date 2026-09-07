@@ -217,7 +217,16 @@ function PlusMinus({ open }: { open: boolean }) {
         // tall that turns out to be, keeps it clear of the text at any
         // length — and matches how it already sits at lg, where the row's
         // own lg:items-center centers it for the same reason.
-        "absolute top-1/2 right-0 h-3 w-3 shrink-0 -translate-y-1/2 transition-colors duration-200 motion-reduce:transition-none lg:static lg:top-auto lg:right-auto lg:col-start-4 lg:translate-y-0 lg:justify-self-end",
+        //
+        // lg:mr-4 mirrors the index span's own lg:pl-4 (see below) — the
+        // index sits 16px in from the row's left edge, but this had no
+        // matching inset from the right, so the two ends of the row read as
+        // unbalanced (numbering comfortably inset, indicator flush against
+        // the very edge). A margin, not padding: this span is a fixed
+        // h-3 w-3 box, and padding would eat into that already-tight
+        // content area (border-box sizing) rather than just shifting the
+        // whole glyph inward the way margin does.
+        "absolute top-1/2 right-0 mr-0 h-3 w-3 shrink-0 -translate-y-1/2 transition-colors duration-200 motion-reduce:transition-none lg:static lg:top-auto lg:right-auto lg:col-start-4 lg:mr-4 lg:translate-y-0 lg:justify-self-end",
         open ? "text-foreground" : "text-foreground/40",
       )}
     >
