@@ -112,9 +112,15 @@ export function ServicesAccordion({ services }: ServicesAccordionProps) {
               )}
             >
               <div className="overflow-hidden">
+                {/* lg:pl-[6.5rem], not lg:pl-16: the trigger's title starts
+                    at the index column's own 4rem width *plus* the row's
+                    lg:gap-x-10 (2.5rem) beside it — 6.5rem total. pl-16
+                    (4rem alone) matched the column width but ignored the
+                    gap, so "Best for" sat 2.5rem left of the title above
+                    it instead of lining up with it. */}
                 <div
                   className={cn(
-                    "grid gap-8 pb-8 opacity-0 transition-opacity duration-300 motion-reduce:transition-none lg:grid-cols-3 lg:gap-x-10 lg:pb-10 lg:pl-16",
+                    "grid gap-8 pb-8 opacity-0 transition-opacity duration-300 motion-reduce:transition-none lg:grid-cols-3 lg:gap-x-10 lg:pb-10 lg:pl-[6.5rem]",
                     isOpen && "opacity-100",
                   )}
                 >
