@@ -36,9 +36,9 @@ const faqs: Faq[] = [
   {
     question: "What is your pricing?",
     answer: [
-      "Pricing depends on the scope, timeline, and level of support required. Most projects are quoted individually so we can shape the engagement around what you actually need, rather than forcing you into a fixed package.",
-      "As a guide, our minimum engagement is typically $5000, with larger product design, MVP, and ongoing design support projects quoted based on complexity and delivery requirements.",
-      "The best next step is to book a short intro call so we can understand your goals and recommend the most suitable approach.",
+      "We price engagements based on scope, complexity and the level of support required, with clear starting points for each service.",
+      "Product redesign and MVP engagements typically start from $7,500, design systems from $4,000, embedded product design from $3,000/month, and design engineering from $5,000.",
+      "Before work begins, we agree the scope, timeline, deliverables and fee so you know exactly what is included. If the scope changes, we discuss and agree that with you first.",
     ],
   },
   {
