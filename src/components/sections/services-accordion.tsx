@@ -14,6 +14,24 @@ type ServicesAccordionProps = {
 };
 
 /**
+ * The one column template both the collapsed header and the expanded
+ * content are built on, so they're guaranteed to align rather than
+ * approximating it with a matching offset — index / title / description /
+ * meta, exactly the header's own four columns.
+ *
+ * The 4th column is an explicit 18rem, not auto (which is what the header
+ * alone would want, sized to fit only its small +/- indicator): CSS Grid
+ * sizes a shared column to fit the widest thing placed in it *anywhere* in
+ * the grid, including a row that's currently visually collapsed — an auto
+ * column here would still be pulled wide by the expanded content's price,
+ * note and CTA button even while every row sits closed, quietly narrowing
+ * the description column the header actually needs to keep its own width.
+ * 18rem is comfortably wide enough for that content without redrawing
+ * columns 1-3, which keep the header's own 4rem / 24rem / 1fr exactly.
+ */
+const GRID_TEMPLATE = "grid lg:grid-cols-[4rem_24rem_1fr_18rem] lg:gap-x-10";
+
+/**
  * Interactive service/pricing accordion — one row expanded at a time.
  *
  * Desktop drives primarily through hover: entering a row's `<li>` opens it
@@ -87,7 +105,10 @@ export function ServicesAccordion({ services }: ServicesAccordionProps) {
               aria-expanded={isOpen}
               aria-controls={contentId}
               onClick={() => setActive(isOpen ? null : i)}
-              className="relative grid w-full grid-cols-1 gap-y-3 py-8 text-left lg:grid-cols-[4rem_24rem_1fr_auto] lg:items-center lg:gap-x-10 lg:py-10"
+              className={cn(
+                GRID_TEMPLATE,
+                "relative w-full grid-cols-1 gap-y-3 py-8 text-left lg:items-center lg:py-10",
+              )}
             >
               <span className="font-mono text-eyebrow font-medium text-foreground/50 tabular-nums lg:pl-4">
                 {service.index}
@@ -112,15 +133,21 @@ export function ServicesAccordion({ services }: ServicesAccordionProps) {
               )}
             >
               <div className="overflow-hidden">
-                {/* lg:pl-[6.5rem], not lg:pl-16: the trigger's title starts
-                    at the index column's own 4rem width *plus* the row's
-                    lg:gap-x-10 (2.5rem) beside it — 6.5rem total. pl-16
-                    (4rem alone) matched the column width but ignored the
-                    gap, so "Best for" sat 2.5rem left of the title above
-                    it instead of lining up with it. */}
+                {/* Same GRID_TEMPLATE as the trigger button above, not a
+                    fresh lg:grid-cols-3 — that was an independent grid with
+                    its own (equal-thirds) column proportions, unrelated to
+                    the header's, offset into rough alignment with a single
+                    lg:pl-[6.5rem] guess. Sharing the literal template means
+                    "Best for" / "What you get" / "Engagement" land in the
+                    exact same columns as the title / description / meta
+                    area above them because they're placed in the same
+                    column tracks, not because an offset happens to match —
+                    col-start-2/3/4 below, leaving column 1 (the index's own
+                    4rem) empty on purpose. */}
                 <div
                   className={cn(
-                    "grid gap-8 pb-8 opacity-0 transition-opacity duration-300 motion-reduce:transition-none lg:grid-cols-3 lg:gap-x-10 lg:pb-10 lg:pl-[6.5rem]",
+                    GRID_TEMPLATE,
+                    "gap-y-8 pb-8 opacity-0 transition-opacity duration-300 motion-reduce:transition-none lg:pb-10",
                     isOpen && "opacity-100",
                   )}
                 >
@@ -133,14 +160,14 @@ export function ServicesAccordion({ services }: ServicesAccordionProps) {
                       optically with what you get") pulled Best for's label
                       down to the row's midpoint instead, breaking exactly
                       that shared baseline — reverted. */}
-                  <div>
+                  <div className="lg:col-start-2">
                     <SectionLabel as="p">Best for</SectionLabel>
                     <p className="mt-3 text-base leading-6 text-foreground/66">
                       {service.bestFor}
                     </p>
                   </div>
 
-                  <div>
+                  <div className="lg:col-start-3">
                     <SectionLabel as="p">What you get</SectionLabel>
                     <ul className="mt-3 flex flex-col gap-2">
                       {service.whatYouGet.map((item) => (
@@ -151,7 +178,7 @@ export function ServicesAccordion({ services }: ServicesAccordionProps) {
                     </ul>
                   </div>
 
-                  <div className="flex flex-col gap-6">
+                  <div className="flex flex-col gap-6 lg:col-start-4">
                     <div>
                       <SectionLabel as="p">Engagement</SectionLabel>
                       <div className="mt-3 flex flex-col gap-1">
