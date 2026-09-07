@@ -16,20 +16,27 @@ type ServicesAccordionProps = {
 /**
  * The one column template both the collapsed header and the expanded
  * content are built on, so they're guaranteed to align rather than
- * approximating it with a matching offset — index / title / description /
- * meta, exactly the header's own four columns.
+ * approximating it with a matching offset — index / title-or-"Best for" /
+ * description-or-"What you get" / Engagement / control.
  *
- * The 4th column is an explicit 18rem, not auto (which is what the header
- * alone would want, sized to fit only its small +/- indicator): CSS Grid
- * sizes a shared column to fit the widest thing placed in it *anywhere* in
- * the grid, including a row that's currently visually collapsed — an auto
- * column here would still be pulled wide by the expanded content's price,
- * note and CTA button even while every row sits closed, quietly narrowing
- * the description column the header actually needs to keep its own width.
- * 18rem is comfortably wide enough for that content without redrawing
- * columns 1-3, which keep the header's own 4rem / 24rem / 1fr exactly.
+ * Five columns, not four: Engagement used to share the header's own last
+ * (auto) column with the +/- control, which put it hard against the row's
+ * outer edge — correctly aligned, but read as disconnected from Best for
+ * and What you get, which sit together further left. Engagement needed to
+ * be a genuine third content column beside them instead, with the control
+ * kept in its own narrow column at the true edge (empty in the expanded
+ * row — nothing is ever placed there but the indicator).
+ *
+ * Columns 3 and 4 (What you get / Engagement) are both 1fr, splitting
+ * whatever's left over columns 1/2/5's fixed widths evenly between them —
+ * a plain fraction, not content-dependent the way auto is, so (unlike the
+ * old last column) neither can get pulled wide by the other's content.
+ * Column 5 is a fixed 3rem: comfortably more than the control needs, with
+ * nothing else ever sharing it, so there's no reason for it to be auto
+ * either. Columns 1-2 (4rem / 24rem) are untouched from the header's
+ * original proportions.
  */
-const GRID_TEMPLATE = "grid lg:grid-cols-[4rem_24rem_1fr_18rem] lg:gap-x-10";
+const GRID_TEMPLATE = "grid lg:grid-cols-[4rem_24rem_1fr_1fr_3rem] lg:gap-x-10";
 
 /**
  * Interactive service/pricing accordion — one row expanded at a time.
@@ -179,6 +186,10 @@ export function ServicesAccordion({ services }: ServicesAccordionProps) {
                   </div>
 
                   <div className="flex flex-col gap-6 lg:col-start-4">
+                    {/* Column 4 — the same "third content column" the
+                        header's control (column 5) is deliberately not
+                        part of, so Engagement reads as belonging with Best
+                        for and What you get rather than with the +/-. */}
                     <div>
                       <SectionLabel as="p">Engagement</SectionLabel>
                       <div className="mt-3 flex flex-col gap-1">
@@ -253,7 +264,7 @@ function PlusMinus({ open }: { open: boolean }) {
         // h-3 w-3 box, and padding would eat into that already-tight
         // content area (border-box sizing) rather than just shifting the
         // whole glyph inward the way margin does.
-        "absolute top-1/2 right-0 mr-0 h-3 w-3 shrink-0 -translate-y-1/2 transition-colors duration-200 motion-reduce:transition-none lg:static lg:top-auto lg:right-auto lg:col-start-4 lg:mr-4 lg:translate-y-0 lg:justify-self-end",
+        "absolute top-1/2 right-0 mr-0 h-3 w-3 shrink-0 -translate-y-1/2 transition-colors duration-200 motion-reduce:transition-none lg:static lg:top-auto lg:right-auto lg:col-start-5 lg:mr-4 lg:translate-y-0 lg:justify-self-end",
         open ? "text-foreground" : "text-foreground/40",
       )}
     >
