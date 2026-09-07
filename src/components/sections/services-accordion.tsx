@@ -120,20 +120,19 @@ export function ServicesAccordion({ services }: ServicesAccordionProps) {
                     it instead of lining up with it. */}
                 <div
                   className={cn(
-                    "grid gap-8 pb-8 opacity-0 transition-opacity duration-300 motion-reduce:transition-none lg:grid-cols-3 lg:items-center lg:gap-x-10 lg:pb-10 lg:pl-[6.5rem]",
+                    "grid gap-8 pb-8 opacity-0 transition-opacity duration-300 motion-reduce:transition-none lg:grid-cols-3 lg:gap-x-10 lg:pb-10 lg:pl-[6.5rem]",
                     isOpen && "opacity-100",
                   )}
                 >
-                  {/* lg:items-center on the row (above), not the default
-                      start: "Best for" is a short one-or-two-line answer
-                      next to "What you get"'s five-item list, and pinned to
-                      the top it read as stranded above a lot of empty space
-                      rather than sitting in balance with it. Centering both
-                      keeps them related as a pair regardless of which one's
-                      taller for a given service. Engagement opts back out
-                      (lg:self-start below) — its own CTA wants a fixed,
-                      predictable position under the pricing details, not to
-                      drift with whichever neighbour is tallest. */}
+                  {/* items-start (the grid default — no override needed):
+                      Best for / What you get / Engagement read as a table's
+                      columns, each column's label and content starting at
+                      the same height as its neighbours regardless of which
+                      is longer. A centered pass here previously (per an
+                      earlier, incorrect read of "align the secondary text
+                      optically with what you get") pulled Best for's label
+                      down to the row's midpoint instead, breaking exactly
+                      that shared baseline — reverted. */}
                   <div>
                     <SectionLabel as="p">Best for</SectionLabel>
                     <p className="mt-3 text-base leading-6 text-foreground/66">
@@ -152,7 +151,7 @@ export function ServicesAccordion({ services }: ServicesAccordionProps) {
                     </ul>
                   </div>
 
-                  <div className="flex flex-col gap-6 lg:self-start">
+                  <div className="flex flex-col gap-6">
                     <div>
                       <SectionLabel as="p">Engagement</SectionLabel>
                       <div className="mt-3 flex flex-col gap-1">
