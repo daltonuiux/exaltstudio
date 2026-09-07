@@ -8,6 +8,7 @@ import { ServicesSection } from "@/components/sections/services-section";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 import { StatementSection } from "@/components/sections/statement-section";
+import { StatementSectionTwo } from "@/components/sections/statement-section-two";
 import { SocialProof } from "@/components/sections/social-proof";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
 import { WorkSamplesSection } from "@/components/sections/work-samples-section";
@@ -40,6 +41,7 @@ export default function Home() {
         <WorkSection />
         <ServicesSection />
         <OfferingsSection />
+        <StatementSectionTwo />
         <TestimonialsSection />
         <WorkSamplesSection />
         <FaqSection />
