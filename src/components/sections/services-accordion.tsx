@@ -97,11 +97,18 @@ export function ServicesAccordion({ services }: ServicesAccordionProps) {
             {/* Same row-wide fill OfferingsSection always had, just keyed
                 off `isOpen` (a real state) rather than a raw :hover
                 pseudo-class — correctly reflects click/keyboard activation
-                too, not only literal mouse hover. */}
+                too, not only literal mouse hover.
+                inset-2 (not inset-0) below lg: at mobile row widths, a fill
+                flush with the row's own edges reads as a harsh screen-wide
+                slab once a service is tapped open. A small inset gives it
+                breathing room on all sides so it reads as a highlight behind
+                the content rather than a full-bleed block. Back to flush at
+                lg, where the row sits in a much wider column and the same
+                fill already looked fine. */}
             <div
               aria-hidden
               className={cn(
-                "pointer-events-none absolute inset-0 -z-10 transition-colors duration-200 motion-reduce:transition-none",
+                "pointer-events-none absolute inset-2 -z-10 transition-colors duration-200 motion-reduce:transition-none lg:inset-0",
                 isOpen ? "bg-foreground/3" : "bg-transparent",
               )}
             />
