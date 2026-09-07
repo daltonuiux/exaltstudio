@@ -97,11 +97,21 @@ export function ServicesAccordion({ services }: ServicesAccordionProps) {
             {/* Same row-wide fill OfferingsSection always had, just keyed
                 off `isOpen` (a real state) rather than a raw :hover
                 pseudo-class — correctly reflects click/keyboard activation
-                too, not only literal mouse hover. */}
+                too, not only literal mouse hover.
+                Full-bleed edge-to-edge rather than inset-0: the row itself
+                only spans the Container's own (gutter-padded) content width,
+                so a fill matching the row's edges left an awkward gap out to
+                the true screen edge — most visible on mobile, where that gap
+                reads as ugly padding around the fill. left-1/2 + w-screen +
+                -translate-x-1/2 breaks it out to the full viewport width
+                regardless of Container's width/gutters at any breakpoint (it
+                centers a 100vw box on the row's own horizontal center, which
+                is also the page's, since Container is itself centered) —
+                so there's no gutter for the fill to ever look inset from. */}
             <div
               aria-hidden
               className={cn(
-                "pointer-events-none absolute inset-0 -z-10 transition-colors duration-200 motion-reduce:transition-none",
+                "pointer-events-none absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2 transition-colors duration-200 motion-reduce:transition-none",
                 isOpen ? "bg-foreground/3" : "bg-transparent",
               )}
             />
