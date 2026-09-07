@@ -22,8 +22,22 @@ type ScrollRevealTextProps = {
  *
  * Scroll progress is written to a single CSS custom property on the paragraph;
  * each word derives its own opacity from that in CSS, using its index. So the
- * whole effect costs one style write per frame and zero React re-renders,
+ * whole effect costs one style write per update and zero React re-renders,
  * however many words there are.
+ *
+ * Updates are driven by scroll events (rAF-throttled to at most one per
+ * frame), not an unconditional per-frame rAF loop — this used to
+ * getBoundingClientRect() the paragraph on every single animation frame for
+ * as long as it was anywhere near the viewport (the IntersectionObserver's
+ * rootMargin gives it a wide window either side), which is a forced
+ * synchronous layout read repeated up to 60+ times a second regardless of
+ * whether the page was even moving. The value only ever changes in response
+ * to scrollY changing, so there's nothing to compute on a frame nothing
+ * scrolled. remeasure() pays that one layout cost just once per intersection
+ * (when the section starts being tracked, and again on resize, since the
+ * cached position only stays valid across scroll, not layout changes);
+ * every frame in between reads window.scrollY instead, which never forces
+ * layout.
  *
  * Under prefers-reduced-motion the paragraph is simply set to fully revealed
  * and no scroll work happens at all.
@@ -37,33 +51,44 @@ export function ScrollRevealText({ text, className }: ScrollRevealTextProps) {
     if (!el) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let frame = 0;
-    let running = false;
+    let ticking = false;
+    // Document-relative (not viewport-relative) position — stays valid as
+    // the page scrolls, only goes stale on an actual layout change.
+    let top = 0;
+    let height = 0;
+
+    const remeasure = () => {
+      const rect = el.getBoundingClientRect();
+      top = rect.top + window.scrollY;
+      height = rect.height;
+    };
 
     const measure = () => {
-      const rect = el.getBoundingClientRect();
+      ticking = false;
       const vh = window.innerHeight;
-      const span = rect.height + vh * (START - END);
-      const progress = (vh * START - rect.top) / span;
+      const viewportTop = top - window.scrollY;
+      const span = height + vh * (START - END);
+      const progress = (vh * START - viewportTop) / span;
       el.style.setProperty(
         "--reveal",
         String(Math.min(1, Math.max(0, progress))),
       );
     };
 
-    const loop = () => {
-      measure();
-      if (running) frame = requestAnimationFrame(loop);
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(measure);
     };
-
-    const stop = () => {
-      running = false;
-      cancelAnimationFrame(frame);
+    const onResize = () => {
+      remeasure();
+      measure();
     };
 
     const apply = () => {
       if (reduced.matches) {
-        stop();
+        window.removeEventListener("scroll", onScroll);
+        window.removeEventListener("resize", onResize);
         observer.unobserve(el);
         el.style.setProperty("--reveal", "1");
         return;
@@ -78,13 +103,17 @@ export function ScrollRevealText({ text, className }: ScrollRevealTextProps) {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          if (!running) {
-            running = true;
-            frame = requestAnimationFrame(loop);
-          }
+          remeasure();
+          measure();
+          window.addEventListener("scroll", onScroll, { passive: true });
+          window.addEventListener("resize", onResize);
         } else {
-          stop();
-          // Settle on the correct end state rather than freezing mid-reveal.
+          window.removeEventListener("scroll", onScroll);
+          window.removeEventListener("resize", onResize);
+          // Settle on the correct end state rather than freezing mid-reveal
+          // — remeasure first in case a resize happened while this was the
+          // last thing tracking this element's position.
+          remeasure();
           measure();
         }
       },
@@ -97,7 +126,8 @@ export function ScrollRevealText({ text, className }: ScrollRevealTextProps) {
     return () => {
       reduced.removeEventListener("change", apply);
       observer.disconnect();
-      stop();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
     };
   }, []);
 

@@ -49,6 +49,22 @@ export function SiteHeader() {
     // relative to scroll events, so gating every setState behind an
     // equality check keeps re-renders down to one per genuine transition
     // rather than one per scroll frame.
+    //
+    // heroBottomAbs is the hero's document-relative bottom edge, measured
+    // once (and again on resize) rather than via a fresh
+    // getBoundingClientRect() inside measure() itself — that ran on every
+    // single scroll event for the entire rest of the page's scroll range,
+    // forcing a synchronous layout each time for no reason once well past
+    // the hero: heroBottom only ever needs window.scrollY, a plain property
+    // read, subtracted from this cached value.
+    let heroBottomAbs = -1;
+    const remeasure = () => {
+      heroBottomAbs = heroRegion
+        ? heroRegion.getBoundingClientRect().bottom + window.scrollY
+        : -1;
+    };
+    remeasure();
+
     const measure = () => {
       ticking.current = false;
       const y = window.scrollY;
@@ -61,7 +77,7 @@ export function SiteHeader() {
       // hero's edge is at or above the header's own bottom, the header's
       // full band sits over the section that follows, so going opaque
       // exactly then is both correct and the earliest it can be.
-      const heroBottom = heroRegion?.getBoundingClientRect().bottom ?? -1;
+      const heroBottom = heroBottomAbs === -1 ? -1 : heroBottomAbs - y;
       const isScrolled = heroBottom <= HEADER_HEIGHT;
       const goingDown = y > lastY.current;
       lastY.current = y;
@@ -78,10 +94,18 @@ export function SiteHeader() {
       ticking.current = true;
       requestAnimationFrame(measure);
     };
+    const onResize = () => {
+      remeasure();
+      measure();
+    };
 
     measure();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
 
   // Closing the mobile menu: three independent reasons, only wired up while
