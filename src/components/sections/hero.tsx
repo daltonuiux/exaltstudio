@@ -12,7 +12,12 @@ export function Hero({ className }: { className?: string }) {
       className={cn("flex items-center py-16 md:py-20", className)}
     >
       <Container width="full">
-        <div className="flex w-full max-w-[566px] flex-col gap-8">
+        {/* max-w-[646px] here, not 566px — widened specifically to give the
+            headline room to fill 646px and wrap onto fewer, longer lines
+            instead of stacking narrowly. The paragraph gets its own
+            max-w-[566px] below so it keeps its original, more readable line
+            length rather than stretching out to match. */}
+        <div className="flex w-full max-w-[646px] flex-col gap-8">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <SectionLabel className="text-background/70">
@@ -20,13 +25,13 @@ export function Hero({ className }: { className?: string }) {
               </SectionLabel>
               <h1
                 id="hero-heading"
-                className="text-hero font-semibold text-balance text-background"
+                className="max-w-[646px] text-hero font-semibold text-balance text-background"
               >
                 Product design and interface engineering for complex B2B
                 software
               </h1>
             </div>
-            <p className="text-base leading-6 text-background/80">
+            <p className="max-w-[566px] text-base leading-6 text-background/80">
               We turn complex, fast-built software into clear, scalable product
               systems your customers understand and your developers can build on.
             </p>
