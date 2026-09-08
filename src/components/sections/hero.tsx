@@ -27,7 +27,7 @@ export function Hero({ className }: { className?: string }) {
                 id="hero-heading"
                 className="max-w-[646px] text-hero font-semibold text-balance text-background"
               >
-                Product design and interface engineering for complex B2B
+                Product design and interface engineering for AI &amp; B2B
                 software
               </h1>
             </div>
