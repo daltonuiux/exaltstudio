@@ -22,9 +22,8 @@ export function Hero({ className }: { className?: string }) {
                 id="hero-heading"
                 className="text-hero font-semibold text-balance text-background"
               >
-                Your product works.{" "}
-                <br />
-                Now it needs to scale
+                Product design and interface engineering for complex B2B
+                software
               </h1>
             </div>
             <p className="text-base leading-6 text-background/80">
