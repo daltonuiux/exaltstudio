@@ -1,5 +1,5 @@
 /**
- * Testimonials cycled by TestimonialsSection. All three are real, approved
+ * Testimonials cycled by TestimonialsSection. All four are real, approved
  * quotes with real headshots.
  */
 export type Testimonial = {
@@ -30,5 +30,14 @@ export const testimonials: readonly Testimonial[] = [
     name: "Brent Rohner",
     role: "Founder, Perlon AI",
     avatarSrc: "/images/studio/brent-rohner.png",
+  },
+  {
+    quote:
+      "Customers and partners have commented on how clean, intuitive and functional the new UI experience is.",
+    name: "Kelsey Waters",
+    // "CEO & Co-Founder, Openlane" — matches the "Title, Company" pattern
+    // the other three use, rather than the "at Openlane" phrasing as given.
+    role: "CEO & Co-Founder, Openlane",
+    avatarSrc: "/images/studio/kelsey-waters.png",
   },
 ] as const;
