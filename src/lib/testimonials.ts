@@ -1,5 +1,5 @@
 /**
- * Testimonials cycled by TestimonialsSection. All four are real, approved
+ * Testimonials cycled by TestimonialsSection. All five are real, approved
  * quotes with real headshots.
  */
 export type Testimonial = {
@@ -12,7 +12,7 @@ export type Testimonial = {
 export const testimonials: readonly Testimonial[] = [
   {
     quote:
-      "Exalt joined our team and immediately made an impact, helping us ship new features that drive our growth. They work closely with our Lead Designer, playing a key role in shaping the product and refining the user experience.",
+      "Exalt joined our team and immediately made an impact, helping us ship new features that drive our growth. They worked closely with our Lead Designer, playing a key role in shaping the product and refining the user experience.",
     name: "Bryan Chappell",
     role: "CEO, ScoutOS",
     avatarSrc: "/images/studio/bryan-chappell.png",
@@ -39,5 +39,12 @@ export const testimonials: readonly Testimonial[] = [
     // the other three use, rather than the "at Openlane" phrasing as given.
     role: "CEO & Co-Founder, Openlane",
     avatarSrc: "/images/studio/kelsey-waters.png",
+  },
+  {
+    quote:
+      "Exalt quickly grasped the domain and translated a technically complex product into a clean, intuitive interface we’re proud to launch.",
+    name: "Matt Donlevey",
+    role: "Founder, Voren",
+    avatarSrc: "/images/studio/matt-donlevey.png",
   },
 ] as const;
