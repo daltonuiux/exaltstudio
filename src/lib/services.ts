@@ -13,8 +13,7 @@ export type Service = {
   /** Duration, scope, then price — rendered in that order, price given
    * slightly stronger emphasis than its two siblings. */
   readonly engagement: readonly [duration: string, scope: string, price: string];
-  /** Optional line under Engagement — only Design Systems and Design
-   * Engineering have one. */
+  /** Optional line under Engagement — only Design Systems has one. */
   readonly note?: string;
 };
 
@@ -33,7 +32,7 @@ export const services: readonly Service[] = [
       "Interactive prototypes",
       "Developer-ready Figma and handoff",
     ],
-    engagement: ["6–8 weeks", "3–6 priority workflows", "From $7,500"],
+    engagement: ["4–12 weeks", "3–6 priority workflows", "From $7,500"],
   },
   {
     index: "02",
@@ -49,7 +48,7 @@ export const services: readonly Service[] = [
       "High-fidelity responsive UI",
       "Developer-ready designs and handoff",
     ],
-    engagement: ["4–8 weeks", "Defined MVP scope", "From $7,500"],
+    engagement: ["4–12 weeks", "Defined MVP scope", "From $7,500"],
   },
   {
     index: "03",
@@ -98,6 +97,5 @@ export const services: readonly Service[] = [
       "Clean repository and developer handoff",
     ],
     engagement: ["Scoped per build", "Frontend implementation", "From $5,000"],
-    note: "Backend systems, APIs and infrastructure are scoped separately where required.",
   },
 ] as const;
