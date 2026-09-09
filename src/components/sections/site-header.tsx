@@ -13,6 +13,7 @@ const navItems = [
   { label: "Case Studies", href: "#work" },
   { label: "Process", href: "#process" },
   { label: "Services", href: "#services" },
+  { label: "Testimonials", href: "#testimonials" },
   { label: "Selected Work", href: "#work-samples" },
 ];
 
