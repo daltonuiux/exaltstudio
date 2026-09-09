@@ -68,13 +68,18 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     url: "/",
     locale: siteConfig.locale,
-    // Add `src/app/opengraph-image.(png|tsx)` once the visual design exists;
-    // Next.js will pick it up automatically and populate og:image here.
+    // Relative URL, resolved against metadataBase (siteConfig.url) into an
+    // absolute production URL at render time — same pattern as `url: "/"`
+    // above. Declared explicitly here rather than via the
+    // `opengraph-image.*` file convention, which would additionally emit
+    // its own og:image tag alongside this one.
+    images: ["/exaltsocialcard.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
+    images: ["/exaltsocialcard.png"],
   },
   robots: {
     index: true,
