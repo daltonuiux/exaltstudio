@@ -99,7 +99,8 @@ const perlonAiImages: readonly CycleImage[] = [
 const caseStudies: CaseStudy[] = [
   {
     client: "Perlon AI",
-    headline: "Enhancing Perlon AI’s user experience for sales success",
+    headline:
+      "Making a complex AI sales platform easier to understand, adopt and grow",
     tags: ["UI Design", "UX Strategy", "Raised $1.1mil"],
     logo: perlonAiLogo,
     images: perlonAiImages,
@@ -107,7 +108,7 @@ const caseStudies: CaseStudy[] = [
   {
     client: "Meshed",
     headline:
-      "Reimagining business insurance with a data-driven, AI-powered platform design",
+      "Turning a complex insurance proposition into an investor-ready product",
     tags: ["UI Design", "UX Strategy", "Raised $1.2mil"],
     logo: meshedLogo,
     images: meshedImages,
@@ -115,14 +116,15 @@ const caseStudies: CaseStudy[] = [
   {
     client: "Onefin",
     headline:
-      "Elevating enterprise finance with a scalable, modern product experience",
+      "Creating a product system that makes enterprise finance easier to use and build",
     tags: ["UI Design", "UX Strategy", "Design System"],
     logo: onefinLogo,
     images: onefinImages,
   },
   {
     client: "Scout",
-    headline: "Refining Scout’s interface and UX for scalable AI automation",
+    headline:
+      "Helping an AI automation platform scale without overwhelming its users",
     tags: ["UI Design", "UX Strategy", "Raised $10.6mil"],
     logo: scoutLogo,
     images: scoutImages,
