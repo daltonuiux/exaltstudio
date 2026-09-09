@@ -21,7 +21,7 @@ export function Hero({ className }: { className?: string }) {
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <SectionLabel className="text-background/70">
-                Product design for B2B AI &amp; SaaS
+                Product design for growing AI &amp; B2B software
               </SectionLabel>
               <h1
                 id="hero-heading"
