@@ -44,7 +44,17 @@ export const metadata: Metadata = {
     // mark itself, not a redraw. `media` picks the right one per OS/browser
     // colour scheme, where supported (Safari/Chrome; Firefox falls back to
     // the first entry regardless of scheme).
+    //
+    // The plain, unconditioned entry first is deliberate, not redundant with
+    // the two below it: a consumer that doesn't evaluate the `media`
+    // attribute at all (Googlebot's indexer notably among them, which is why
+    // search results were showing a generic globe instead of the mark) has
+    // no reason to treat either conditioned link as a match for anything,
+    // and can end up using neither — whereas one plain <link rel="icon">
+    // with no media query is unconditionally valid to any consumer, media-
+    // query-aware or not.
     icon: [
+      { url: "/favicon/light.png", type: "image/png" },
       {
         url: "/favicon/light.png",
         media: "(prefers-color-scheme: light)",
