@@ -83,13 +83,22 @@ export const metadata: Metadata = {
     // above. Declared explicitly here rather than via the
     // `opengraph-image.*` file convention, which would additionally emit
     // its own og:image tag alongside this one.
-    images: ["/exaltsocialcard.png"],
+    //
+    // JPEG at 2400x1260, not the original 4800x2520 PNG (6.3MB) — that was
+    // over X's card image limit (~5MB), so X's crawler dropped the image
+    // entirely on re-fetch rather than erroring visibly, leaving a
+    // text-only card. Re-exported at 2x the standard 1200x630 OG size
+    // (still sharp) and JPEG rather than PNG, since the source is a
+    // photographic sky/gradient illustration JPEG compresses very well —
+    // 560KB here, comfortably under every platform's limit, with no
+    // visible quality loss at social-card size.
+    images: [{ url: "/exalt-social-card.jpg", type: "image/jpeg" }],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
-    images: ["/exaltsocialcard.png"],
+    images: ["/exalt-social-card.jpg"],
   },
   robots: {
     index: true,
