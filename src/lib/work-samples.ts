@@ -30,7 +30,7 @@ export const workSamples: readonly WorkSample[] = [
   { src: "/images/work/records-table.webp", alt: "Records table", width: 1400, height: 875, client: "Signl", descriptor: "Lead intelligence dashboard", tags: ui },
   { src: "/images/work/dashboard-first-state.webp", alt: "Dashboard, first-run state", width: 1400, height: 875, client: "Meshed", descriptor: "Business insurance platform", tags: ["UI Design", "UX Strategy", "Raised $1.2mil"] },
   { src: "/images/work/canvas.webp", alt: "Canvas", width: 1400, height: 875, client: "Qreates", descriptor: "AI product imagery studio", tags: ui },
-  { src: "/images/work/pop-up-option.webp", alt: "Comparison view", width: 1400, height: 909, descriptor: "Trading strategy builder", tags: ui },
+  { src: "/images/work/pop-up-option.webp", alt: "Comparison view", width: 1400, height: 909, client: "Voren", descriptor: "Trading strategy builder", tags: ui },
   { src: "/images/work/tools-nose.webp", alt: "Tools panel", width: 1400, height: 875, descriptor: "Aesthetic simulation tool", tags: ui },
   { src: "/images/work/formulas-screen.webp", alt: "Formulas screen", width: 1400, height: 875, client: "Inscentify", descriptor: "Fragrance formulation platform", tags: ui },
   { src: "/images/work/dashboard-view.webp", alt: "Dashboard view", width: 1400, height: 875, descriptor: "Sales performance dashboard", tags: ui },
