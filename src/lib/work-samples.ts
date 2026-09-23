@@ -33,7 +33,7 @@ export const workSamples: readonly WorkSample[] = [
   { src: "/images/work/pop-up-option.webp", alt: "Comparison view", width: 1400, height: 909, client: "Voren", descriptor: "Trading strategy builder", tags: ui },
   { src: "/images/work/tools-nose.webp", alt: "Tools panel", width: 1400, height: 875, client: "Parallel", descriptor: "Aesthetic simulation tool", tags: ui },
   { src: "/images/work/formulas-screen.webp", alt: "Formulas screen", width: 1400, height: 875, client: "Inscentify", descriptor: "Fragrance formulation platform", tags: ui },
-  { src: "/images/work/dashboard-view.webp", alt: "Dashboard view", width: 1400, height: 875, descriptor: "Sales performance dashboard", tags: ui },
+  { src: "/images/work/dashboard-view.webp", alt: "Dashboard view", width: 1400, height: 875, client: "Selly", descriptor: "Sales performance dashboard", tags: ui },
   { src: "/images/work/view.webp", alt: "Table view", width: 1400, height: 875, client: "AeroTrack", descriptor: "ERP platform for aircraft engine repair shops", tags: ui },
   { src: "/images/work/dark-mode.webp", alt: "Dark mode interface", width: 1400, height: 875, descriptor: "Compliance management platform", tags: ui },
   { src: "/images/work/comparables.webp", alt: "Comparables, card view", width: 1400, height: 875, descriptor: "AI property research platform", tags: ui },
