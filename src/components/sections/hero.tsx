@@ -46,7 +46,7 @@ export function Hero({ className }: { className?: string }) {
             >
               Book intro call
             </Button>
-            <Button href="#work" variant="inverse-soft">
+            <Button href="#work-samples" variant="inverse-soft">
               View selected work
             </Button>
           </div>
