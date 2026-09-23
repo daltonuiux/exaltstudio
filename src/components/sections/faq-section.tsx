@@ -22,7 +22,7 @@ const faqs: Faq[] = [
   {
     question: "How much work can I expect in a month?",
     answer: [
-      "Micro updates (24–48h), small flows (3–5 days), larger modules (1–2 weeks), brand sprints (4 weeks), and landing pages (1–2 weeks design +1–2 weeks for build).",
+      "Micro updates (24–48h), small flows (3–5 days), larger modules (1–2 weeks), and landing pages (1–2 weeks design +1–2 weeks for build).",
       "Most clients see first polished designs within 3–5 days of kickoff.",
     ],
   },
