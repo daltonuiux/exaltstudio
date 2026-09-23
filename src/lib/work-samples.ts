@@ -7,7 +7,7 @@
  * in the screenshot itself (omitted where the artwork shows none), and
  * `descriptor` says what that product is. Tags for the four case-study
  * clients (Perlon AI, Meshed, Onefin, Scout) are lifted from WorkSection's
- * own tags; everything else just says "UI Design". Worth reviewing as real
+ * own tags; everything else is UI Design + UX Strategy. Worth reviewing as real
  * copy — this is the place to add funding, results or engagement length.
  */
 export type WorkSample = {
@@ -22,7 +22,7 @@ export type WorkSample = {
   readonly tags: readonly string[];
 };
 
-const ui = ["UI Design"] as const;
+const ui = ["UI Design", "UX Strategy"] as const;
 
 export const workSamples: readonly WorkSample[] = [
   { src: "/images/work/standard-view.webp", alt: "Standard view", width: 1400, height: 875, client: "Perlon AI", descriptor: "AI sales outreach platform", tags: ["UI Design", "UX Strategy", "Raised $1.1mil"] },
