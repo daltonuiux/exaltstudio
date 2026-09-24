@@ -21,7 +21,7 @@ export function SocialProof() {
 
         <div className="flex flex-col gap-4">
           <GroupLabel id="social-proof-clients">
-            Trusted by B2B software teams around the world
+            Trusted by software teams around the world
           </GroupLabel>
           {/* Figma renders this row at 50%; the marquee handles the motion. */}
           <LogoMarquee
