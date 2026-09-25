@@ -17,7 +17,7 @@ const navGroups: { label: string; width?: string; links: FooterLink[] }[] = [
   {
     label: "Menu",
     links: [
-      { label: "Case Studies", href: "/#work" },
+      { label: "Case Studies", href: "/case-studies" },
       { label: "Process", href: "/#process" },
       { label: "Services", href: "/#services" },
       { label: "Selected Work", href: "/#work-samples" },

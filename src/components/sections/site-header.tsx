@@ -11,11 +11,14 @@ import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { label: "Case Studies", hash: "#work" },
-  { label: "Process", hash: "#process" },
-  { label: "Services", hash: "#services" },
-  { label: "Testimonials", hash: "#testimonials" },
-  { label: "Selected Work", hash: "#work-samples" },
+  // A page of its own, not a section of the home page.
+  { label: "Case Studies", href: "/case-studies" },
+  // The rest are sections of the home page — written as "/#section" so they
+  // work from anywhere (see navHref).
+  { label: "Process", href: "/#process" },
+  { label: "Services", href: "/#services" },
+  { label: "Testimonials", href: "/#testimonials" },
+  { label: "Selected Work", href: "/#work-samples" },
 ];
 
 /** Matches the header's own h-16. */
@@ -31,11 +34,12 @@ export function SiteHeader() {
   const [hidden, setHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // The nav's targets are sections of the home page. On the home page a bare
-  // "#work" is enough (and lets the page's own smooth scrolling handle it);
-  // on any other page (case studies) it has to go back to "/#work" instead.
+  // On the home page a section link can be a bare "#process" (which lets the
+  // page's own smooth scrolling handle it); everywhere else it has to be the
+  // full "/#process". Links to other pages (/case-studies) are left as they are.
   const onHome = usePathname() === "/";
-  const navHref = (hash: string) => (onHome ? hash : `/${hash}`);
+  const navHref = (href: string) =>
+    onHome && href.startsWith("/#") ? href.slice(1) : href;
 
   const lastY = useRef(0);
   const ticking = useRef(false);
@@ -177,7 +181,7 @@ export function SiteHeader() {
           {navItems.map((item) => (
             <Button
               key={item.label}
-              href={navHref(item.hash)}
+              href={navHref(item.href)}
               variant={scrolled ? "ghost" : "inverse-ghost"}
               size="sm"
               className="font-normal"
@@ -255,7 +259,7 @@ export function SiteHeader() {
         {navItems.map((item) => (
           <Button
             key={item.label}
-            href={navHref(item.hash)}
+            href={navHref(item.href)}
             variant="ghost"
             size="md"
             onClick={() => setMenuOpen(false)}
