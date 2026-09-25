@@ -155,7 +155,7 @@ export const caseStudies: readonly CaseStudy[] = [
         services: "Product design, UX and UI design, design system",
       },
       brief:
-        "Entering business information can be a demanding part of a financial workflow. Onefin needed a clearer way for users to provide the details the product required.",
+        "Onefin’s product had built up design debt: a messy interface, tricky navigation and dense pages. Entering business information, already a demanding part of a financial workflow, needed a clearer way for users to provide the details the product required.",
       work: [
         {
           heading: "A better way to enter business data",
