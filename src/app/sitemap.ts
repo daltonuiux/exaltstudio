@@ -4,7 +4,7 @@ import { caseStudies } from "@/lib/case-studies";
 import { siteConfig } from "@/lib/site";
 
 /**
- * The home page plus one entry per case study (from the same list the
+ * The home page, the case studies index, and one entry per case study (from the same list the
  * pages themselves are generated from, so they can't drift apart).
  */
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -14,6 +14,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
+    },
+    {
+      url: `${siteConfig.url}/case-studies`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
     },
     ...caseStudies.map((c) => ({
       url: `${siteConfig.url}/case-studies/${c.slug}`,
