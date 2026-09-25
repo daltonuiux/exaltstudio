@@ -50,13 +50,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: study.page.summary,
       url,
       locale: siteConfig.locale,
-      images: [{ url: "/exalt-social-card.jpg", type: "image/jpeg" }],
+      images: [{ url: "/exalt-social-card-v2.jpg", type: "image/jpeg" }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} — ${siteConfig.name}`,
       description: study.page.summary,
-      images: ["/exalt-social-card.jpg"],
+      images: ["/exalt-social-card-v2.jpg"],
     },
   };
 }

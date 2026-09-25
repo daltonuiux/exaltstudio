@@ -30,13 +30,13 @@ export const metadata: Metadata = {
     description,
     url: "/case-studies",
     locale: siteConfig.locale,
-    images: [{ url: "/exalt-social-card.jpg", type: "image/jpeg" }],
+    images: [{ url: "/exalt-social-card-v2.jpg", type: "image/jpeg" }],
   },
   twitter: {
     card: "summary_large_image",
     title: `Case studies — ${siteConfig.name}`,
     description,
-    images: ["/exalt-social-card.jpg"],
+    images: ["/exalt-social-card-v2.jpg"],
   },
 };
 
