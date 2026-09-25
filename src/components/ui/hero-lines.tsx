@@ -16,8 +16,8 @@ const FloatingLines = dynamic(() => import("@/components/ui/floating-lines"), {
 // WebGL scene whenever a prop's identity changes, so these must be stable.
 const WAVES: ("top" | "middle" | "bottom")[] = ["top", "middle", "bottom"];
 // The settings from Luke's React Bits configuration:
-// gradientStart e945f5, gradientMid ff6b6b, gradientEnd ff0000.
-const GRADIENT = ["#e945f5", "#ff6b6b", "#ff0000"];
+// gradientStart 3bcfd4, gradientMid fc9305, gradientEnd f20094.
+const GRADIENT = ["#3bcfd4", "#fc9305", "#f20094"];
 
 /**
  * Animated lines over the hero's solid #161218 fill. Sits between the fill and
