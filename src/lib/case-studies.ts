@@ -69,7 +69,7 @@ const screenshots = (folder: string): readonly CaseStudyImage[] =>
   }));
 
 
-/** Order per Luke: Perlon AI, Meshed, Onefin, Voren, LegalOS, Scout. Also the order of the index and of Related projects. */
+/** Order per Luke: Perlon AI, Meshed, Onefin, Voren, LegalOS, Scout, Openlane. Also the order of the index and of Related projects. */
 export const caseStudies: readonly CaseStudy[] = [
   {
     slug: "perlon-ai",
@@ -278,6 +278,47 @@ export const caseStudies: readonly CaseStudy[] = [
       ],
       result:
         "A long-term design partnership that helped Scout keep improving its product while building new capabilities.",
+    },
+  },
+  {
+    slug: "openlane",
+    client: "Openlane",
+    headline: "A more refined product for complex compliance work",
+    tags: ["UI Design", "UX Strategy", "Design System"],
+    // A PNG (1123x272, transparent), not an SVG: it's the only version we have.
+    // It is deliberately NOT in logos.ts's clientLogos, so it stays out of the
+    // hero logo carousel, which needs an SVG to render properly.
+    logo: { name: "Openlane", src: "/images/logos/openlane.png", width: 116, height: 28 },
+    images: screenshots("openlane"),
+    page: {
+      draft: false,
+      headline: "A more refined product for complex compliance work",
+      summary:
+        "We partnered with Openlane for more than six months, beginning with a full UI refactor and continuing as part of the team as the product evolved.",
+      meta: {
+        client: "Openlane",
+        industry: "Security & compliance",
+        services: "Product design, UX, design system, website design",
+        extra: { label: "Engagement", value: "6+ months" },
+      },
+      brief:
+        "Openlane had a powerful compliance platform, but its interface needed a more considered look and feel. The challenge was to make a complex product feel clearer, more consistent and more premium in both light and dark mode.",
+      work: [
+        {
+          heading: "A new visual foundation",
+          body: "We refactored the product UI across light and dark modes, refining its hierarchy, colour, contrast and components to create a cohesive experience.",
+        },
+        {
+          heading: "Embedded product design",
+          body: "We then worked alongside the Openlane team to resolve UX issues and design new features as the platform grew.",
+        },
+        {
+          heading: "A fresh marketing site",
+          body: "We designed and shipped a new website that brought the product’s updated look and feel to its public-facing experience.",
+        },
+      ],
+      result:
+        "A transformed product interface and an ongoing design partnership that helped Openlane improve existing workflows, introduce new features and present the platform more clearly to prospective customers.",
     },
   },
 ];

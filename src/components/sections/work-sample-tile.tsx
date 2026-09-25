@@ -45,6 +45,7 @@ export function WorkSampleTile({
         width={sample.width}
         height={sample.height}
         sizes="(min-width: 640px) 40vw, 80vw"
+        quality={90}
         className="h-[68.86%] w-auto"
       />
 

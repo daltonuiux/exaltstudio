@@ -87,6 +87,8 @@ function Visual({
       height={image.height}
       priority={priority}
       sizes={sizes}
+      // 90, not Next's default 75: these are the work itself.
+      quality={90}
       className={cn(
         "h-auto w-full rounded-md outline -outline-offset-1 outline-black/10 sm:rounded-lg",
         className,

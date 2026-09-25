@@ -20,8 +20,9 @@ const nextConfig: NextConfig = {
     // Next only serves quality=75 unless it's explicitly allow-listed here —
     // an unlisted `quality` prop is silently dropped back to 75 rather than
     // erroring, which is what happened when HeroBackground/FooterBackground
-    // first asked for 90. 75 stays for everything else already relying on
-    // the default.
+    // first asked for 90. 90 is what the hero, footer sky and every work
+    // screenshot use; 75 stays for the few things still on the default
+    // (avatars, small logos).
     qualities: [75, 90],
   },
 };

@@ -71,6 +71,7 @@ function CaseStudyCard({ study, priority = false }: { study: CaseStudy; priority
           width={study.images[0].width}
           height={study.images[0].height}
           sizes="(min-width: 640px) 45vw, 100vw"
+          quality={90}
           // The first row is above the fold and its screenshot is the page's
           // largest paint, so it loads eagerly and is preloaded: as lazy, the
           // browser doesn't even request it until layout, ~0.9s later on a

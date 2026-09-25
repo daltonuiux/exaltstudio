@@ -136,6 +136,9 @@ export function ImageCycle({
           width={image.width}
           height={image.height}
           sizes="(min-width: 1024px) 60vw, 100vw"
+          // 90 like the hero and footer sky, not Next's default 75: these are
+          // the work itself. (Must be in images.qualities in next.config.)
+          quality={90}
           // No `priority`, not even on the first frame: every ImageCycle on the
           // site sits well below the fold (the home page's case study cards),
           // and priority preloads the image at high priority at page start,
