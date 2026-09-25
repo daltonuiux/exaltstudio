@@ -95,7 +95,7 @@ function Visual({
   );
 }
 
-const bodyClass = "text-base leading-6 text-foreground/66";
+const bodyClass = "text-base leading-6 text-pretty text-foreground/66";
 
 /** The copy column's section headings: sentence case, the site's heading weight and tracking. */
 const sectionHeadingClass = "text-xl font-semibold tracking-[-0.03em] text-foreground";
@@ -189,7 +189,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
         <Section spacing="none" aria-label={`${study.client} case study`} className="pb-16 md:pb-24">
           <Container width="full">
             <div className="grid gap-10 lg:grid-cols-12 lg:gap-6">
-              <StickyColumn className="flex flex-col gap-8 lg:col-span-4 lg:col-start-9 lg:row-start-1 lg:self-start">
+              <StickyColumn className="flex flex-col gap-10 lg:col-span-4 lg:col-start-9 lg:row-start-1 lg:self-start">
                 <dl className="border-b border-foreground/12">
                   {meta.map(([label, value]) => (
                     <div
@@ -208,16 +208,16 @@ export default async function CaseStudyPage({ params }: PageProps) {
                 </div>
 
                 {/* One heading level, not two: "The work" is the heading, and
-                    each item beneath it is a row on the same hairlines the
-                    overview rows above use, led by a semibold line at body
-                    size — weight, not a second, bigger heading, does the
-                    separating. */}
-                <div className="flex flex-col gap-3">
+                    each item beneath it is led by a semibold line at body
+                    size. Weight, not a second, bigger heading or divider
+                    lines, does the separating; spacing (20px between items,
+                    against 40px between sections) carries the grouping. */}
+                <div className="flex flex-col gap-4">
                   <h2 className={sectionHeadingClass}>The work</h2>
-                  <div className="border-b border-foreground/12">
+                  <div className="flex flex-col gap-5">
                     {page.work.map((item) => (
-                      <div key={item.heading} className="border-t border-foreground/12 py-3">
-                        <h3 className="text-base leading-6 font-semibold text-foreground">
+                      <div key={item.heading}>
+                        <h3 className="text-base leading-6 font-semibold text-balance text-foreground">
                           {item.heading}
                         </h3>
                         <p className={cn(bodyClass, "mt-1")}>{item.body}</p>
