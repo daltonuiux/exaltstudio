@@ -269,8 +269,15 @@
     transform: none !important;
   }
 
+  /* Still scrolls by touch, trackpad and keyboard; only the bar is hidden.
+     With "always show scroll bars" on, it sat under the logos permanently. */
   [data-marquee-viewport] {
     overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  [data-marquee-viewport]::-webkit-scrollbar {
+    display: none;
   }
 }
 
