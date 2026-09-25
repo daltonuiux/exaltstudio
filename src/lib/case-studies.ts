@@ -45,11 +45,6 @@ export type CaseStudyPage = {
 
 export type CaseStudy = {
   readonly slug: string;
-  /**
-   * Whether this appears as a card on the home page. Every case study is on
-   * the /case-studies index regardless; the home page only has room for four.
-   */
-  readonly showOnHome: boolean;
   readonly client: string;
   /** Card headline, and the page's h1. */
   readonly headline: string;
@@ -78,7 +73,6 @@ const screenshots = (folder: string): readonly CaseStudyImage[] =>
 export const caseStudies: readonly CaseStudy[] = [
   {
     slug: "perlon-ai",
-    showOnHome: true,
     client: "Perlon AI",
     headline: "Making a complex AI sales platform easier to understand, adopt and grow",
     tags: ["UI Design", "UX Strategy", "Raised $1.1mil"],
@@ -112,7 +106,6 @@ export const caseStudies: readonly CaseStudy[] = [
   },
   {
     slug: "meshed",
-    showOnHome: true,
     client: "Meshed",
     headline: "Turning a complex insurance proposition into an investor-ready product",
     tags: ["UI Design", "UX Strategy", "Raised $1.2mil"],
@@ -146,7 +139,6 @@ export const caseStudies: readonly CaseStudy[] = [
   },
   {
     slug: "onefin",
-    showOnHome: true,
     client: "Onefin",
     headline: "Creating a product system that makes enterprise finance easier to use and build",
     tags: ["UI Design", "UX Strategy", "Design System"],
@@ -184,7 +176,6 @@ export const caseStudies: readonly CaseStudy[] = [
   },
   {
     slug: "voren",
-    showOnHome: true,
     client: "Voren",
     headline: "A complex trading product, redesigned in eight weeks",
     tags: ["UI Design", "UX Strategy", "Design System"],
@@ -223,7 +214,6 @@ export const caseStudies: readonly CaseStudy[] = [
   },
   {
     slug: "scout",
-    showOnHome: false,
     client: "Scout",
     headline: "Helping an AI automation platform scale without overwhelming its users",
     tags: ["UI Design", "UX Strategy", "Raised $10.6mil"],
@@ -257,6 +247,20 @@ export const caseStudies: readonly CaseStudy[] = [
     },
   },
 ];
+
+/**
+ * The case studies on the home page, in the order they appear there — its own
+ * list because the home page has room for four and its order isn't the same as
+ * the index's (which is `caseStudies` above). Every case study is on
+ * /case-studies regardless.
+ */
+const homeSlugs = ["voren", "meshed", "perlon-ai", "onefin"] as const;
+
+export const homeCaseStudies: readonly CaseStudy[] = homeSlugs.map((slug) => {
+  const study = caseStudies.find((c) => c.slug === slug);
+  if (!study) throw new Error(`homeSlugs names an unknown case study: ${slug}`);
+  return study;
+});
 
 export function getCaseStudy(slug: string): CaseStudy | undefined {
   return caseStudies.find((c) => c.slug === slug);

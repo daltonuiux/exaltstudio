@@ -6,7 +6,7 @@ import { LogoImage } from "@/components/ui/logo-image";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { SectionHeader } from "@/components/ui/section-header";
-import { type CaseStudy, caseStudies } from "@/lib/case-studies";
+import { type CaseStudy, homeCaseStudies } from "@/lib/case-studies";
 
 function CaseStudyCard({ study }: { study: CaseStudy }) {
   return (
@@ -112,15 +112,13 @@ export function WorkSection() {
         </Reveal>
 
         <div className="mt-14 flex flex-col gap-6 lg:mt-20 lg:gap-8">
-          {/* Only the case studies flagged for the home page; the full list
-              lives at /case-studies. */}
-          {caseStudies
-            .filter((study) => study.showOnHome)
-            .map((study) => (
-              <Reveal key={study.client}>
-                <CaseStudyCard study={study} />
-              </Reveal>
-            ))}
+          {/* The home page's own ordered list; the full list lives at
+              /case-studies. */}
+          {homeCaseStudies.map((study) => (
+            <Reveal key={study.client}>
+              <CaseStudyCard study={study} />
+            </Reveal>
+          ))}
         </div>
       </Container>
     </Section>
