@@ -125,7 +125,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
     ["Client", page.meta.client],
     ["Industry", page.meta.industry],
     ["Services", page.meta.services],
-    ...(page.meta.engagement ? ([["Engagement", page.meta.engagement]] as const) : []),
+    ...(page.meta.extra ? ([[page.meta.extra.label, page.meta.extra.value]] as const) : []),
   ] as const;
 
   return (

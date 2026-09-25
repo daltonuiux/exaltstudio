@@ -34,8 +34,8 @@ export type CaseStudyPage = {
     readonly client: string;
     readonly industry: string;
     readonly services: string;
-    /** Only when the length of the engagement is part of the story. */
-    readonly engagement?: string;
+    /** One optional extra row after Services, when a project needs it — e.g. the length of the engagement. */
+    readonly extra?: { readonly label: string; readonly value: string };
   };
   readonly brief: string;
   /** Short sections, each a heading and a sentence or two. */
@@ -45,6 +45,11 @@ export type CaseStudyPage = {
 
 export type CaseStudy = {
   readonly slug: string;
+  /**
+   * Whether this appears as a card on the home page. Every case study is on
+   * the /case-studies index regardless; the home page only has room for four.
+   */
+  readonly showOnHome: boolean;
   readonly client: string;
   /** Card headline, and the page's h1. */
   readonly headline: string;
@@ -69,10 +74,11 @@ const screenshots = (folder: string): readonly CaseStudyImage[] =>
   }));
 
 
-/** Order per Luke: Perlon AI, Meshed, Onefin, Scout. Also the "next case study" order. */
+/** Order per Luke: Perlon AI, Meshed, Onefin, Voren, Scout. Also the order of the index and of Related projects. */
 export const caseStudies: readonly CaseStudy[] = [
   {
     slug: "perlon-ai",
+    showOnHome: true,
     client: "Perlon AI",
     headline: "Making a complex AI sales platform easier to understand, adopt and grow",
     tags: ["UI Design", "UX Strategy", "Raised $1.1mil"],
@@ -106,6 +112,7 @@ export const caseStudies: readonly CaseStudy[] = [
   },
   {
     slug: "meshed",
+    showOnHome: true,
     client: "Meshed",
     headline: "Turning a complex insurance proposition into an investor-ready product",
     tags: ["UI Design", "UX Strategy", "Raised $1.2mil"],
@@ -139,6 +146,7 @@ export const caseStudies: readonly CaseStudy[] = [
   },
   {
     slug: "onefin",
+    showOnHome: true,
     client: "Onefin",
     headline: "Creating a product system that makes enterprise finance easier to use and build",
     tags: ["UI Design", "UX Strategy", "Design System"],
@@ -175,7 +183,47 @@ export const caseStudies: readonly CaseStudy[] = [
     },
   },
   {
+    slug: "voren",
+    showOnHome: true,
+    client: "Voren",
+    headline: "A complex trading product, redesigned in eight weeks",
+    tags: ["UI Design", "UX Strategy", "Design System"],
+    logo: { name: "Voren", src: "/images/logos/voren-dark.svg", width: 119, height: 28 },
+    images: screenshots("voren"),
+    page: {
+      draft: false,
+      headline: "A complex trading product, redesigned in eight weeks",
+      summary:
+        "Voren lets retail traders build, backtest and export automated strategies without code. Ahead of its public launch, we redesigned the full product experience on a tight deadline.",
+      meta: {
+        client: "Voren",
+        industry: "Fintech",
+        services: "UX strategy, product and interface design",
+        extra: { label: "Timeline", value: "8 weeks" },
+      },
+      brief:
+        "Voren’s node-based Strategy Builder gives traders considerable control, but its complexity needed a clearer interface. As a pre-revenue startup approaching launch, the team needed quality and speed within a defined budget.",
+      work: [
+        {
+          heading: "Making complex logic easier to follow",
+          body: "We refined the Strategy Builder so traders could work with nodes, rules and inputs directly on the canvas while understanding how their strategy fits together.",
+        },
+        {
+          heading: "From building to backtesting",
+          body: "We designed the wider journey through onboarding, backtesting and optimisation, giving users a clearer path from their first strategy to its results.",
+        },
+        {
+          heading: "One cohesive product",
+          body: "We brought the experience together with a consistent interface and design system across light and dark modes.",
+        },
+      ],
+      result:
+        "We delivered a cohesive product experience across the builder, testing tools and onboarding, supported by a design system for light and dark modes in **eight weeks**, ahead of Voren’s public launch.",
+    },
+  },
+  {
     slug: "scout",
+    showOnHome: false,
     client: "Scout",
     headline: "Helping an AI automation platform scale without overwhelming its users",
     tags: ["UI Design", "UX Strategy", "Raised $10.6mil"],
@@ -190,7 +238,7 @@ export const caseStudies: readonly CaseStudy[] = [
         client: "Scout",
         industry: "AI software",
         services: "Embedded product design, UX and UI design",
-        engagement: "2+ years",
+        extra: { label: "Engagement", value: "2+ years" },
       },
       brief:
         "Scout needed design support that could move with the product. That meant improving the experience already in place while helping the team shape what came next.",
@@ -214,8 +262,11 @@ export function getCaseStudy(slug: string): CaseStudy | undefined {
   return caseStudies.find((c) => c.slug === slug);
 }
 
-/** Every other case study, in order, starting from the one after this one. */
+/**
+ * Up to three other case studies, in order starting from the one after this
+ * one — three because that's the width of the Related projects row.
+ */
 export function getRelatedCaseStudies(slug: string): readonly CaseStudy[] {
   const i = caseStudies.findIndex((c) => c.slug === slug);
-  return [...caseStudies.slice(i + 1), ...caseStudies.slice(0, i)];
+  return [...caseStudies.slice(i + 1), ...caseStudies.slice(0, i)].slice(0, 3);
 }

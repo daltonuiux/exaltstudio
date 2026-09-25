@@ -112,11 +112,15 @@ export function WorkSection() {
         </Reveal>
 
         <div className="mt-14 flex flex-col gap-6 lg:mt-20 lg:gap-8">
-          {caseStudies.map((study) => (
-            <Reveal key={study.client}>
-              <CaseStudyCard study={study} />
-            </Reveal>
-          ))}
+          {/* Only the case studies flagged for the home page; the full list
+              lives at /case-studies. */}
+          {caseStudies
+            .filter((study) => study.showOnHome)
+            .map((study) => (
+              <Reveal key={study.client}>
+                <CaseStudyCard study={study} />
+              </Reveal>
+            ))}
         </div>
       </Container>
     </Section>
