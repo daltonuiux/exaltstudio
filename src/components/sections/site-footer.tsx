@@ -17,11 +17,11 @@ const navGroups: { label: string; width?: string; links: FooterLink[] }[] = [
   {
     label: "Menu",
     links: [
-      { label: "Case Studies", href: "#work" },
-      { label: "Process", href: "#process" },
-      { label: "Services", href: "#services" },
-      { label: "Selected Work", href: "#work-samples" },
-      { label: "FAQ", href: "#faq" },
+      { label: "Case Studies", href: "/#work" },
+      { label: "Process", href: "/#process" },
+      { label: "Services", href: "/#services" },
+      { label: "Selected Work", href: "/#work-samples" },
+      { label: "FAQ", href: "/#faq" },
     ],
   },
   {

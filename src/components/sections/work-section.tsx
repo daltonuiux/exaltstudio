@@ -1,159 +1,56 @@
+import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { type CycleImage, ImageCycle } from "@/components/ui/image-cycle";
+import { ImageCycle } from "@/components/ui/image-cycle";
 import { ImagePlaceholder } from "@/components/ui/image-placeholder";
 import { LogoImage } from "@/components/ui/logo-image";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { SectionHeader } from "@/components/ui/section-header";
-import type { Logo } from "@/lib/logos";
-
-type CaseStudy = {
-  client: string;
-  headline: string;
-  tags: string[];
-  /**
-   * Client wordmark shown in place of a text eyebrow — the `-dark` SVGs
-   * (see below), not the white-fill ones SocialProof's marquee uses.
-   */
-  logo: Logo;
-  /**
-   * Product screenshots to autoplay through. Omit until a case study
-   * actually has artwork — falls back to ImagePlaceholder.
-   */
-  images?: readonly CycleImage[];
-};
-
-/**
- * Recoloured (fill="#161218", the standard heading colour) copies of the
- * same marques' white-fill logos SocialProof uses — those are exported for
- * the dark hero backdrop, so they'd disappear against this section's light
- * card background. `-dark` suffix keeps the two variants unambiguous.
- *
- * Heights sit in a 24-32px band and widths follow each logo's own (already
- * tightly-cropped) viewBox aspect ratio, so — like the marquee's own
- * logos — they read as optically similar in weight rather than literally
- * identical in height.
- */
-const onefinLogo: Logo = {
-  name: "Onefin",
-  src: "/images/logos/onefin-dark.svg",
-  width: 126,
-  height: 28,
-};
-const meshedLogo: Logo = {
-  name: "Meshed",
-  src: "/images/logos/meshed-dark.svg",
-  width: 166.75,
-  height: 28,
-};
-const perlonAiLogo: Logo = {
-  name: "Perlon AI",
-  src: "/images/logos/perlon-ai-dark.svg",
-  width: 123.85,
-  height: 28,
-};
-const scoutLogo: Logo = {
-  name: "Scout",
-  src: "/images/logos/scout-dark.svg",
-  width: 133.45,
-  height: 28,
-};
-
-/** Each case study's 5 screenshots, committed at 2880x1800 (16:10, matching
- * every other case study's frame) — resized down from the 4800x3000
- * originals Luke supplied, which was far more resolution than any real
- * viewport needs (see the earlier sizing discussion) and converted to WebP. */
-const meshedImages: readonly CycleImage[] = [
-  { src: "/images/work/meshed/01.webp", width: 2880, height: 1800 },
-  { src: "/images/work/meshed/02.webp", width: 2880, height: 1800 },
-  { src: "/images/work/meshed/03.webp", width: 2880, height: 1800 },
-  { src: "/images/work/meshed/04.webp", width: 2880, height: 1800 },
-  { src: "/images/work/meshed/05.webp", width: 2880, height: 1800 },
-];
-
-const onefinImages: readonly CycleImage[] = [
-  { src: "/images/work/onefin/01.webp", width: 2880, height: 1800 },
-  { src: "/images/work/onefin/02.webp", width: 2880, height: 1800 },
-  { src: "/images/work/onefin/03.webp", width: 2880, height: 1800 },
-  { src: "/images/work/onefin/04.webp", width: 2880, height: 1800 },
-  { src: "/images/work/onefin/05.webp", width: 2880, height: 1800 },
-];
-
-const scoutImages: readonly CycleImage[] = [
-  { src: "/images/work/scout/01.webp", width: 2880, height: 1800 },
-  { src: "/images/work/scout/02.webp", width: 2880, height: 1800 },
-  { src: "/images/work/scout/03.webp", width: 2880, height: 1800 },
-  { src: "/images/work/scout/04.webp", width: 2880, height: 1800 },
-  { src: "/images/work/scout/05.webp", width: 2880, height: 1800 },
-];
-
-const perlonAiImages: readonly CycleImage[] = [
-  { src: "/images/work/perlon-ai/01.webp", width: 2880, height: 1800 },
-  { src: "/images/work/perlon-ai/02.webp", width: 2880, height: 1800 },
-  { src: "/images/work/perlon-ai/03.webp", width: 2880, height: 1800 },
-  { src: "/images/work/perlon-ai/04.webp", width: 2880, height: 1800 },
-  { src: "/images/work/perlon-ai/05.webp", width: 2880, height: 1800 },
-];
-
-/** Order per Luke: Perlon AI, Meshed, Onefin, Scout. */
-const caseStudies: CaseStudy[] = [
-  {
-    client: "Perlon AI",
-    headline:
-      "Making a complex AI sales platform easier to understand, adopt and grow",
-    tags: ["UI Design", "UX Strategy", "Raised $1.1mil"],
-    logo: perlonAiLogo,
-    images: perlonAiImages,
-  },
-  {
-    client: "Meshed",
-    headline:
-      "Turning a complex insurance proposition into an investor-ready product",
-    tags: ["UI Design", "UX Strategy", "Raised $1.2mil"],
-    logo: meshedLogo,
-    images: meshedImages,
-  },
-  {
-    client: "Onefin",
-    headline:
-      "Creating a product system that makes enterprise finance easier to use and build",
-    tags: ["UI Design", "UX Strategy", "Design System"],
-    logo: onefinLogo,
-    images: onefinImages,
-  },
-  {
-    client: "Scout",
-    headline:
-      "Helping an AI automation platform scale without overwhelming its users",
-    tags: ["UI Design", "UX Strategy", "Raised $10.6mil"],
-    logo: scoutLogo,
-    images: scoutImages,
-  },
-];
+import { type CaseStudy, caseStudies } from "@/lib/case-studies";
 
 function CaseStudyCard({ study }: { study: CaseStudy }) {
   return (
-    <article className="grid gap-10 rounded-lg bg-foreground/4 p-8 sm:p-10 lg:grid-cols-12 lg:items-center lg:gap-14 lg:p-14">
-      <div className="lg:col-span-4">
-        <LogoImage logo={study.logo} />
+    <article className="grid gap-10 rounded-lg bg-foreground/4 p-8 sm:p-10 lg:grid-cols-12 lg:items-stretch lg:gap-14 lg:p-14">
+      {/* Text/logo/badges pinned to the top, button to the bottom
+          (justify-between) — the column stretches to the row's full height
+          at lg, where it sits beside the screenshot. The gap keeps the two
+          groups apart when the column is at its shortest, and on mobile,
+          where the column just stacks. */}
+      <div className="flex flex-col justify-between gap-10 lg:col-span-4">
+        <div>
+          <LogoImage logo={study.logo} />
 
-        <h3 className="mt-5 text-2xl font-semibold text-balance tracking-[-0.03em] sm:text-3xl">
-          {study.headline}
-        </h3>
+          <h3 className="mt-5 text-2xl font-semibold text-balance tracking-[-0.03em] sm:text-3xl">
+            {study.headline}
+          </h3>
 
-        <ul className="mt-6 flex flex-wrap gap-2">
-          {study.tags.map((tag) => (
-            <li
-              key={tag}
-              className="rounded-full border border-foreground/12 bg-background px-3 py-1 text-sm text-foreground/66"
-            >
-              {tag}
-            </li>
-          ))}
-        </ul>
+          <ul className="mt-6 flex flex-wrap gap-2">
+            {study.tags.map((tag) => (
+              <li
+                key={tag}
+                className="rounded-full border border-foreground/12 bg-background px-3 py-1 text-sm text-foreground/66"
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* The existing white pill (Button's "inverse" — bg-background), which
+            reads as white on this card's grey ground. */}
+        <Button
+          href={`/case-studies/${study.slug}`}
+          variant="inverse"
+          className="self-start"
+        >
+          View case study
+        </Button>
       </div>
 
-      <div className="lg:col-span-8">
+      {/* self-center: the text column can now be taller than the image (it
+          stretches to fit the button), so keep the screenshot vertically
+          centred beside it as before. */}
+      <div className="lg:col-span-8 lg:self-center">
         {/* A clean, unframed image — no mock browser chrome around it.
             rounded-md sm:rounded-lg (not a flat rounded-2xl, and not the
             same value at every width): capped at the card's own rounded-lg
