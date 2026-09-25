@@ -43,24 +43,28 @@ export const metadata: Metadata = {
 /**
  * One case study, as a single link.
  *
- * Concentric radii: the card is rounded-xl (16px) with 8px of padding, so the
- * screenshot inside it is rounded-md (16 - 8 = 8px) — the inner corner is
- * exactly as far from the outer one all the way round, rather than the two
- * curves drifting apart.
+ * A white card with a hairline stroke (the same border-foreground/12 as the
+ * badges inside it), so the card carries the edge and the screenshot needs no
+ * outline of its own.
+ *
+ * Concentric radii: the card is rounded-xl (16px) with 8px of padding and a
+ * 1px border, so the screenshot sits 9px in from the outer edge and gets a
+ * 7px radius (16 - 9) — the inner corner is exactly as far from the outer one
+ * all the way round, rather than the two curves drifting apart.
  *
  * Hover (pointer devices only — Tailwind gates `hover:` behind
- * @media (hover: hover)): the screenshot eases in 3%, the card tone firms up
- * and the chevron moves 2px. All transforms/colour, all under 300ms with an
- * ease-out curve so the first frame moves. The outline is on the clipping
- * wrapper, not the image, so it stays put while the image scales beneath it.
+ * @media (hover: hover)): the screenshot eases in 3%, the stroke firms up and
+ * the chevron moves 2px. All transforms/colour, all under 300ms with an
+ * ease-out curve so the first frame moves. The image is clipped by its
+ * wrapper, so the scale never spills past the rounded corners.
  */
 function CaseStudyCard({ study }: { study: CaseStudy }) {
   return (
     <Link
       href={`/case-studies/${study.slug}`}
-      className="group flex h-full flex-col rounded-xl bg-foreground/4 p-2 transition-colors duration-200 hover:bg-foreground/6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+      className="group flex h-full flex-col rounded-xl border border-foreground/12 bg-background p-2 transition-colors duration-200 hover:border-foreground/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
     >
-      <div className="overflow-hidden rounded-md outline -outline-offset-1 outline-black/10">
+      <div className="overflow-hidden rounded-[7px]">
         <Image
           src={study.images[0].src}
           alt=""
