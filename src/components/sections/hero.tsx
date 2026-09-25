@@ -16,7 +16,7 @@ export function Hero({ className }: { className?: string }) {
             keeps its own, narrower 566px measure for readability. Wrapping,
             checked line by line from 320px to 1920px: text-balance splits the
             headline into two even lines ("Your product has / outgrown its
-            design.") from 375px up, and three even lines at 320px; text-pretty
+            design") from 375px up, and three even lines at 320px; text-pretty
             on the paragraph stops it ending on a stranded word. */}
         <div className="flex w-full max-w-[646px] flex-col gap-8">
           <div className="flex flex-col gap-4">
@@ -28,7 +28,7 @@ export function Hero({ className }: { className?: string }) {
                 id="hero-heading"
                 className="max-w-[646px] text-hero font-semibold text-balance text-background"
               >
-                Your product has outgrown its design.
+                Your product has outgrown its design
               </h1>
             </div>
             <p className="max-w-[566px] text-base leading-6 text-pretty text-background/80">
