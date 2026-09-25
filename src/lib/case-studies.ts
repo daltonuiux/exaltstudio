@@ -134,7 +134,7 @@ export const caseStudies: readonly CaseStudy[] = [
         },
       ],
       result:
-        "A complete MVP design that helped Meshed bring its product to market. Meshed went on to raise **$600k**.",
+        "A complete MVP design that helped Meshed bring its product to market. Meshed went on to raise **$1.2m**.",
     },
   },
   {
@@ -181,15 +181,15 @@ export const caseStudies: readonly CaseStudy[] = [
       draft: false,
       headline: "Two years embedded in an evolving AI product",
       summary:
-        "We worked alongside ScoutOS’s team for more than two years, partnering closely with its lead designer to refine the interface and design new features as the product developed.",
+        "We worked alongside Scout’s team for more than two years, partnering closely with its lead designer to refine the interface and design new features as the product developed.",
       meta: {
-        client: "ScoutOS",
+        client: "Scout",
         industry: "AI software",
         services: "Embedded product design, UX and UI design",
         engagement: "2+ years",
       },
       brief:
-        "ScoutOS needed design support that could move with the product. That meant improving the experience already in place while helping the team shape what came next.",
+        "Scout needed design support that could move with the product. That meant improving the experience already in place while helping the team shape what came next.",
       work: [
         {
           heading: "Refining the everyday experience",
@@ -197,11 +197,11 @@ export const caseStudies: readonly CaseStudy[] = [
         },
         {
           heading: "Designing what came next",
-          body: "Working with ScoutOS’s lead designer, we helped turn new feature ideas into considered product experiences that fit the wider platform.",
+          body: "Working with Scout’s lead designer, we helped turn new feature ideas into considered product experiences that fit the wider platform.",
         },
       ],
       result:
-        "A long-term design partnership that helped ScoutOS keep improving its product while building new capabilities.",
+        "A long-term design partnership that helped Scout keep improving its product while building new capabilities.",
     },
   },
 ];
