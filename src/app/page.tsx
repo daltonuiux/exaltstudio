@@ -33,7 +33,7 @@ export default function Home() {
           {/* Solid --color-foreground (#161218) fill instead of the sky image:
               the animated lines need a flat dark ground to read against. It's
               plain markup, so it paints with the HTML; HeroLines fades in over
-              it later. Sky image: see HeroBackground (now unused here). */}
+              it later. */}
           <div aria-hidden className="absolute inset-0 z-0 bg-foreground" />
           <HeroLines />
           <div className="relative z-10 flex flex-1 flex-col">
