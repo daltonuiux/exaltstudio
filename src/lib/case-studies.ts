@@ -69,7 +69,7 @@ const screenshots = (folder: string): readonly CaseStudyImage[] =>
   }));
 
 
-/** Order per Luke: Perlon AI, Meshed, Onefin, Voren, Scout. Also the order of the index and of Related projects. */
+/** Order per Luke: Perlon AI, Meshed, Onefin, Voren, LegalOS, Scout. Also the order of the index and of Related projects. */
 export const caseStudies: readonly CaseStudy[] = [
   {
     slug: "perlon-ai",
@@ -213,6 +213,40 @@ export const caseStudies: readonly CaseStudy[] = [
     },
   },
   {
+    slug: "legalos",
+    client: "LegalOS",
+    headline: "A new identity and product experience for AI-native immigration",
+    tags: ["Brand Identity", "UI Design", "Design System"],
+    logo: { name: "LegalOS", src: "/images/logos/legalos-dark.svg", width: 153, height: 28 },
+    images: screenshots("legalos"),
+    page: {
+      draft: false,
+      headline: "A new identity and product experience for AI-native immigration",
+      summary:
+        "LegalOS brings AI and legal expertise together to help companies navigate work visas. In a four-week sprint, we designed a new brand and refreshed the product UI with a lightweight design system.",
+      meta: {
+        client: "LegalOS · Y Combinator W26",
+        industry: "Legal technology",
+        services: "Brand identity, product design, design system",
+        extra: { label: "Timeline", value: "4 weeks" },
+      },
+      brief:
+        "LegalOS needed its brand and product to feel like one experience. The work called for the trust expected of a legal service and the clarity needed to use a modern software product.",
+      work: [
+        {
+          heading: "Establishing the identity",
+          body: "We refreshed the logo and visual language, creating a clearer foundation for how LegalOS presents itself.",
+        },
+        {
+          heading: "Bringing it into the product",
+          body: "We updated the UI and built a lightweight design system to carry that identity across the interface and support future product work.",
+        },
+      ],
+      result:
+        "A cohesive brand and refreshed product experience, delivered in four weeks for a YC-backed team building a new kind of immigration service.",
+    },
+  },
+  {
     slug: "scout",
     client: "Scout",
     headline: "Helping an AI automation platform scale without overwhelming its users",
@@ -254,7 +288,7 @@ export const caseStudies: readonly CaseStudy[] = [
  * the index's (which is `caseStudies` above). Every case study is on
  * /case-studies regardless.
  */
-const homeSlugs = ["voren", "meshed", "perlon-ai", "onefin"] as const;
+const homeSlugs = ["voren", "meshed", "perlon-ai", "legalos"] as const;
 
 export const homeCaseStudies: readonly CaseStudy[] = homeSlugs.map((slug) => {
   const study = caseStudies.find((c) => c.slug === slug);
