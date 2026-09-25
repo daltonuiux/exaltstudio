@@ -6,16 +6,15 @@ import { SectionLabel } from "@/components/ui/section-label";
 
 export function CtaSection() {
   return (
-    // Figma frames the block with 40px of its own top padding, then a large
-    // gap before the footer content below — both float on the shared sky
-    // FooterBackground renders behind this and SiteFooter. Scaled down from
-    // Figma's 160px at the smaller breakpoints, where it would otherwise
-    // dominate the page.
+    // The card's top padding, the gap down to the footer card, and the side
+    // gutters are all the same value (the Container's gutter at each
+    // breakpoint), so the two cards sit in an even frame. Both float on the
+    // shared background FooterBackground renders behind this and SiteFooter.
     <Section
       id="contact"
       spacing="none"
       aria-labelledby="contact-heading"
-      className="pt-10 pb-16 md:pb-24 lg:pb-[160px]"
+      className="pt-gutter pb-gutter md:pt-gutter-md md:pb-gutter-md lg:pt-gutter-lg lg:pb-gutter-lg"
     >
       <Container width="full">
         {/* rounded-lg is the shared "big card" radius — WorkSection's

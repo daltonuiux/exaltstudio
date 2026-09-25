@@ -66,7 +66,7 @@ export function SiteFooter() {
     <footer>
       <Container
         width="full"
-        className="flex flex-col gap-10 pb-10"
+        className="flex flex-col gap-gutter pb-gutter md:gap-gutter-md md:pb-gutter-md lg:gap-gutter-lg lg:pb-gutter-lg"
       >
         {/* The same glass card as the CTA above it. */}
         <Reveal className="flex flex-col gap-10 rounded-lg border border-background/14 bg-background/12 px-6 py-10 backdrop-blur-md sm:px-10 sm:py-[50px] xl:flex-row xl:items-start xl:justify-between">
