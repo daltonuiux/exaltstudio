@@ -12,11 +12,12 @@ export function Hero({ className }: { className?: string }) {
       className={cn("flex items-center py-16 md:py-20", className)}
     >
       <Container width="full">
-        {/* max-w-[646px] here, not 566px — widened specifically to give the
-            headline room to fill 646px and wrap onto fewer, longer lines
-            instead of stacking narrowly. The paragraph gets its own
-            max-w-[566px] below so it keeps its original, more readable line
-            length rather than stretching out to match. */}
+        {/* The column is 646px wide so the headline has room, and the paragraph
+            keeps its own, narrower 566px measure for readability. Wrapping,
+            checked line by line from 320px to 1920px: text-balance splits the
+            headline into two even lines ("Your product has / outgrown its
+            design.") from 375px up, and three even lines at 320px; text-pretty
+            on the paragraph stops it ending on a stranded word. */}
         <div className="flex w-full max-w-[646px] flex-col gap-8">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
@@ -27,13 +28,13 @@ export function Hero({ className }: { className?: string }) {
                 id="hero-heading"
                 className="max-w-[646px] text-hero font-semibold text-balance text-background"
               >
-                Product design and interface engineering for AI &amp; B2B
-                software
+                Your product has outgrown its design.
               </h1>
             </div>
-            <p className="max-w-[566px] text-base leading-6 text-background/80">
-              We turn complex, fast-built software into clear, scalable product
-              systems your customers understand and your developers can build on.
+            <p className="max-w-[566px] text-base leading-6 text-pretty text-background/80">
+              We help SaaS and AI teams untangle complex workflows, improve the
+              customer experience, and build a product that feels ready for its
+              next stage.
             </p>
           </div>
 
