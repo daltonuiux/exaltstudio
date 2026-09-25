@@ -18,8 +18,17 @@ import { services } from "@/lib/services";
  * static, so there's no reason to ship it any client JS.
  */
 export function OfferingsSection() {
+  // overflow-x-clip on the section: the open row's fill is w-screen, and 100vw
+  // includes the scroll bar's width, so with always-visible scroll bars it pushed
+  // the whole page a few pixels wider than the window. Clipped at the section's
+  // own full-width edge it can't (clip, unlike hidden, adds no scroll container).
   return (
-    <Section id="services" spacing="lg" aria-labelledby="offerings-heading">
+    <Section
+      id="services"
+      spacing="lg"
+      aria-labelledby="offerings-heading"
+      className="overflow-x-clip"
+    >
       <Container width="full">
         <Reveal>
           <SectionHeader
