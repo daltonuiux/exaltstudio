@@ -22,6 +22,15 @@ declare global {
  * that failure mode entirely, so `lazyOnload` — the right strategy for a
  * footer badge that has no business competing for bandwidth with anything
  * above the fold — is safe to use here.
+ *
+ * `onReady`, not `onLoad`: onLoad fires only the first time the script loads
+ * in a browser session. The footer now lives on several pages, and
+ * navigating between them client-side remounts the footer (a fresh, empty
+ * widget div) while the script — already loaded, deduplicated by next/script
+ * — never loads again, so Init() never ran again and the badge vanished on
+ * every page reached by a link rather than a full reload. onReady runs after
+ * the script has loaded AND every time this component mounts, which covers
+ * both the first load and every later navigation.
  */
 /* GoodFirms' own natural render for this pattern, measured directly against
    their widget endpoint: ~185x98 of fixed-size content (a 29px logo image,
@@ -64,7 +73,7 @@ export function GoodFirmsBadge() {
       <Script
         src="https://assets.goodfirms.co/assets/js/widget.min.js"
         strategy="lazyOnload"
-        onLoad={() => window.GOODFIRMS?.Init?.()}
+        onReady={() => window.GOODFIRMS?.Init?.()}
       />
     </>
   );
