@@ -17,9 +17,9 @@ import {
  * and adapted for this site. The shader and the props are the original's;
  * what's different:
  *
- * - The pointer is listened for on the canvas's parent (the whole hero), not
- *   on the canvas. The hero's text and logos sit on top of it, so the canvas
- *   itself never receives a pointer event.
+ * - The pointer is listened for on the window and checked against the canvas's
+ *   bounds. The hero's text and logos sit on top of the canvas (which is
+ *   pointer-events-none), so no element under it ever receives the event.
  * - The render loop pauses while the canvas is off-screen or the tab is hidden.
  * - The pixel ratio is capped at 1.5 (lines don't need more, and the fragment
  *   shader loops over every line per pixel).
@@ -449,14 +449,18 @@ export default function FloatingLines({
         : null;
     resizeObserver?.observe(container);
 
-    // Pointer: listened for on the parent (the whole hero), because everything
-    // else in the hero is stacked above this canvas.
-    const pointerTarget: HTMLElement = container.parentElement ?? renderer.domElement;
-
+    // Pointer: listened for on the window, not on an element. The canvas is
+    // pointer-events-none and everything else in the hero is stacked above it,
+    // so no element in this subtree ever receives the event itself. The
+    // position is checked against the canvas's bounds instead.
     const handlePointerMove = (event: PointerEvent) => {
       const rect = renderer.domElement.getBoundingClientRect();
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
+      if (x < 0 || y < 0 || x > rect.width || y > rect.height) {
+        targetInfluence = 0.0;
+        return;
+      }
       const dpr = renderer.getPixelRatio();
 
       targetMouse.set(x * dpr, (rect.height - y) * dpr);
@@ -473,8 +477,8 @@ export default function FloatingLines({
     };
 
     if (interactive) {
-      pointerTarget.addEventListener("pointermove", handlePointerMove);
-      pointerTarget.addEventListener("pointerleave", handlePointerLeave);
+      window.addEventListener("pointermove", handlePointerMove, { passive: true });
+      document.documentElement.addEventListener("pointerleave", handlePointerLeave);
     }
 
     // Don't spend GPU time on a hero that's scrolled out of view.
@@ -522,8 +526,8 @@ export default function FloatingLines({
       intersection?.disconnect();
 
       if (interactive) {
-        pointerTarget.removeEventListener("pointermove", handlePointerMove);
-        pointerTarget.removeEventListener("pointerleave", handlePointerLeave);
+        window.removeEventListener("pointermove", handlePointerMove);
+        document.documentElement.removeEventListener("pointerleave", handlePointerLeave);
       }
 
       geometry.dispose();
