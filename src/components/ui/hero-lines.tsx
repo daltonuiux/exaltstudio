@@ -15,17 +15,14 @@ const FloatingLines = dynamic(() => import("@/components/ui/floating-lines"), {
 // Module-level constants, not inline literals: FloatingLines rebuilds its whole
 // WebGL scene whenever a prop's identity changes, so these must be stable.
 const WAVES: ("top" | "middle" | "bottom")[] = ["top", "middle", "bottom"];
-const GRADIENT = ["#ffffff", "#b9c8ff", "#e2c9ff"];
-// Steers the middle wave into the empty sky above the headline. Left at its
-// default (y: 0) it runs straight through the headline and paragraph and blows
-// them out. Values chosen by rendering variants and stepping through a full
-// animation cycle: text and buttons stay clear throughout.
-const MIDDLE_WAVE = { x: 5, y: 0.8, rotate: 0.2 };
+// The settings from Luke's React Bits configuration:
+// gradientStart e945f5, gradientMid ff6b6b, gradientEnd ff0000.
+const GRADIENT = ["#e945f5", "#ff6b6b", "#ff0000"];
 
 /**
- * Animated lines over the hero's sky. Sits between the sky image and the hero
- * content, and is `screen`-blended, so the canvas's black is invisible and only
- * the lines glow onto the sky.
+ * Animated lines over the hero's solid #161218 fill. Sits between the fill and
+ * the hero content, and is `screen`-blended, so the canvas's black is invisible
+ * (the fill shows through as exactly #161218) and only the lines glow onto it.
  *
  * Not rendered at all for visitors who ask for reduced motion, and not started
  * until the window's load event plus an idle moment, so it can't affect the LCP.
@@ -74,16 +71,17 @@ export function HeroLines() {
         // lines emerge from beneath it instead of washing out the logo and nav
         // links when they sweep past.
         "pointer-events-none absolute inset-0 z-[1] mix-blend-screen transition-opacity duration-1000 ease-out [mask-image:linear-gradient(to_bottom,transparent_0,transparent_64px,#000_190px)]",
-        ready ? "opacity-85" : "opacity-0",
+        ready ? "opacity-100" : "opacity-0",
       )}
     >
       <FloatingLines
         enabledWaves={WAVES}
         linesGradient={GRADIENT}
-        middleWavePosition={MIDDLE_WAVE}
-        lineCount={5}
-        lineDistance={5}
-        animationSpeed={1}
+        lineCount={6}
+        lineDistance={51.5}
+        animationSpeed={1.9}
+        bendRadius={6.5}
+        bendStrength={2}
         interactive
         parallax
         mixBlendMode="normal"

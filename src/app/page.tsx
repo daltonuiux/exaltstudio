@@ -2,7 +2,6 @@ import { CtaSection } from "@/components/sections/cta-section";
 import { FaqSection } from "@/components/sections/faq-section";
 import { Hero } from "@/components/sections/hero";
 import { FooterBackground } from "@/components/ui/footer-background";
-import { HeroBackground } from "@/components/ui/hero-background";
 import { HeroLines } from "@/components/ui/hero-lines";
 import { OfferingsSection } from "@/components/sections/offerings-section";
 import { ServicesSection } from "@/components/sections/services-section";
@@ -31,7 +30,11 @@ export default function Home() {
           id="hero-region"
           className="relative isolate flex min-h-svh flex-col pt-16"
         >
-          <HeroBackground />
+          {/* Solid --color-foreground (#161218) fill instead of the sky image:
+              the animated lines need a flat dark ground to read against. It's
+              plain markup, so it paints with the HTML; HeroLines fades in over
+              it later. Sky image: see HeroBackground (now unused here). */}
+          <div aria-hidden className="absolute inset-0 z-0 bg-foreground" />
           <HeroLines />
           <div className="relative z-10 flex flex-1 flex-col">
             <Hero className="flex-1" />
