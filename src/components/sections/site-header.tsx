@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -11,11 +10,11 @@ import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { label: "Case Studies", hash: "#work" },
-  { label: "Process", hash: "#process" },
-  { label: "Services", hash: "#services" },
-  { label: "Testimonials", hash: "#testimonials" },
-  { label: "Selected Work", hash: "#work-samples" },
+  { label: "Case Studies", href: "#work" },
+  { label: "Process", href: "#process" },
+  { label: "Services", href: "#services" },
+  { label: "Testimonials", href: "#testimonials" },
+  { label: "Selected Work", href: "#work-samples" },
 ];
 
 /** Matches the header's own h-16. */
@@ -30,12 +29,6 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-
-  // The nav's targets are sections of the home page. On the home page a bare
-  // "#work" is enough (and lets the page's own smooth scrolling handle it);
-  // on any other page (case studies) it has to go back to "/#work" instead.
-  const onHome = usePathname() === "/";
-  const navHref = (hash: string) => (onHome ? hash : `/${hash}`);
 
   const lastY = useRef(0);
   const ticking = useRef(false);
@@ -177,7 +170,7 @@ export function SiteHeader() {
           {navItems.map((item) => (
             <Button
               key={item.label}
-              href={navHref(item.hash)}
+              href={item.href}
               variant={scrolled ? "ghost" : "inverse-ghost"}
               size="sm"
               className="font-normal"
@@ -255,7 +248,7 @@ export function SiteHeader() {
         {navItems.map((item) => (
           <Button
             key={item.label}
-            href={navHref(item.hash)}
+            href={item.href}
             variant="ghost"
             size="md"
             onClick={() => setMenuOpen(false)}
