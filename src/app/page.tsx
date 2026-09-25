@@ -3,6 +3,7 @@ import { FaqSection } from "@/components/sections/faq-section";
 import { Hero } from "@/components/sections/hero";
 import { FooterBackground } from "@/components/ui/footer-background";
 import { HeroBackground } from "@/components/ui/hero-background";
+import { HeroLines } from "@/components/ui/hero-lines";
 import { OfferingsSection } from "@/components/sections/offerings-section";
 import { ServicesSection } from "@/components/sections/services-section";
 import { SiteFooter } from "@/components/sections/site-footer";
@@ -31,6 +32,7 @@ export default function Home() {
           className="relative isolate flex min-h-svh flex-col pt-16"
         >
           <HeroBackground />
+          <HeroLines />
           <div className="relative z-10 flex flex-1 flex-col">
             <Hero className="flex-1" />
             <SocialProof />
