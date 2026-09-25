@@ -12,7 +12,7 @@ export function FooterBackground() {
   return (
     <>
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0 bg-foreground" />
-      <HeroLines fadeUnderHeader={false} />
+      <HeroLines />
     </>
   );
 }

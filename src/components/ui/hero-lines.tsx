@@ -27,7 +27,7 @@ const GRADIENT = ["#3bcfd4", "#fc9305", "#f20094"];
  * Not rendered at all for visitors who ask for reduced motion, and not started
  * until the window's load event plus an idle moment, so it can't affect the LCP.
  */
-export function HeroLines({ fadeUnderHeader = true }: { fadeUnderHeader?: boolean }) {
+export function HeroLines() {
   const [enabled, setEnabled] = useState(false);
   const [ready, setReady] = useState(false);
 
@@ -65,14 +65,9 @@ export function HeroLines({ fadeUnderHeader = true }: { fadeUnderHeader?: boolea
         // mix-blend-screen lives on THIS element, not on the canvas's own
         // container: an absolutely-positioned element with a z-index is its own
         // stacking context, and a blend mode inside it can only blend with what
-        // is inside it (nothing), not with the sky beneath. Here it's a direct
-        // child of the hero's isolated stacking context, so it blends with the sky.
-        // The mask fades the effect out under the fixed header (64px), so the
-        // lines emerge from beneath it instead of washing out the logo and nav
-        // links when they sweep past.
+        // is inside it (nothing), not with the fill beneath. Here it's a direct
+        // child of the hero's isolated stacking context, so it blends with the fill.
         "pointer-events-none absolute inset-0 z-[1] mix-blend-screen transition-opacity duration-1000 ease-out",
-        fadeUnderHeader &&
-          "[mask-image:linear-gradient(to_bottom,transparent_0,transparent_64px,#000_190px)]",
         ready ? "opacity-100" : "opacity-0",
       )}
     >
