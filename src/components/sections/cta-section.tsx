@@ -1,9 +1,8 @@
-import { Button } from "@/components/ui/button";
+import { BookCallButton } from "@/components/ui/book-call-button";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { SectionLabel } from "@/components/ui/section-label";
-import { siteConfig } from "@/lib/site";
 
 export function CtaSection() {
   return (
@@ -42,14 +41,7 @@ export function CtaSection() {
               Tell us where the product is today, what&rsquo;s creating friction
               and the milestone you&rsquo;re working towards.
             </p>
-            <Button
-              href={siteConfig.bookingUrl}
-              variant="inverse"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              Book intro call
-            </Button>
+            <BookCallButton variant="inverse" />
           </div>
         </Reveal>
       </Container>

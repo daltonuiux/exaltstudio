@@ -5,9 +5,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
+import { BookCallButton } from "@/components/ui/book-call-button";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -192,15 +192,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex shrink-0 items-center gap-2">
-          <Button
-            href={siteConfig.bookingUrl}
-            target="_blank"
-            rel="noreferrer noopener"
-            variant={scrolled ? "solid" : "inverse"}
-            size="sm"
-          >
-            Book call
-          </Button>
+          <BookCallButton variant={scrolled ? "solid" : "inverse"} size="sm" />
 
           {/* Toggle for the mobile nav panel below — plain button (not the
               shared Button component) since it's an icon-only square, not a

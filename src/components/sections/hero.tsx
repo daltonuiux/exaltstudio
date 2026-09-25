@@ -1,7 +1,7 @@
+import { BookCallButton } from "@/components/ui/book-call-button";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { SectionLabel } from "@/components/ui/section-label";
-import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export function Hero({ className }: { className?: string }) {
@@ -38,14 +38,7 @@ export function Hero({ className }: { className?: string }) {
           </div>
 
           <div className="flex flex-wrap items-start gap-3">
-            <Button
-              variant="inverse"
-              href={siteConfig.bookingUrl}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              Book intro call
-            </Button>
+            <BookCallButton variant="inverse" />
             <Button href="#work-samples" variant="inverse-soft">
               View selected work
             </Button>

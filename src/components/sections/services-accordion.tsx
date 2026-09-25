@@ -2,11 +2,10 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-import { Button } from "@/components/ui/button";
+import { BookCallButton } from "@/components/ui/book-call-button";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import type { Service } from "@/lib/services";
-import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 type ServicesAccordionProps = {
@@ -225,14 +224,7 @@ export function ServicesAccordion({ services }: ServicesAccordionProps) {
                       ) : null}
                     </div>
 
-                    <Button
-                      href={siteConfig.bookingUrl}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      className="w-full justify-center sm:w-fit"
-                    >
-                      Book intro call
-                    </Button>
+                    <BookCallButton className="w-full justify-center sm:w-fit" />
                   </div>
                 </div>
               </div>
