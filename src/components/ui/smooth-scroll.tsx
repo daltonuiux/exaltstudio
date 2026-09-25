@@ -1,7 +1,8 @@
 "use client";
 
 import type LenisType from "lenis";
-import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useLayoutEffect, useRef } from "react";
 
 /**
  * Eased ("inertia") page scrolling.
@@ -17,6 +18,28 @@ import { useEffect } from "react";
  * Renders nothing; it exists only to own the instance lifecycle.
  */
 export function SmoothScroll() {
+  const lenisRef = useRef<LenisType | null>(null);
+  const pathname = usePathname();
+  const previousPathname = useRef(pathname);
+
+  // Land at the top of every new page. Next resets scroll on navigation
+  // itself, but Lenis keeps its own target: click a link while the page is
+  // still gliding from a wheel scroll and Lenis carries on easing toward
+  // the OLD page's position, dropping the new page mid-way down (a case
+  // study opening at its fourth screenshot instead of its heading).
+  // scrollTo(0, immediate) resets Lenis's internal position and cancels the
+  // glide; the native scrollTo covers the no-Lenis case (reduced motion,
+  // touch). useLayoutEffect so it lands before the first paint of the new
+  // page rather than flashing at the old offset. Hash navigations are left
+  // alone — those are the anchors' job.
+  useLayoutEffect(() => {
+    if (previousPathname.current === pathname) return;
+    previousPathname.current = pathname;
+    if (window.location.hash) return;
+    lenisRef.current?.scrollTo(0, { immediate: true, force: true });
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [pathname]);
+
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     let lenis: LenisType | null = null;
@@ -42,11 +65,13 @@ export function SmoothScroll() {
         // simulate, and syncing it fights the platform.
         syncTouch: false,
       });
+      lenisRef.current = lenis;
     };
 
     const stop = () => {
       lenis?.destroy();
       lenis = null;
+      lenisRef.current = null;
     };
 
     // Honour the OS setting, and keep honouring it if it changes.
