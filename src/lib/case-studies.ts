@@ -74,7 +74,7 @@ export const caseStudies: readonly CaseStudy[] = [
   {
     slug: "perlon-ai",
     client: "Perlon AI",
-    headline: "Making a complex AI sales platform easier to understand, adopt and grow",
+    headline: "Making an AI sales platform easier to understand, adopt and grow",
     tags: ["UI Design", "UX Strategy", "Raised $1.1mil"],
     logo: { name: "Perlon AI", src: "/images/logos/perlon-ai-dark.svg", width: 123.85, height: 28 },
     images: screenshots("perlon-ai"),
@@ -107,7 +107,7 @@ export const caseStudies: readonly CaseStudy[] = [
   {
     slug: "meshed",
     client: "Meshed",
-    headline: "Turning a complex insurance proposition into an investor-ready product",
+    headline: "Turning an insurance proposition into an investor-ready product",
     tags: ["UI Design", "UX Strategy", "Raised $1.2mil"],
     logo: { name: "Meshed", src: "/images/logos/meshed-dark.svg", width: 166.75, height: 28 },
     images: screenshots("meshed"),
@@ -115,7 +115,7 @@ export const caseStudies: readonly CaseStudy[] = [
       draft: false,
       headline: "Designing an insurance product from the ground up",
       summary:
-        "We partnered with Meshed to design its InsurTech MVP, turning a complex product idea into a clear, usable experience.",
+        "We partnered with Meshed to design its InsurTech MVP, turning a product idea into a clear, usable experience.",
       meta: {
         client: "Meshed",
         industry: "InsurTech",
