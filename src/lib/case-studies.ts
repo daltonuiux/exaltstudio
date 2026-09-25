@@ -148,11 +148,11 @@ export const caseStudies: readonly CaseStudy[] = [
       draft: false,
       headline: "Making complex financial workflows feel simple",
       summary:
-        "We worked with Onefin to improve the product experience, with a focus on making it easier for users to enter and manage business information.",
+        "We worked with Onefin to improve the product experience, making it easier for users to enter and manage business information, and built a design system their developers could use to ship new UI efficiently.",
       meta: {
         client: "Onefin",
         industry: "Fintech",
-        services: "Product design, UX and UI design",
+        services: "Product design, UX and UI design, design system",
       },
       brief:
         "Entering business information can be a demanding part of a financial workflow. Onefin needed a clearer way for users to provide the details the product required.",
@@ -165,9 +165,13 @@ export const caseStudies: readonly CaseStudy[] = [
           heading: "Clarity across the interface",
           body: "We refined the surrounding UI so information, actions and next steps were easier to understand.",
         },
+        {
+          heading: "A design system built for developers",
+          body: "We built Onefin a design system compatible with shadcn, so their developers could build new UI efficiently and keep it consistent.",
+        },
       ],
       result:
-        "A more considered product experience that makes a complex part of Onefin’s workflow easier to complete.",
+        "A more considered product experience that makes a complex part of Onefin’s workflow easier to complete, and a design system that lets their team keep building.",
     },
   },
   {

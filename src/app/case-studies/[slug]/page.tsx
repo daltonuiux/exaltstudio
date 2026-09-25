@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { CtaSection } from "@/components/sections/cta-section";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
+import { StickyColumn } from "@/components/sections/sticky-column";
 import { Container } from "@/components/ui/container";
 import { FooterBackground } from "@/components/ui/footer-background";
 import { Reveal } from "@/components/ui/reveal";
@@ -179,15 +180,13 @@ export default async function CaseStudyPage({ params }: PageProps) {
             reads first on mobile and to screen readers) and is placed on the
             right at lg with explicit grid rows/columns.
 
-            The pin only applies when the viewport is tall enough to show the
-            whole copy block: a sticky element taller than the viewport would
-            have its bottom stuck out of reach until the end of the stack. On
-            shorter screens it just scrolls with the page. top-24 clears the
-            fixed header (64px) when it slides back in on scroll-up. */}
+            StickyColumn handles the pin, including copy taller than the
+            screen (it pins by its bottom edge instead, so nothing is out of
+            reach). Below lg it's a plain block. */}
         <Section spacing="none" aria-label={`${study.client} case study`} className="pb-16 md:pb-24">
           <Container width="full">
             <div className="grid gap-10 lg:grid-cols-12 lg:gap-6">
-              <div className="flex flex-col gap-10 lg:col-span-4 lg:col-start-9 lg:row-start-1 lg:self-start [@media(min-height:760px)]:lg:sticky [@media(min-height:760px)]:lg:top-24">
+              <StickyColumn className="flex flex-col gap-10 lg:col-span-4 lg:col-start-9 lg:row-start-1 lg:self-start">
                 <dl className="border-b border-foreground/12">
                   {meta.map(([label, value]) => (
                     <div
@@ -225,7 +224,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                     <Emphasis text={page.result} />
                   </p>
                 </div>
-              </div>
+              </StickyColumn>
 
               <div className="flex flex-col gap-6 lg:col-span-8 lg:col-start-1 lg:row-start-1">
                 {study.images.map((image, i) => {
