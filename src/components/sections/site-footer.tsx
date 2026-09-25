@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { Container } from "@/components/ui/container";
 import { GoodFirmsBadge } from "@/components/ui/goodfirms-badge";
+import { Reveal } from "@/components/ui/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { siteConfig } from "@/lib/site";
 
@@ -65,11 +66,12 @@ export function SiteFooter() {
     <footer>
       <Container
         width="full"
-        className="flex flex-col gap-16 pb-10 md:gap-24 lg:gap-[160px]"
+        className="flex flex-col gap-10 pb-10"
       >
-        <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
+        {/* The same glass card as the CTA above it. */}
+        <Reveal className="flex flex-col gap-10 rounded-lg border border-background/14 bg-background/12 px-6 py-10 backdrop-blur-md sm:px-10 sm:py-[50px] xl:flex-row xl:items-start xl:justify-between">
           {/* Brand column */}
-          <div className="flex flex-col gap-6 lg:w-[509px] lg:shrink-0">
+          <div className="flex flex-col gap-6 xl:flex-1">
             <Link href="/" aria-label="Exalt Studio — home" className="shrink-0">
               <Image
                 src="/images/logos/exalt-studio-white.svg"
@@ -112,14 +114,14 @@ export function SiteFooter() {
           {/* Nav groups */}
           <nav
             aria-label="Footer"
-            className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4 lg:flex lg:gap-10"
+            className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4 xl:flex xl:shrink-0 xl:gap-10"
           >
             {navGroups.map((group, i) => (
               <div
                 key={group.label}
                 className={
                   "flex flex-col gap-6 " +
-                  (i < navGroups.length - 1 ? "lg:w-[180px]" : "")
+                  (i < navGroups.length - 1 ? "xl:w-[180px]" : "")
                 }
               >
                 <SectionLabel className="text-background/75">
@@ -148,14 +150,12 @@ export function SiteFooter() {
               </div>
             ))}
           </nav>
-        </div>
+        </Reveal>
 
         <div className="flex flex-col gap-10">
-          <hr className="border-background/24" />
-
           {/* Figma right-aligns this; kept left per Luke's earlier request on
               the previous footer, so it stays flush with the wordmark and
-              rule above it rather than reverting that decision. */}
+              card above it rather than reverting that decision. */}
           <p className="text-xs leading-4 text-background/50">
             &copy; 2026 Exalt Digital Ltd.
           </p>

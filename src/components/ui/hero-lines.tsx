@@ -20,14 +20,14 @@ const WAVES: ("top" | "middle" | "bottom")[] = ["top", "middle", "bottom"];
 const GRADIENT = ["#3bcfd4", "#fc9305", "#f20094"];
 
 /**
- * Animated lines over the hero's solid #161218 fill. Sits between the fill and
+ * Animated lines over a solid #161218 fill (the hero's, and the footer's). Sits between the fill and
  * the hero content, and is `screen`-blended, so the canvas's black is invisible
  * (the fill shows through as exactly #161218) and only the lines glow onto it.
  *
  * Not rendered at all for visitors who ask for reduced motion, and not started
  * until the window's load event plus an idle moment, so it can't affect the LCP.
  */
-export function HeroLines() {
+export function HeroLines({ fadeUnderHeader = true }: { fadeUnderHeader?: boolean }) {
   const [enabled, setEnabled] = useState(false);
   const [ready, setReady] = useState(false);
 
@@ -70,7 +70,9 @@ export function HeroLines() {
         // The mask fades the effect out under the fixed header (64px), so the
         // lines emerge from beneath it instead of washing out the logo and nav
         // links when they sweep past.
-        "pointer-events-none absolute inset-0 z-[1] mix-blend-screen transition-opacity duration-1000 ease-out [mask-image:linear-gradient(to_bottom,transparent_0,transparent_64px,#000_190px)]",
+        "pointer-events-none absolute inset-0 z-[1] mix-blend-screen transition-opacity duration-1000 ease-out",
+        fadeUnderHeader &&
+          "[mask-image:linear-gradient(to_bottom,transparent_0,transparent_64px,#000_190px)]",
         ready ? "opacity-100" : "opacity-0",
       )}
     >
