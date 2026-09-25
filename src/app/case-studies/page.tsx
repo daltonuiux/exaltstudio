@@ -53,8 +53,8 @@ export const metadata: Metadata = {
  * all the way round, rather than the two curves drifting apart.
  *
  * Hover (pointer devices only — Tailwind gates `hover:` behind
- * @media (hover: hover)): the screenshot eases in 3%, the stroke firms up and
- * the chevron moves 2px. All transforms/colour, all under 300ms with an
+ * @media (hover: hover)): the screenshot eases in 3% and the chevron moves
+ * 2px. The card's own stroke deliberately doesn't change. All under 300ms with an
  * ease-out curve so the first frame moves. The image is clipped by its
  * wrapper, so the scale never spills past the rounded corners.
  */
@@ -62,7 +62,7 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
   return (
     <Link
       href={`/case-studies/${study.slug}`}
-      className="group flex h-full flex-col rounded-xl border border-foreground/12 bg-background p-2 transition-colors duration-200 hover:border-foreground/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+      className="group flex h-full flex-col rounded-xl border border-foreground/12 bg-background p-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
     >
       <div className="overflow-hidden rounded-[7px]">
         <Image
