@@ -58,7 +58,7 @@ export const metadata: Metadata = {
  * ease-out curve so the first frame moves. The image is clipped by its
  * wrapper, so the scale never spills past the rounded corners.
  */
-function CaseStudyCard({ study }: { study: CaseStudy }) {
+function CaseStudyCard({ study, priority = false }: { study: CaseStudy; priority?: boolean }) {
   return (
     <Link
       href={`/case-studies/${study.slug}`}
@@ -71,6 +71,11 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
           width={study.images[0].width}
           height={study.images[0].height}
           sizes="(min-width: 640px) 45vw, 100vw"
+          // The first row is above the fold and its screenshot is the page's
+          // largest paint, so it loads eagerly and is preloaded: as lazy, the
+          // browser doesn't even request it until layout, ~0.9s later on a
+          // throttled connection. Same source, width and quality either way.
+          priority={priority}
           className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03] motion-reduce:transition-none"
         />
       </div>
@@ -159,7 +164,7 @@ export default function CaseStudiesPage() {
                   // Same small column stagger as the Selected Work grid.
                   delayMs={(i % 2) * 100}
                 >
-                  <CaseStudyCard study={study} />
+                  <CaseStudyCard study={study} priority={i < 2} />
                 </Reveal>
               ))}
             </ul>

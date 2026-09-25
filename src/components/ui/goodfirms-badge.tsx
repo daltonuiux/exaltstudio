@@ -1,6 +1,7 @@
 "use client";
 
 import Script from "next/script";
+import { useEffect, useRef, useState } from "react";
 
 declare global {
   interface Window {
@@ -47,12 +48,48 @@ const HEIGHT = 98;
    rather than shrink it, since GoodFirms' markup doesn't scale with its box. */
 const SCALE = 55 / HEIGHT;
 
+/* How far ahead of the footer to start loading. The widget needs a moment
+   (script, then an iframe, then its own fonts and scripts), so this is
+   generous: it should already be there by the time anyone scrolls to it. */
+const LOAD_MARGIN = "1200px 0px";
+
+/**
+ * The widget is a third party: its script pulls in an iframe, two Roboto font
+ * files, a Cloudflare challenge script and a Cloudflare analytics beacon —
+ * roughly 60KB and a fair amount of main-thread work, none of it visible until
+ * the very bottom of the page. So it isn't loaded on page load at all. The
+ * placeholder below reserves the badge's footprint (no layout shift), and the
+ * script only mounts once the footer is within LOAD_MARGIN of the viewport.
+ * `lazyOnload` alone wasn't enough: it still ran for everyone, straight after
+ * the load event, competing with the page's own images while they were still
+ * arriving.
+ */
 export function GoodFirmsBadge() {
+  const slot = useRef<HTMLDivElement>(null);
+  const [near, setNear] = useState(false);
+
+  useEffect(() => {
+    const el = slot.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setNear(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: LOAD_MARGIN },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       {/* Reserves the post-scale footprint and clips any sub-pixel rounding
           from the transform, so layout sees the badge at its visual size. */}
       <div
+        ref={slot}
         className="shrink-0 overflow-hidden"
         style={{ width: WIDTH * SCALE, height: HEIGHT * SCALE }}
       >
@@ -70,11 +107,13 @@ export function GoodFirmsBadge() {
           }}
         />
       </div>
-      <Script
-        src="https://assets.goodfirms.co/assets/js/widget.min.js"
-        strategy="lazyOnload"
-        onReady={() => window.GOODFIRMS?.Init?.()}
-      />
+      {near ? (
+        <Script
+          src="https://assets.goodfirms.co/assets/js/widget.min.js"
+          strategy="lazyOnload"
+          onReady={() => window.GOODFIRMS?.Init?.()}
+        />
+      ) : null}
     </>
   );
 }

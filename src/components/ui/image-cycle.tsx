@@ -136,9 +136,13 @@ export function ImageCycle({
           width={image.width}
           height={image.height}
           sizes="(min-width: 1024px) 60vw, 100vw"
-          // First frame only: it's what's actually visible on load, so it's
-          // the one worth prioritising if this card is above the fold.
-          priority={i === 0}
+          // No `priority`, not even on the first frame: every ImageCycle on the
+          // site sits well below the fold (the home page's case study cards),
+          // and priority preloads the image at high priority at page start,
+          // where four multi-hundred-KB screenshots competed with the hero
+          // image, the CSS and the fonts. Same source, same quality and same
+          // srcset as before; the browser just fetches each one as the card
+          // nears the viewport instead of all of them up front.
           className={cn(
             "absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out",
             i === active ? "opacity-100" : "opacity-0",
