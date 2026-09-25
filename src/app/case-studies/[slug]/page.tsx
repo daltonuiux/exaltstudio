@@ -97,6 +97,9 @@ function Visual({
 
 const bodyClass = "text-base leading-6 text-foreground/66";
 
+/** The copy column's section headings: sentence case, the site's heading weight and tracking. */
+const sectionHeadingClass = "text-xl font-semibold tracking-[-0.03em] text-foreground";
+
 /** Copy can bold a phrase with **double asterisks** — nothing else is parsed. */
 function Emphasis({ text }: { text: string }) {
   return (
@@ -186,7 +189,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
         <Section spacing="none" aria-label={`${study.client} case study`} className="pb-16 md:pb-24">
           <Container width="full">
             <div className="grid gap-10 lg:grid-cols-12 lg:gap-6">
-              <StickyColumn className="flex flex-col gap-10 lg:col-span-4 lg:col-start-9 lg:row-start-1 lg:self-start">
+              <StickyColumn className="flex flex-col gap-8 lg:col-span-4 lg:col-start-9 lg:row-start-1 lg:self-start">
                 <dl className="border-b border-foreground/12">
                   {meta.map(([label, value]) => (
                     <div
@@ -200,16 +203,21 @@ export default async function CaseStudyPage({ params }: PageProps) {
                 </dl>
 
                 <div className="flex flex-col gap-3">
-                  <SectionLabel as="h2">The brief</SectionLabel>
+                  <h2 className={sectionHeadingClass}>The brief</h2>
                   <p className={bodyClass}>{page.brief}</p>
                 </div>
 
+                {/* One heading level, not two: "The work" is the heading, and
+                    each item beneath it is a row on the same hairlines the
+                    overview rows above use, led by a semibold line at body
+                    size — weight, not a second, bigger heading, does the
+                    separating. */}
                 <div className="flex flex-col gap-3">
-                  <SectionLabel as="h2">The work</SectionLabel>
-                  <div className="flex flex-col gap-5">
+                  <h2 className={sectionHeadingClass}>The work</h2>
+                  <div className="border-b border-foreground/12">
                     {page.work.map((item) => (
-                      <div key={item.heading}>
-                        <h3 className="text-lg font-semibold tracking-[-0.02em] text-foreground">
+                      <div key={item.heading} className="border-t border-foreground/12 py-3">
+                        <h3 className="text-base leading-6 font-semibold text-foreground">
                           {item.heading}
                         </h3>
                         <p className={cn(bodyClass, "mt-1")}>{item.body}</p>
@@ -219,7 +227,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                 </div>
 
                 <div className="flex flex-col gap-3">
-                  <SectionLabel as="h2">The result</SectionLabel>
+                  <h2 className={sectionHeadingClass}>The result</h2>
                   <p className={bodyClass}>
                     <Emphasis text={page.result} />
                   </p>
