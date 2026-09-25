@@ -4,10 +4,8 @@ import type { Logo } from "@/lib/logos";
  * Single source for both the case-study cards on the home page (WorkSection)
  * and the full case-study pages at /case-studies/<slug>.
  *
- * Perlon AI's `page` is final copy. The others are placeholders: grounded only
- * in what the site already states about each client, with anything that needs
- * a project-specific fact written as a [bracketed placeholder]. While
- * `page.draft` is true the page shows a small "draft" note.
+ * Every `page` here is final copy. Set `page.draft` to true on a new case study
+ * while any [bracketed] placeholder remains, to show a small "draft" note.
  */
 
 /** A 16:10 screenshot, committed at 2880x1800. Structurally a CycleImage. */
@@ -36,6 +34,8 @@ export type CaseStudyPage = {
     readonly client: string;
     readonly industry: string;
     readonly services: string;
+    /** Only when the length of the engagement is part of the story. */
+    readonly engagement?: string;
   };
   readonly brief: string;
   /** Short sections, each a heading and a sentence or two. */
@@ -68,18 +68,6 @@ const screenshots = (folder: string): readonly CaseStudyImage[] =>
     height: 1800,
   }));
 
-
-const placeholder = (client: string): Omit<CaseStudyPage, "meta"> => ({
-  draft: true,
-  headline: "[Page headline — short and outcome-led]",
-  summary: `[One sentence on what we did for ${client}.]`,
-  brief: "[The brief — what the product needed and why.]",
-  work: [
-    { heading: "[First area of work]", body: "[What we changed, in a sentence or two.]" },
-    { heading: "[Second area of work]", body: "[What we changed, in a sentence or two.]" },
-  ],
-  result: "[The result — only what can be substantiated.]",
-});
 
 /** Order per Luke: Perlon AI, Meshed, Onefin, Scout. Also the "next case study" order. */
 export const caseStudies: readonly CaseStudy[] = [
@@ -124,12 +112,29 @@ export const caseStudies: readonly CaseStudy[] = [
     logo: { name: "Meshed", src: "/images/logos/meshed-dark.svg", width: 166.75, height: 28 },
     images: screenshots("meshed"),
     page: {
-      ...placeholder("Meshed"),
+      draft: false,
+      headline: "Designing an insurance product from the ground up",
+      summary:
+        "We partnered with Meshed to design its InsurTech MVP, turning a complex product idea into a clear, usable experience.",
       meta: {
         client: "Meshed",
-        industry: "Insurance",
-        services: "UX strategy, UI design",
+        industry: "InsurTech",
+        services: "MVP product design, UX and UI design",
       },
+      brief:
+        "Insurance products ask users to understand unfamiliar information and make important decisions. Meshed needed an MVP that made those interactions feel straightforward from the start.",
+      work: [
+        {
+          heading: "A clear path through the product",
+          body: "We shaped the core experience around the steps users needed to take, giving the MVP a structure that was easy to follow.",
+        },
+        {
+          heading: "A product ready to grow",
+          body: "We designed a consistent interface across the key screens, giving Meshed a foundation to build on as the product developed.",
+        },
+      ],
+      result:
+        "A complete MVP design that helped Meshed bring its product to market. Meshed went on to raise **$600k**.",
     },
   },
   {
@@ -140,12 +145,29 @@ export const caseStudies: readonly CaseStudy[] = [
     logo: { name: "Onefin", src: "/images/logos/onefin-dark.svg", width: 126, height: 28 },
     images: screenshots("onefin"),
     page: {
-      ...placeholder("Onefin"),
+      draft: false,
+      headline: "Making complex financial workflows feel simple",
+      summary:
+        "We worked with Onefin to improve the product experience, with a focus on making it easier for users to enter and manage business information.",
       meta: {
         client: "Onefin",
-        industry: "Enterprise finance",
-        services: "UX strategy, UI design, design system",
+        industry: "Fintech",
+        services: "Product design, UX and UI design",
       },
+      brief:
+        "Entering business information can be a demanding part of a financial workflow. Onefin needed a clearer way for users to provide the details the product required.",
+      work: [
+        {
+          heading: "A better way to enter business data",
+          body: "We redesigned the data entry experience to help users move through a complex task with greater clarity and less friction.",
+        },
+        {
+          heading: "Clarity across the interface",
+          body: "We refined the surrounding UI so information, actions and next steps were easier to understand.",
+        },
+      ],
+      result:
+        "A more considered product experience that makes a complex part of Onefin’s workflow easier to complete.",
     },
   },
   {
@@ -156,12 +178,30 @@ export const caseStudies: readonly CaseStudy[] = [
     logo: { name: "Scout", src: "/images/logos/scout-dark.svg", width: 133.45, height: 28 },
     images: screenshots("scout"),
     page: {
-      ...placeholder("Scout"),
+      draft: false,
+      headline: "Two years embedded in an evolving AI product",
+      summary:
+        "We worked alongside ScoutOS’s team for more than two years, partnering closely with its lead designer to refine the interface and design new features as the product developed.",
       meta: {
-        client: "Scout",
-        industry: "AI automation",
-        services: "UX strategy, UI design",
+        client: "ScoutOS",
+        industry: "AI software",
+        services: "Embedded product design, UX and UI design",
+        engagement: "2+ years",
       },
+      brief:
+        "ScoutOS needed design support that could move with the product. That meant improving the experience already in place while helping the team shape what came next.",
+      work: [
+        {
+          heading: "Refining the everyday experience",
+          body: "We worked through the details of the interface, making existing features clearer, more consistent and easier to use.",
+        },
+        {
+          heading: "Designing what came next",
+          body: "Working with ScoutOS’s lead designer, we helped turn new feature ideas into considered product experiences that fit the wider platform.",
+        },
+      ],
+      result:
+        "A long-term design partnership that helped ScoutOS keep improving its product while building new capabilities.",
     },
   },
 ];

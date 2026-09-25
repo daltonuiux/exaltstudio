@@ -96,6 +96,23 @@ function Visual({
 
 const bodyClass = "text-base leading-6 text-foreground/66";
 
+/** Copy can bold a phrase with **double asterisks** — nothing else is parsed. */
+function Emphasis({ text }: { text: string }) {
+  return (
+    <>
+      {text.split("**").map((part, i) =>
+        i % 2 === 1 ? (
+          <strong key={i} className="font-semibold text-foreground">
+            {part}
+          </strong>
+        ) : (
+          part
+        ),
+      )}
+    </>
+  );
+}
+
 export default async function CaseStudyPage({ params }: PageProps) {
   const { slug } = await params;
   const study = getCaseStudy(slug);
@@ -107,6 +124,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
     ["Client", page.meta.client],
     ["Industry", page.meta.industry],
     ["Services", page.meta.services],
+    ...(page.meta.engagement ? ([["Engagement", page.meta.engagement]] as const) : []),
   ] as const;
 
   return (
@@ -123,7 +141,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
           <Container width="full">
             <div className="flex flex-col items-start gap-6">
               <div className="flex flex-col gap-2">
-                <SectionLabel>{study.client}</SectionLabel>
+                <SectionLabel>{page.meta.client}</SectionLabel>
                 <h1
                   id="case-study-heading"
                   className="max-w-4xl text-hero font-semibold text-balance text-foreground"
@@ -203,7 +221,9 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
                 <div className="flex flex-col gap-3">
                   <SectionLabel as="h2">The result</SectionLabel>
-                  <p className={bodyClass}>{page.result}</p>
+                  <p className={bodyClass}>
+                    <Emphasis text={page.result} />
+                  </p>
                 </div>
               </div>
 
