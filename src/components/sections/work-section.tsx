@@ -38,13 +38,13 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
 
         {/* White pill with a hairline stroke matching the badges above
             (border-foreground/12), so it sits on the card's grey ground
-            instead of floating. Hover: the stroke firms up and the chevron
-            eases 2px right. Only colour and transform change — both cheap,
-            and the same 200ms the rest of the site's hovers use. */}
+            instead of floating. Hover: the chevron eases 2px right (the
+            stroke deliberately stays put). Only transform changes, at the
+            same 200ms the rest of the site's hovers use. */}
         <Button
           href={`/case-studies/${study.slug}`}
           variant="inverse"
-          className="group self-start gap-1 border border-foreground/12 pr-3 hover:border-foreground/25"
+          className="group self-start gap-1 border border-foreground/12 pr-3"
         >
           View case study
           <svg
