@@ -1,5 +1,4 @@
 import type { Logo } from "@/lib/logos";
-import { testimonials, type Testimonial } from "@/lib/testimonials";
 
 /**
  * Single source for both the case-study cards on the home page (WorkSection)
@@ -42,8 +41,6 @@ export type CaseStudyPage = {
   /** Short sections, each a heading and a sentence or two. */
   readonly work: readonly CaseStudyWork[];
   readonly result: string;
-  /** Optional client quote — the testimonial block drops out without one. */
-  readonly quote?: Testimonial;
 };
 
 export type CaseStudy = {
@@ -71,10 +68,8 @@ const screenshots = (folder: string): readonly CaseStudyImage[] =>
     height: 1800,
   }));
 
-const quoteBy = (name: string): Testimonial | undefined =>
-  testimonials.find((t) => t.name === name);
 
-const placeholder = (client: string): Omit<CaseStudyPage, "meta" | "quote"> => ({
+const placeholder = (client: string): Omit<CaseStudyPage, "meta"> => ({
   draft: true,
   headline: "[Page headline — short and outcome-led]",
   summary: `[One sentence on what we did for ${client}.]`,
@@ -119,7 +114,6 @@ export const caseStudies: readonly CaseStudy[] = [
       ],
       result:
         "A more cohesive product experience, built to support Perlon’s next stage of growth.",
-      quote: quoteBy("Brent Rohner"),
     },
   },
   {
@@ -136,7 +130,6 @@ export const caseStudies: readonly CaseStudy[] = [
         industry: "Insurance",
         services: "UX strategy, UI design",
       },
-      quote: quoteBy("Jake Wells"),
     },
   },
   {
@@ -169,7 +162,6 @@ export const caseStudies: readonly CaseStudy[] = [
         industry: "AI automation",
         services: "UX strategy, UI design",
       },
-      quote: quoteBy("Bryan Chappell"),
     },
   },
 ];

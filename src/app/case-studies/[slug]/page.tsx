@@ -122,14 +122,6 @@ export default async function CaseStudyPage({ params }: PageProps) {
         >
           <Container width="full">
             <div className="flex flex-col items-start gap-6">
-              {/* -my-2 py-2 grows the tappable box past the 12px label without moving it. */}
-              <Link
-                href="/#work"
-                className="-my-2 py-2 font-mono text-eyebrow font-medium text-foreground/50 uppercase transition-colors duration-200 hover:text-foreground"
-              >
-                &larr; All case studies
-              </Link>
-
               <div className="flex flex-col gap-2">
                 <SectionLabel>{study.client}</SectionLabel>
                 <h1
@@ -233,37 +225,6 @@ export default async function CaseStudyPage({ params }: PageProps) {
             </div>
           </Container>
         </Section>
-
-        {/* Testimonial — drops out when there is no quote. */}
-        {page.quote ? (
-          <Section spacing="none" aria-label="Testimonial" className="pb-16 md:pb-24">
-            <Container width="full">
-              <Reveal className="grid gap-6 lg:grid-cols-12 lg:gap-6">
-                <SectionLabel className="lg:col-span-4">Testimonial</SectionLabel>
-                <figure className="flex flex-col gap-10 rounded-lg bg-foreground/4 p-8 sm:p-10 lg:col-span-8">
-                  <blockquote className="max-w-[40ch] text-2xl font-medium text-balance">
-                    <p>&ldquo;{page.quote.quote}&rdquo;</p>
-                  </blockquote>
-                  <figcaption className="flex items-center gap-3">
-                    {page.quote.avatarSrc ? (
-                      <Image
-                        src={page.quote.avatarSrc}
-                        alt=""
-                        width={48}
-                        height={48}
-                        className="h-12 w-12 rounded-full object-cover outline -outline-offset-1 outline-black/10"
-                      />
-                    ) : null}
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">{page.quote.name}</p>
-                      <p className="text-sm text-foreground/66">{page.quote.role}</p>
-                    </div>
-                  </figcaption>
-                </figure>
-              </Reveal>
-            </Container>
-          </Section>
-        ) : null}
 
         {/* Related projects — the other case studies. */}
         <Section spacing="none" aria-labelledby="related-heading" className="pb-16 md:pb-24">
