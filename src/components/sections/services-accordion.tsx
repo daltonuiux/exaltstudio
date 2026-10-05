@@ -123,16 +123,16 @@ export function ServicesAccordion({ services }: ServicesAccordionProps) {
               onClick={() => setActive(isOpen ? null : i)}
               className={cn(
                 GRID_TEMPLATE,
-                "relative w-full grid-cols-1 gap-y-3 py-8 text-left lg:items-center lg:py-10",
+                "relative w-full grid-cols-[1fr_auto] gap-x-5 gap-y-3 py-8 text-left lg:items-center lg:py-10",
               )}
             >
-              <span className="font-mono text-eyebrow font-medium text-foreground/50 tabular-nums lg:pl-4">
+              <span className="col-span-2 font-mono text-eyebrow font-medium text-foreground/50 tabular-nums lg:col-span-1 lg:pl-4">
                 {service.index}
               </span>
-              <h3 className="mt-2 pr-8 text-xl font-semibold text-balance tracking-[-0.03em] sm:text-2xl lg:mt-0 lg:pr-0">
+              <h3 className="mt-2 text-xl font-semibold text-balance tracking-[-0.03em] sm:text-2xl lg:mt-0">
                 {service.title}
               </h3>
-              <p className="text-base leading-6 text-foreground/66 lg:max-w-[46ch]">
+              <p className="col-span-2 text-base leading-6 text-foreground/66 lg:col-span-1 lg:max-w-[46ch]">
                 {service.summary}
               </p>
               <PlusMinus open={isOpen} />
@@ -241,45 +241,41 @@ export function ServicesAccordion({ services }: ServicesAccordionProps) {
  * vertical bar fades out on open, leaving the horizontal one as "−". Purely
  * typographic in spirit (same idea as the FAQ chevron elsewhere on the
  * page) without reaching for an icon.
+ *
+ * Below lg the header is a stacked index / title / description column, and the
+ * control sits at the far right of the TITLE's row (the button's grid is
+ * `1fr auto` there, the title in the first column and this in the second).
+ * The wrapper carries the title's own font size, so `h-lh` is exactly the
+ * title's line height and the glyph is centred on the title's first line —
+ * optically on the same line as the heading, and still there if a long title
+ * wraps to a second line. At lg it's its own column, centred on the row by the
+ * button's `items-center`.
  */
 function PlusMinus({ open }: { open: boolean }) {
   return (
     <span
       aria-hidden
       className={cn(
-        // top-1/2 -translate-y-1/2, not a fixed top-N: below lg the row is a
-        // stacked index/title/description column of variable height (the
-        // description alone can wrap to one or two lines depending on the
-        // service), and a fixed offset happened to land wherever that
-        // description's own text was wrapping for some services, reading as
-        // the indicator floating mid-sentence rather than a clean edge
-        // marker. Centering it against the row's actual height, however
-        // tall that turns out to be, keeps it clear of the text at any
-        // length — and matches how it already sits at lg, where the row's
-        // own lg:items-center centers it for the same reason.
-        //
-        // lg:mr-4 mirrors the index span's own lg:pl-4 (see below) — the
-        // index sits 16px in from the row's left edge, but this had no
-        // matching inset from the right, so the two ends of the row read as
-        // unbalanced (numbering comfortably inset, indicator flush against
-        // the very edge). A margin, not padding: this span is a fixed
-        // h-3 w-3 box, and padding would eat into that already-tight
-        // content area (border-box sizing) rather than just shifting the
-        // whole glyph inward the way margin does.
-        "absolute top-1/2 right-0 mr-0 h-3 w-3 shrink-0 -translate-y-1/2 transition-colors duration-200 motion-reduce:transition-none lg:static lg:top-auto lg:right-auto lg:col-start-5 lg:mr-4 lg:translate-y-0 lg:justify-self-end",
+        // mt-2 mirrors the title's own mt-2 below lg, so both start at the same
+        // height. lg:mr-4 mirrors the index span's lg:pl-4 — the index sits
+        // 16px in from the row's left edge, so the indicator gets the matching
+        // inset from the right rather than sitting flush against the edge.
+        "col-start-2 row-start-2 mt-2 flex h-lh shrink-0 items-center text-xl transition-colors duration-200 motion-reduce:transition-none sm:text-2xl lg:col-start-5 lg:row-start-auto lg:mt-0 lg:mr-4 lg:h-auto lg:justify-self-end",
         open ? "text-foreground" : "text-foreground/40",
       )}
     >
-      <span className="absolute inset-0 flex items-center justify-center">
-        <span className="h-px w-3 bg-current" />
-      </span>
-      <span
-        className={cn(
-          "absolute inset-0 flex items-center justify-center transition-opacity duration-300 motion-reduce:transition-none",
-          open ? "opacity-0" : "opacity-100",
-        )}
-      >
-        <span className="h-3 w-px bg-current" />
+      <span className="relative block h-3 w-3">
+        <span className="absolute inset-0 flex items-center justify-center">
+          <span className="h-px w-3 bg-current" />
+        </span>
+        <span
+          className={cn(
+            "absolute inset-0 flex items-center justify-center transition-opacity duration-300 motion-reduce:transition-none",
+            open ? "opacity-0" : "opacity-100",
+          )}
+        >
+          <span className="h-3 w-px bg-current" />
+        </span>
       </span>
     </span>
   );
