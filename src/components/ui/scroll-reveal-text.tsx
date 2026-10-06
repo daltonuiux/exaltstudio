@@ -11,6 +11,12 @@ const START = 0.9;
 const END = 0.25;
 /** How many words the leading edge is spread over. Higher = softer. */
 const FEATHER = 5;
+/**
+ * When pinned (see PinnedReveal): the reveal is finished this far through the
+ * pinned scroll, so the finished sentence rests on screen for the last stretch
+ * before the page moves on, instead of releasing the moment the last word lands.
+ */
+const PINNED_REVEAL_END = 0.8;
 
 type ScrollRevealTextProps = {
   text: string;
@@ -39,6 +45,11 @@ type ScrollRevealTextProps = {
  * every frame in between reads window.scrollY instead, which never forces
  * layout.
  *
+ * Inside a PinnedReveal (found via its `data-reveal-track` / `data-reveal-stage`
+ * ancestors) the progress is taken from how far the page has scrolled through
+ * that track, so the reveal plays out while the text is held on screen. Without
+ * one it follows the paragraph's own trip through the viewport, as above.
+ *
  * Under prefers-reduced-motion the paragraph is simply set to fully revealed
  * and no scroll work happens at all.
  */
@@ -57,14 +68,31 @@ export function ScrollRevealText({ text, className }: ScrollRevealTextProps) {
     let top = 0;
     let height = 0;
 
+    // The pinned case. `height` is then the track's, and `stageHeight` is how
+    // much of it the pinned stage itself uses: the rest is the scroll distance
+    // the text is held for.
+    const track = el.closest<HTMLElement>("[data-reveal-track]");
+    const stage = el.closest<HTMLElement>("[data-reveal-stage]");
+    let stageHeight = 0;
+
     const remeasure = () => {
-      const rect = el.getBoundingClientRect();
+      const rect = (track ?? el).getBoundingClientRect();
       top = rect.top + window.scrollY;
       height = rect.height;
+      stageHeight = stage?.offsetHeight ?? 0;
     };
 
     const measure = () => {
       ticking = false;
+      if (track && stage) {
+        const held = Math.max(1, height - stageHeight);
+        const progress = (window.scrollY - top) / held / PINNED_REVEAL_END;
+        el.style.setProperty(
+          "--reveal",
+          String(Math.min(1, Math.max(0, progress))),
+        );
+        return;
+      }
       const vh = window.innerHeight;
       const viewportTop = top - window.scrollY;
       const span = height + vh * (START - END);

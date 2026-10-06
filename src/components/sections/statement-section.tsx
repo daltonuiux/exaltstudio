@@ -1,5 +1,6 @@
 import { Container } from "@/components/ui/container";
 import { ScrollRevealText } from "@/components/ui/scroll-reveal-text";
+import { PinnedReveal } from "@/components/ui/pinned-reveal";
 import { Section } from "@/components/ui/section";
 
 const statement =
@@ -8,14 +9,18 @@ const statement =
 export function StatementSection() {
   return (
     // No top hairline: the social-proof block above already closes with one.
-    // Figma frames this at 136px top / 160px bottom.
-    <Section id="statement" spacing="none" className="pt-24 pb-28 md:pt-34 md:pb-40">
-      <Container width="full">
-        <ScrollRevealText
-          text={statement}
-          className="mx-auto max-w-[880px] text-center text-display font-semibold text-foreground"
-        />
-      </Container>
+    // Pinned in the viewport while it reveals (see PinnedReveal), so the
+    // Figma 136px top / 160px bottom padding only applies in the unpinned
+    // reduced-motion layout.
+    <Section id="statement" spacing="none">
+      <PinnedReveal reducedClassName="pt-24 pb-28 md:pt-34 md:pb-40">
+        <Container width="full">
+          <ScrollRevealText
+            text={statement}
+            className="mx-auto max-w-[880px] text-center text-display font-semibold text-foreground"
+          />
+        </Container>
+      </PinnedReveal>
     </Section>
   );
 }
