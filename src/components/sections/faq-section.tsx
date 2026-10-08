@@ -22,8 +22,8 @@ const faqs: Faq[] = [
   {
     question: "How much work can I expect in a month?",
     answer: [
-      "Micro updates (24–48h), small flows (3–5 days), larger modules (1–2 weeks), and landing pages (1–2 weeks design +1–2 weeks for build).",
-      "Most clients see first polished designs within 3–5 days of kickoff.",
+      "Embedded Design Partner includes 32 hours of reserved design capacity each month. We agree priorities together in weekly planning, so that time goes to the work that matters most on your roadmap.",
+      "How far it goes depends on the size of each piece of work. We estimate each request before starting it and flag early if priorities need to shift, so you always know what the month will cover.",
     ],
   },
   {
@@ -36,9 +36,7 @@ const faqs: Faq[] = [
   {
     question: "What is your pricing?",
     answer: [
-      "We price engagements based on scope, complexity and the level of support required, with clear starting points for each service.",
-      "Product redesign and MVP engagements typically start from $7,500, design systems from $4,000, embedded product design from $3,000/month, and design engineering from $5,000.",
-      "Before work begins, we agree the scope, timeline, deliverables and fee so you know exactly what is included. If the scope changes, we discuss and agree that with you first.",
+      "Our Product Design Sprint is $6,000 for one agreed workflow, typically delivered in 3–4 weeks. Embedded Design Partner is $4,500 per month for 32 hours of reserved capacity. We confirm scope, availability and terms before work begins. Larger projects and frontend implementation are quoted separately.",
     ],
   },
   {

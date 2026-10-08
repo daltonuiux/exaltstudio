@@ -1,10 +1,12 @@
+import type { ReactNode } from "react";
+
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 /**
  * Every "book a call" button on the site. One component so the copy, the link
- * and the hover can't drift apart between the header, hero, accordion and CTA
+ * and the hover can't drift apart between the header, hero, pricing cards and CTA
  * (the header used to say "Book call" while the rest said "Book intro call").
  *
  * The hover is the chevron: it eases 2px to the right. Transform only, 200ms,
@@ -23,10 +25,13 @@ export function BookCallButton({
   variant = "solid",
   size = "md",
   className,
+  children = "Book intro call",
 }: {
   variant?: "solid" | "inverse";
   size?: "sm" | "md";
   className?: string;
+  /** Label override for contextual CTAs (the pricing cards); same link. */
+  children?: ReactNode;
 }) {
   return (
     <Button
@@ -37,7 +42,7 @@ export function BookCallButton({
       size={size}
       className={cn("group gap-1", size === "sm" ? "pr-2" : "pr-3", className)}
     >
-      Book intro call
+      {children}
       <svg
         aria-hidden
         width="16"

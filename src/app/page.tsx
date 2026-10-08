@@ -4,6 +4,7 @@ import { Hero } from "@/components/sections/hero";
 import { FooterBackground } from "@/components/ui/footer-background";
 import { HeroLines } from "@/components/ui/hero-lines";
 import { OfferingsSection } from "@/components/sections/offerings-section";
+import { PricingSection } from "@/components/sections/pricing-section";
 import { ServicesSection } from "@/components/sections/services-section";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
@@ -46,6 +47,7 @@ export default function Home() {
         <WorkSection />
         <ServicesSection />
         <OfferingsSection />
+        <PricingSection />
         <StatementSectionTwo />
         <TestimonialsSection />
         <WorkSamplesSection />

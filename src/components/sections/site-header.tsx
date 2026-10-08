@@ -17,6 +17,7 @@ const navItems = [
   // work from anywhere (see navHref).
   { label: "Process", href: "/#process" },
   { label: "Services", href: "/#services" },
+  { label: "Pricing", href: "/#pricing" },
   { label: "Testimonials", href: "/#testimonials" },
   { label: "Selected Work", href: "/#work-samples" },
 ];
