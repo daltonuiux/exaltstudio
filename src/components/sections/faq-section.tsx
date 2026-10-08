@@ -14,7 +14,7 @@ const faqs: Faq[] = [
   {
     question: "Who do I work with?",
     answer: [
-      "You will work directly with Luke Dalton, the founder of Exalt Studio who has lead successful design projects with 30+ global clients and consulted on design work for HSBC, Cantor Fitzgerald and the FIA.",
+      "You will work directly with Luke Dalton, supported by one senior product designer. Luke is the founder of Exalt Studio and has led successful design projects with 30+ global clients and consulted on design work for HSBC, Cantor Fitzgerald and the FIA.",
       "Having previously worked in-house and agency side in London, he started Exalt Studio to give startups access to top tier product design without the difficulty of a lengthy hiring process.",
       "Connect with him using the links in the footer.",
     ],
@@ -22,7 +22,7 @@ const faqs: Faq[] = [
   {
     question: "How much work can I expect in a month?",
     answer: [
-      "Embedded Design Partner includes 32 hours of reserved design capacity each month. We agree priorities together in weekly planning, so that time goes to the work that matters most on your roadmap.",
+      "Embedded Design Partner is scoped around your team’s needs. We agree priorities together in weekly planning, so the work goes to what matters most on your roadmap.",
       "How far it goes depends on the size of each piece of work. We estimate each request before starting it and flag early if priorities need to shift, so you always know what the month will cover.",
     ],
   },
@@ -30,13 +30,13 @@ const faqs: Faq[] = [
     question: "Why wouldn’t I hire a full-time designer?",
     answer: [
       "Recruiting a full-time senior designer with the right expertise can be time-consuming and expensive, with high salaries and benefits.",
-      "With Exalt Studio you get immediate and direct access to a specialised designer you can trust to deliver first rate deliverables.",
+      "With Exalt Studio you get immediate and direct access to Luke and one senior product designer you can trust to deliver first rate work.",
     ],
   },
   {
     question: "What is your pricing?",
     answer: [
-      "Our Product Design Sprint is $6,000 for one agreed workflow, typically delivered in 3–4 weeks. Embedded Design Partner is $4,500 per month for 32 hours of reserved capacity. We confirm scope, availability and terms before work begins. Larger projects and frontend implementation are quoted separately.",
+      "Our Product Design Sprint is $6,000 for one agreed workflow, typically delivered in 3–4 weeks. Embedded Design Partner starts at $4,500 per month, with support scoped around your team’s needs. Both engagements include Luke and one senior product designer. We confirm scope, availability and terms before work begins. Larger projects and frontend implementation are quoted separately.",
     ],
   },
   {

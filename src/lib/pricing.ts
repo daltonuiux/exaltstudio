@@ -9,9 +9,11 @@ export type Package = {
   readonly headline: string;
   readonly description: string;
   readonly price: string;
-  /** Sits beside the price, e.g. "Fixed fee" / "Per month". */
+  /** Small lead-in before the price, e.g. "From". */
+  readonly pricePrefix?: string;
+  /** Sits beside the price, e.g. "Fixed fee" / "/month". */
   readonly priceQualifier: string;
-  /** Timing or capacity — the one line under the price. */
+  /** Timing or scope — the one line under the price. */
   readonly term: string;
   readonly included: readonly string[];
   /** Scope / commitment note under the list. */
@@ -45,9 +47,10 @@ export const packages: readonly Package[] = [
     headline: "Senior product design, built into your team.",
     description:
       "For teams shipping regularly who need an experienced designer alongside founders and engineers. We improve existing workflows, design new features and keep the product consistent.",
+    pricePrefix: "From",
     price: "$4,500",
-    priceQualifier: "Per month",
-    term: "32 hours of reserved capacity",
+    priceQualifier: "/month",
+    term: "Support tailored to your team’s priorities.",
     included: [
       "Ongoing product strategy, UX and UI",
       "New features and workflow improvements",
