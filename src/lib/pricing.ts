@@ -44,15 +44,15 @@ export const packages: readonly Package[] = [
     description:
       "For teams shipping regularly who need an experienced designer alongside founders and engineers. We improve existing workflows, design new features and keep the product consistent.",
     priceLabel: "From",
-    price: "$4,500",
+    price: "$7,000",
     priceQualifier: "/month",
     included: [
       "Founder + one senior product designer",
       "Ongoing product strategy, UX and UI",
       "New features and workflow improvements",
       "Design system development",
-      "Weekly planning and design reviews",
-      "Direct Slack collaboration and handoff support",
+      "Design engineering: designs built in code",
+      "Weekly planning and Slack collaboration",
     ],
     note: "Agreed priorities. Renew month to month.",
     cta: "Discuss your team’s needs",
