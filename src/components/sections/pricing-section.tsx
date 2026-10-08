@@ -68,7 +68,7 @@ export function PricingSection() {
             engagement and confirm scope, timing and cost.
           </p>
           <p className="max-w-[72ch]">
-            Frontend implementation can be scoped separately after reviewing
+            Larger frontend builds can be scoped separately after reviewing
             your requirements and codebase.
           </p>
         </Reveal>
