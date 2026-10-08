@@ -1,5 +1,6 @@
 import { BookCallButton } from "@/components/ui/book-call-button";
 import { Container } from "@/components/ui/container";
+import { HeroLines } from "@/components/ui/hero-lines";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -7,26 +8,44 @@ import { SectionLabel } from "@/components/ui/section-label";
 import { packages, type Package } from "@/lib/pricing";
 
 /**
- * The two engagements, directly below the services list.
+ * The two engagements, directly below the services list — set on the same
+ * dark ground and animated lines as the hero and footer, with both offers on
+ * frosted cards like the final CTA's, so pricing reads as a deliberate scene
+ * change mid-page.
+ *
+ * The section is its own `isolate` stacking context: HeroLines is
+ * screen-blended, which only blends with the fill inside it. The cards are
+ * darker and more heavily blurred than the CTA card (foreground/60, blur-2xl)
+ * so the lines glow through without cutting into the copy's contrast.
  *
  * At lg the cards sit side by side and each one is a subgrid spanning the
  * same five rows (intro / price / included / note / CTA), so the prices, lists
  * and CTAs line up across both cards however differently their copy wraps.
- * Below lg they stack as plain single-column grids.
  */
 export function PricingSection() {
   return (
-    <Section id="pricing" spacing="lg" aria-labelledby="pricing-heading">
-      <Container width="full">
+    <Section
+      id="pricing"
+      spacing="lg"
+      aria-labelledby="pricing-heading"
+      className="isolate overflow-hidden"
+    >
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-0 bg-foreground" />
+      <HeroLines />
+
+      <Container width="full" className="relative z-10">
         <Reveal>
           <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
             <SectionHeader
-              className="lg:col-span-6"
+              // SectionHeader's eyebrow is hard-wired to the light-ground
+              // tint; lift it for the dark ground.
+              className="lg:col-span-6 [&>p:first-child]:text-background/50"
               label="Pricing"
               titleId="pricing-heading"
               title="Two ways to work together"
+              titleClassName="text-background"
             />
-            <p className="max-w-[52ch] self-end text-base leading-6 text-foreground/66 lg:col-span-5 lg:col-start-8">
+            <p className="max-w-[52ch] self-end text-base leading-6 text-background/70 lg:col-span-5 lg:col-start-8">
               Resolve a critical workflow or get ongoing senior design support.
               Work directly with Luke from the first conversation through to
               delivery.
@@ -34,15 +53,15 @@ export function PricingSection() {
           </div>
         </Reveal>
 
-        <div className="mt-14 grid gap-4 lg:mt-20 lg:grid-cols-2 lg:gap-x-6">
+        <div className="mt-14 grid gap-4 lg:mt-20 lg:grid-cols-2">
           {packages.map((pkg, i) => (
             <PricingCard key={pkg.id} pkg={pkg} delayMs={i * 80} />
           ))}
         </div>
 
-        <Reveal className="mt-10 flex flex-col gap-2 text-base leading-6 text-foreground/66">
+        <Reveal className="mt-10 flex flex-col gap-2 text-base leading-6 text-background/70">
           <p className="max-w-[72ch]">
-            <span className="font-semibold text-foreground">
+            <span className="font-semibold text-background">
               Not sure which fits?
             </span>{" "}
             Bring a product walkthrough to a 20-minute call. We’ll recommend an
@@ -66,40 +85,42 @@ function PricingCard({ pkg, delayMs }: { pkg: Package; delayMs: number }) {
       as="article"
       aria-labelledby={headingId}
       delayMs={delayMs}
-      className="grid gap-8 rounded-lg border border-foreground/12 p-6 sm:p-10 lg:row-span-5 lg:grid-rows-subgrid lg:gap-y-8"
+      className="grid gap-8 rounded-lg border border-background/14 bg-foreground/60 p-6 backdrop-blur-2xl sm:p-10 lg:row-span-5 lg:grid-rows-subgrid"
     >
       <div className="flex flex-col gap-3">
         <h3
           id={headingId}
-          className="text-xl font-semibold tracking-[-0.03em] sm:text-2xl"
+          className="text-2xl font-semibold tracking-[-0.03em] text-background"
         >
           {pkg.name}
         </h3>
-        <p className="text-base leading-6 font-medium text-foreground">
+        <p className="text-base leading-6 font-medium text-background">
           {pkg.headline}
         </p>
-        <p className="max-w-[52ch] text-base leading-6 text-foreground/66">
+        <p className="max-w-[52ch] text-base leading-6 text-background/70">
           {pkg.description}
         </p>
       </div>
 
-      <div className="flex flex-col gap-2 border-t border-foreground/12 pt-8">
+      <div className="flex flex-col gap-1 border-t border-background/14 pt-8">
         <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <span className="text-4xl font-semibold tracking-[-0.03em] tabular-nums">
+          <span className="text-5xl font-semibold tracking-[-0.03em] text-background tabular-nums">
             {pkg.price}
           </span>
-          <span className="text-sm text-foreground/66">{pkg.priceQualifier}</span>
+          <span className="text-sm text-background/70">{pkg.priceQualifier}</span>
         </p>
-        <p className="text-base leading-6 text-foreground/66">{pkg.term}</p>
+        <p className="text-base leading-6 text-background/70">{pkg.term}</p>
       </div>
 
       <div>
-        <SectionLabel as="h4">Included</SectionLabel>
+        <SectionLabel as="h4" className="text-background/50">
+          Included
+        </SectionLabel>
         <ul className="mt-4 flex flex-col gap-2">
           {pkg.included.map((item) => (
             <li
               key={item}
-              className="flex gap-3 text-base leading-6 text-foreground/66"
+              className="flex gap-3 text-base leading-6 text-background/70"
             >
               <svg
                 aria-hidden
@@ -107,7 +128,7 @@ function PricingCard({ pkg, delayMs }: { pkg: Package; delayMs: number }) {
                 height="16"
                 viewBox="0 0 16 16"
                 fill="none"
-                className="mt-1 size-4 shrink-0 text-foreground/50"
+                className="mt-1 size-4 shrink-0 text-background/50"
               >
                 <path
                   d="M3.5 8.5 6.5 11.5 12.5 4.5"
@@ -123,9 +144,12 @@ function PricingCard({ pkg, delayMs }: { pkg: Package; delayMs: number }) {
         </ul>
       </div>
 
-      <p className="text-sm leading-5 text-foreground/66">{pkg.note}</p>
+      <p className="text-sm leading-5 text-background/70">{pkg.note}</p>
 
-      <BookCallButton className="w-full justify-center self-end sm:w-fit">
+      <BookCallButton
+        variant="inverse"
+        className="w-full justify-center self-end sm:w-fit"
+      >
         {pkg.cta}
       </BookCallButton>
     </Reveal>
