@@ -100,9 +100,6 @@ function PricingCard({ pkg, delayMs }: { pkg: Package; delayMs: number }) {
         <p className="max-w-[52ch] text-base leading-6 text-background/70">
           {pkg.description}
         </p>
-        <p className="text-sm leading-5 font-medium text-background">
-          Luke + one senior product designer.
-        </p>
       </div>
 
       <div className="flex flex-col gap-1 border-t border-background/14 pt-8">

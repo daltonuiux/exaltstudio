@@ -32,6 +32,7 @@ export const packages: readonly Package[] = [
     priceQualifier: "Fixed fee",
     term: "3–4 weeks",
     included: [
+      "Founder + one senior product designer",
       "Workflow review and UX direction",
       "High-fidelity UI and key interaction states",
       "Interactive prototype",
@@ -52,6 +53,7 @@ export const packages: readonly Package[] = [
     priceQualifier: "/month",
     term: "Support tailored to your team’s priorities.",
     included: [
+      "Founder + one senior product designer",
       "Ongoing product strategy, UX and UI",
       "New features and workflow improvements",
       "Design system development",
