@@ -6,15 +6,12 @@
 export type Package = {
   readonly id: string;
   readonly name: string;
-  readonly headline: string;
   readonly description: string;
+  /** Small line above the price, e.g. "4 week sprint" / "From". */
+  readonly priceLabel: string;
   readonly price: string;
-  /** Small lead-in before the price, e.g. "From". */
-  readonly pricePrefix?: string;
   /** Sits beside the price, e.g. "Fixed fee" / "/month". */
   readonly priceQualifier: string;
-  /** Timing or scope — the one line under the price. */
-  readonly term: string;
   readonly included: readonly string[];
   /** Scope / commitment note under the list. */
   readonly note: string;
@@ -25,12 +22,11 @@ export const packages: readonly Package[] = [
   {
     id: "sprint",
     name: "Product Design Sprint",
-    headline: "One important workflow, redesigned.",
     description:
       "For teams with a product journey that’s become confusing, inconsistent or difficult to use. We resolve the friction and deliver a polished design your engineers can build.",
+    priceLabel: "4 week sprint",
     price: "$6,000",
     priceQualifier: "Fixed fee",
-    term: "3–4 weeks",
     included: [
       "Founder + one senior product designer",
       "Workflow review and UX direction",
@@ -45,13 +41,11 @@ export const packages: readonly Package[] = [
   {
     id: "embedded",
     name: "Embedded Design Partner",
-    headline: "Senior product design, built into your team.",
     description:
       "For teams shipping regularly who need an experienced designer alongside founders and engineers. We improve existing workflows, design new features and keep the product consistent.",
-    pricePrefix: "From",
+    priceLabel: "From",
     price: "$4,500",
     priceQualifier: "/month",
-    term: "Support tailored to your team’s priorities.",
     included: [
       "Founder + one senior product designer",
       "Ongoing product strategy, UX and UI",

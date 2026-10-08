@@ -94,25 +94,19 @@ function PricingCard({ pkg, delayMs }: { pkg: Package; delayMs: number }) {
         >
           {pkg.name}
         </h3>
-        <p className="text-base leading-6 font-medium text-background">
-          {pkg.headline}
-        </p>
         <p className="max-w-[52ch] text-base leading-6 text-background/70">
           {pkg.description}
         </p>
       </div>
 
       <div className="flex flex-col gap-1 border-t border-background/14 pt-8">
+        <p className="text-sm leading-5 text-background/70">{pkg.priceLabel}</p>
         <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          {pkg.pricePrefix ? (
-            <span className="text-sm text-background/70">{pkg.pricePrefix}</span>
-          ) : null}
           <span className="text-5xl font-semibold tracking-[-0.03em] text-background tabular-nums">
             {pkg.price}
           </span>
           <span className="text-sm text-background/70">{pkg.priceQualifier}</span>
         </p>
-        <p className="text-base leading-6 text-background/70">{pkg.term}</p>
       </div>
 
       <div>
