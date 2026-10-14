@@ -5,14 +5,14 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { services } from "@/lib/services";
 
 /**
- * The services list: static numbered rows — index, title, one-line summary —
- * separated by hairline rules. Pricing and engagement detail live in
- * PricingSection directly below, so nothing here expands or links anywhere.
+ * The services list: static numbered rows separated by hairline rules. Each
+ * row leads with the outcome (the heading), with the capability behind it as
+ * a small label above, then a one-line summary. This section says what we
+ * help teams achieve; how to engage lives in PricingSection directly below,
+ * so nothing here expands or links anywhere.
  *
- * Same column template the rows have always used (4rem index / 24rem title /
- * description), so the layout reads exactly as before, minus the control
- * column the old accordion's +/- sat in. Below lg it's a plain stack: index,
- * then title, then description.
+ * Columns at lg: 4rem index / 24rem label + heading / summary. Below lg it's
+ * a plain stack: index, label, heading, summary.
  */
 export function OfferingsSection() {
   return (
@@ -22,7 +22,7 @@ export function OfferingsSection() {
           <SectionHeader
             label="Services"
             titleId="offerings-heading"
-            title="What we help you with"
+            title="What we help you achieve"
           />
         </Reveal>
 
@@ -36,10 +36,15 @@ export function OfferingsSection() {
               <span className="font-mono text-eyebrow font-medium text-foreground/50 tabular-nums lg:pl-4">
                 {service.index}
               </span>
-              <h3 className="mt-2 text-xl font-semibold text-balance tracking-[-0.03em] sm:text-2xl lg:mt-0">
-                {service.title}
-              </h3>
-              <p className="max-w-[46ch] text-base leading-6 text-foreground/66">
+              <div className="mt-2 flex flex-col gap-2 lg:mt-0">
+                <p className="font-mono text-eyebrow font-medium text-foreground/66 uppercase">
+                  {service.capability}
+                </p>
+                <h3 className="text-xl font-semibold text-balance tracking-[-0.03em] sm:text-2xl">
+                  {service.title}
+                </h3>
+              </div>
+              <p className="max-w-[52ch] text-base leading-6 text-pretty text-foreground/66">
                 {service.summary}
               </p>
             </Reveal>

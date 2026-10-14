@@ -26,16 +26,19 @@ export function BookCallButton({
   size = "md",
   className,
   children = "Book intro call",
+  href = siteConfig.bookingUrl,
 }: {
   variant?: "solid" | "inverse";
   size?: "sm" | "md";
   className?: string;
   /** Label override for contextual CTAs (the pricing cards); same link. */
   children?: ReactNode;
+  /** Booking link override (the free UX audit's own event type). */
+  href?: string;
 }) {
   return (
     <Button
-      href={siteConfig.bookingUrl}
+      href={href}
       target="_blank"
       rel="noreferrer noopener"
       variant={variant}

@@ -66,4 +66,9 @@ export const siteConfig = {
   /** Cal.com scheduling link behind every "Book intro call" CTA. */
   bookingUrl:
     "https://cal.com/luke-dalton-wp2kwb/intro-exalt-studio?overlayCalendar=true",
+  /** The free UX audit's booking link: the existing Product Teardown event
+   * type, so audit requests arrive as their own meeting type rather than as
+   * an intro call. */
+  auditBookingUrl:
+    "https://cal.com/luke-dalton-wp2kwb/product-teardown-application?overlayCalendar=true",
 } as const;
