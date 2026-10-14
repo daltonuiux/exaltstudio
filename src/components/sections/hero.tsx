@@ -14,27 +14,24 @@ export function Hero({ className }: { className?: string }) {
       <Container width="full">
         {/* The column is 646px wide so the headline has room, and the paragraph
             keeps its own, narrower 566px measure for readability. Wrapping,
-            checked line by line from 320px to 1920px: text-balance splits the
-            headline into two even lines ("Your product has / outgrown its
-            design") from 375px up, and three even lines at 320px; text-pretty
-            on the paragraph stops it ending on a stranded word. */}
+            text-balance keeps the headline's lines even wherever it wraps, and
+            text-pretty on the paragraph stops it ending on a stranded word. */}
         <div className="flex w-full max-w-[646px] flex-col gap-8">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <SectionLabel className="text-background/70">
-                Design for growing AI &amp; B2B software
+                Product design &amp; design engineering for AI &amp; SaaS
               </SectionLabel>
               <h1
                 id="hero-heading"
                 className="max-w-[646px] text-hero font-semibold text-balance text-background"
               >
-                Your product has outgrown its design
+                Complex products. Beautifully simple.
               </h1>
             </div>
             <p className="max-w-[566px] text-base leading-6 text-pretty text-background/80">
-              We help SaaS and AI teams untangle complex workflows, improve the
-              customer experience, and build a product that feels ready for its
-              next stage.
+              We help ambitious AI and SaaS teams simplify complex workflows,
+              elevate their product experience and ship exceptional software.
             </p>
           </div>
 
