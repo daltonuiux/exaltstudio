@@ -8,10 +8,7 @@ export type Package = {
   /** Small label naming the kind of engagement, e.g. "Fixed scope". */
   readonly kind: string;
   readonly name: string;
-  /** One-line promise under the name. */
-  readonly positioning: string;
   readonly description: string;
-  readonly bestFor: string;
   /** Small line above the price, e.g. "From". */
   readonly priceLabel: string;
   readonly price: string;
@@ -28,11 +25,8 @@ export const packages: readonly Package[] = [
     id: "project",
     kind: "Fixed scope",
     name: "Fixed-Price Project",
-    positioning: "A clear scope. One agreed price. Exceptional execution.",
     description:
-      "For teams with a defined challenge or project. From new features and product redesigns to MVPs and design systems, we’ll agree on the scope, timeline and deliverables upfront.",
-    bestFor:
-      "Teams with a defined project who want predictable costs, without an ongoing retainer.",
+      "From new features to full product redesigns. Clear scope, predictable costs and exceptional execution.",
     priceLabel: "From",
     price: "$6,000",
     priceQualifier: "/project",
@@ -51,11 +45,8 @@ export const packages: readonly Package[] = [
     id: "embedded",
     kind: "Ongoing partnership",
     name: "Embedded Design Partner",
-    positioning: "Your senior design partner, without the overhead of hiring.",
     description:
-      "We work alongside your founders and engineers to continuously improve your product, design new features and ship exceptional experiences.",
-    bestFor:
-      "Funded startups and growing software teams with ongoing design needs.",
+      "Senior design expertise, embedded in your team. Better workflows, new features and continuous product improvements.",
     priceLabel: "From",
     price: "$7,000",
     priceQualifier: "/month",

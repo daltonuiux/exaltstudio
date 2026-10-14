@@ -20,9 +20,9 @@ import { siteConfig } from "@/lib/site";
  * so the lines glow through without cutting into the copy's contrast.
  *
  * At lg the cards sit side by side and each one is a subgrid spanning the
- * same six rows (intro / best for / price / included / note / CTA), so the
- * prices, lists and CTAs line up across both cards however differently their
- * copy wraps.
+ * same five rows (intro / price / included / note / CTA), so the prices,
+ * lists and CTAs line up across both cards however differently their copy
+ * wraps.
  *
  * Below the cards, the free UX audit: a lower-commitment way in for teams not
  * ready to buy. It's a single horizontal panel rather than a third card, on a
@@ -87,7 +87,7 @@ function PricingCard({ pkg, delayMs }: { pkg: Package; delayMs: number }) {
       as="article"
       aria-labelledby={headingId}
       delayMs={delayMs}
-      className="grid gap-8 rounded-lg border border-background/14 bg-foreground/60 p-6 backdrop-blur-2xl sm:p-10 lg:row-span-6 lg:grid-rows-subgrid"
+      className="grid gap-8 rounded-lg border border-background/14 bg-foreground/60 p-6 backdrop-blur-2xl sm:p-10 lg:row-span-5 lg:grid-rows-subgrid"
     >
       <div className="flex flex-col">
         <SectionLabel className="text-background/50">{pkg.kind}</SectionLabel>
@@ -97,20 +97,8 @@ function PricingCard({ pkg, delayMs }: { pkg: Package; delayMs: number }) {
         >
           {pkg.name}
         </h3>
-        <p className="mt-2 text-lg leading-7 font-medium text-pretty text-background">
-          {pkg.positioning}
-        </p>
-        <p className="mt-4 max-w-[52ch] text-base leading-6 text-pretty text-background/70">
+        <p className="mt-3 max-w-[48ch] text-base leading-6 text-pretty text-background/70">
           {pkg.description}
-        </p>
-      </div>
-
-      <div>
-        <SectionLabel as="h4" className="text-background/50">
-          Best for
-        </SectionLabel>
-        <p className="mt-2 max-w-[52ch] text-base leading-6 text-pretty text-background">
-          {pkg.bestFor}
         </p>
       </div>
 
