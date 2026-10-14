@@ -36,7 +36,7 @@ const faqs: Faq[] = [
   {
     question: "What is your pricing?",
     answer: [
-      "Our Product Design Sprint is $6,000 for one agreed workflow, delivered in 4 weeks. Embedded Design Partner starts at $7,000 per month, with support scoped around your team’s needs. Both engagements include Luke and one senior product designer. We confirm scope, availability and terms before work begins. Larger projects and frontend builds are quoted separately.",
+      "Fixed-Price Projects start from $6,000, with the scope, timeline and fee agreed before kickoff. Embedded Design Partner starts at $7,000 per month, with support scoped around your team’s needs. Both engagements include Luke and one senior product designer. We confirm scope, availability and terms before work begins. Larger frontend builds are quoted separately.",
     ],
   },
   {

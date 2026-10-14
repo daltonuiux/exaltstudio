@@ -12,10 +12,10 @@ export type Package = {
   readonly positioning: string;
   readonly description: string;
   readonly bestFor: string;
-  /** Small line above the price, e.g. "4-week sprint" / "From". */
+  /** Small line above the price, e.g. "From". */
   readonly priceLabel: string;
   readonly price: string;
-  /** Sits beside the price, e.g. "Fixed fee" / "/month". */
+  /** Sits beside the price, e.g. "/project" / "/month". */
   readonly priceQualifier: string;
   readonly included: readonly string[];
   /** Scope / commitment note under the list. */
@@ -25,26 +25,26 @@ export type Package = {
 
 export const packages: readonly Package[] = [
   {
-    id: "sprint",
+    id: "project",
     kind: "Fixed scope",
-    name: "Product Design Sprint",
-    positioning: "One important product challenge, solved.",
+    name: "Fixed-Price Project",
+    positioning: "A clear scope. One agreed price. Exceptional execution.",
     description:
-      "A focused, four-week engagement to transform a frustrating product workflow into a beautifully designed, intuitive experience that’s ready to build.",
+      "For teams with a defined challenge or project. From new features and product redesigns to MVPs and design systems, we’ll agree on the scope, timeline and deliverables upfront.",
     bestFor:
-      "Teams with a specific workflow, feature or UX problem that needs attention.",
-    priceLabel: "4-week sprint",
+      "Teams with a defined project who want predictable costs, without an ongoing retainer.",
+    priceLabel: "From",
     price: "$6,000",
-    priceQualifier: "Fixed fee",
+    priceQualifier: "/project",
     included: [
-      "Founder-led delivery, supported by a senior product designer",
-      "Workflow review and UX direction",
-      "High-fidelity UI and key interaction states",
-      "Interactive prototype",
-      "Reusable components",
-      "Developer handoff and walkthrough",
+      "Founder-led delivery with senior design support",
+      "Product discovery and UX direction",
+      "High-fidelity product design and prototyping",
+      "Design systems and reusable components",
+      "Developer-ready handoff or agreed implementation in code",
+      "Clear milestones and deliverables",
     ],
-    note: "One agreed workflow. Clear deliverables before kickoff.",
+    note: "Defined scope, timeline and fixed fee before kickoff.",
     cta: "Discuss your project",
   },
   {

@@ -52,8 +52,8 @@ export function PricingSection() {
               titleClassName="text-background"
             />
             <p className="max-w-[52ch] self-end text-base leading-6 text-background/70 lg:col-span-5 lg:col-start-8">
-              Solve one important problem with a fixed-scope sprint, or bring us
-              in as an ongoing design partner. Either way, you work directly
+              Hire us for a defined project at an agreed price, or bring us in
+              as an ongoing design partner. Either way, you work directly
               with Luke, supported by a senior product designer.
             </p>
           </div>
