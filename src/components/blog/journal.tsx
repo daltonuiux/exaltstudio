@@ -84,7 +84,7 @@ export function BlogIndex({ articles }: { articles: readonly BlogArticle[] }) {
                     </div>
 
                     <div className="flex flex-col gap-4 lg:col-span-4 lg:col-start-9">
-                      {i === 0 ? (
+                      {i === 0 && article.image ? (
                         <CroppedImage
                           image={article.image}
                           decorative
@@ -125,7 +125,7 @@ export function BlogPost({
     ["Author", article.author.name],
     ["Topic", article.topic],
     ["Published", formatPublished(article)],
-    ...(minutes ? [["Length", `${minutes} min read`]] : []),
+    ["Length", `${minutes} min read`],
   ];
 
   return (
@@ -144,7 +144,13 @@ export function BlogPost({
             {meta.map(([label, value]) => (
               <div key={label} className="flex flex-col gap-1">
                 <dt className="font-mono text-eyebrow font-medium text-foreground/60 uppercase">{label}</dt>
-                <dd className="text-sm leading-5 text-foreground">{value}</dd>
+                <dd className="text-sm leading-5 text-foreground">
+                  {label === "Published" && article.publishedAt ? (
+                    <time dateTime={article.publishedAt}>{value}</time>
+                  ) : (
+                    value
+                  )}
+                </dd>
               </div>
             ))}
           </dl>
@@ -157,8 +163,12 @@ export function BlogPost({
             </div>
           ) : null}
           <div className="min-w-0 lg:col-span-8 lg:col-start-4">
-            {article.body ? <ArticleBody blocks={article.body} figureClassName="xl:-mr-40" /> : null}
-            <ArticleCta className="mt-16 max-w-article" />
+            <ArticleBody
+              blocks={article.body}
+              figureClassName="xl:-mr-40"
+              wideTableClassName="xl:w-[calc(100%+10rem)]"
+            />
+            <ArticleCta article={article} className="mt-16 max-w-article" />
           </div>
         </div>
       </Container>

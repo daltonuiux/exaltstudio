@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { BookCallButton } from "@/components/ui/book-call-button";
-import { type BlogArticle, type BlogImage, formatPublished, getReadingMinutes } from "@/lib/blog";
+import { TrackClicks } from "@/components/blog/track-clicks";
+import { type BlogArticle, type BlogImage, ctaHref, formatPublished, getReadingMinutes } from "@/lib/blog";
 import { cn } from "@/lib/utils";
 
 /**
@@ -158,25 +159,25 @@ export function TableOfContents({
 /**
  * The article's one closing CTA. Deliberately a quiet bordered block, not the
  * site's dark CTA card: it ends the article rather than starting a pitch.
+ * Copy and destination come from the article, so each one asks for the
+ * relevant next step.
  */
-export function ArticleCta({ className }: { className?: string }) {
+export function ArticleCta({ article, className }: { article: BlogArticle; className?: string }) {
+  const { cta } = article;
   return (
     <aside
       aria-labelledby="article-cta-heading"
-      className={cn(
-        "flex flex-col items-start gap-6 rounded-lg border border-foreground/12 p-6 sm:p-8",
-        className,
-      )}
+      className={cn("flex flex-col items-start gap-6 rounded-lg border border-foreground/12 p-6 sm:p-8", className)}
     >
       <div className="flex flex-col gap-2">
         <h2 id="article-cta-heading" className="text-xl font-semibold tracking-[-0.03em] text-foreground">
-          Planning a redesign?
+          {cta.heading}
         </h2>
-        <p className="max-w-[44ch] text-base leading-6 text-foreground/66">
-          We help product teams decide what to change first, then design and ship it with your engineers.
-        </p>
+        <p className="max-w-[52ch] text-base leading-6 text-foreground/66">{cta.body}</p>
       </div>
-      <BookCallButton>Discuss your product redesign</BookCallButton>
+      <TrackClicks event="Blog CTA click" data={{ slug: article.slug, destination: cta.destination }}>
+        <BookCallButton href={ctaHref(cta)}>{cta.label}</BookCallButton>
+      </TrackClicks>
     </aside>
   );
 }
