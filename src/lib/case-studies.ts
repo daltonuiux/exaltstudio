@@ -69,39 +69,44 @@ const screenshots = (folder: string): readonly CaseStudyImage[] =>
   }));
 
 
-/** Order per Luke: Perlon AI, Meshed, Onefin, Voren, LegalOS, Scout, Openlane. Also the order of the index and of Related projects. */
+/** Order per Luke: Voren, Meshed, Onefin, Perlon AI, LegalOS, Scout, Openlane. Also the order of the index and of Related projects. */
 export const caseStudies: readonly CaseStudy[] = [
   {
-    slug: "perlon-ai",
-    client: "Perlon AI",
-    headline: "Making an AI sales platform easier to understand, adopt and grow",
-    tags: ["UI Design", "UX Strategy", "Raised $1.1mil"],
-    logo: { name: "Perlon AI", src: "/images/logos/perlon-ai-dark.svg", width: 123.85, height: 28 },
-    images: screenshots("perlon-ai"),
+    slug: "voren",
+    client: "Voren",
+    headline: "A complex trading product, redesigned in eight weeks",
+    tags: ["UI Design", "UX Strategy", "Design System"],
+    logo: { name: "Voren", src: "/images/logos/voren-dark.svg", width: 119, height: 28 },
+    images: screenshots("voren"),
     page: {
       draft: false,
-      headline: "A clearer experience for AI-powered sales",
+      headline: "A complex trading product, redesigned in eight weeks",
       summary:
-        "We redesigned Perlon’s product experience to make its capabilities easier to understand and its core workflows easier to use.",
+        "Voren lets retail traders build, backtest and export automated strategies without code. Ahead of its public launch, we redesigned the full product experience on a tight deadline.",
       meta: {
-        client: "Perlon AI",
-        industry: "AI sales",
-        services: "Product strategy, UX and UI design",
+        client: "Voren",
+        industry: "Fintech",
+        services: "UX strategy, product and interface design",
+        extra: { label: "Timeline", value: "8 weeks" },
       },
       brief:
-        "Perlon’s product was growing. The experience needed a clearer structure and a more considered interface to support the people using it every day.",
+        "Voren’s node-based Strategy Builder gives traders considerable control, but its complexity needed a clearer interface. As a pre-revenue startup approaching launch, the team needed quality and speed within a defined budget.",
       work: [
         {
-          heading: "Clarity across the product",
-          body: "We simplified how information and actions are presented, helping users find their way through the platform.",
+          heading: "Making complex logic easier to follow",
+          body: "We refined the Strategy Builder so traders could work with nodes, rules and inputs directly on the canvas while understanding how their strategy fits together.",
         },
         {
-          heading: "Designed for everyday use",
-          body: "We refined key workflows and established a more consistent visual language across the experience.",
+          heading: "From building to backtesting",
+          body: "We designed the wider journey through onboarding, backtesting and optimisation, giving users a clearer path from their first strategy to its results.",
+        },
+        {
+          heading: "One cohesive product",
+          body: "We brought the experience together with a consistent interface and design system across light and dark modes.",
         },
       ],
       result:
-        "A more cohesive product experience, built to support Perlon’s next stage of growth.",
+        "We delivered a cohesive product experience across the builder, testing tools and onboarding, supported by a design system for light and dark modes in **eight weeks**, ahead of Voren’s public launch.",
     },
   },
   {
@@ -175,41 +180,36 @@ export const caseStudies: readonly CaseStudy[] = [
     },
   },
   {
-    slug: "voren",
-    client: "Voren",
-    headline: "A complex trading product, redesigned in eight weeks",
-    tags: ["UI Design", "UX Strategy", "Design System"],
-    logo: { name: "Voren", src: "/images/logos/voren-dark.svg", width: 119, height: 28 },
-    images: screenshots("voren"),
+    slug: "perlon-ai",
+    client: "Perlon AI",
+    headline: "Making an AI sales platform easier to understand, adopt and grow",
+    tags: ["UI Design", "UX Strategy", "Raised $1.1mil"],
+    logo: { name: "Perlon AI", src: "/images/logos/perlon-ai-dark.svg", width: 123.85, height: 28 },
+    images: screenshots("perlon-ai"),
     page: {
       draft: false,
-      headline: "A complex trading product, redesigned in eight weeks",
+      headline: "A clearer experience for AI-powered sales",
       summary:
-        "Voren lets retail traders build, backtest and export automated strategies without code. Ahead of its public launch, we redesigned the full product experience on a tight deadline.",
+        "We redesigned Perlon’s product experience to make its capabilities easier to understand and its core workflows easier to use.",
       meta: {
-        client: "Voren",
-        industry: "Fintech",
-        services: "UX strategy, product and interface design",
-        extra: { label: "Timeline", value: "8 weeks" },
+        client: "Perlon AI",
+        industry: "AI sales",
+        services: "Product strategy, UX and UI design",
       },
       brief:
-        "Voren’s node-based Strategy Builder gives traders considerable control, but its complexity needed a clearer interface. As a pre-revenue startup approaching launch, the team needed quality and speed within a defined budget.",
+        "Perlon’s product was growing. The experience needed a clearer structure and a more considered interface to support the people using it every day.",
       work: [
         {
-          heading: "Making complex logic easier to follow",
-          body: "We refined the Strategy Builder so traders could work with nodes, rules and inputs directly on the canvas while understanding how their strategy fits together.",
+          heading: "Clarity across the product",
+          body: "We simplified how information and actions are presented, helping users find their way through the platform.",
         },
         {
-          heading: "From building to backtesting",
-          body: "We designed the wider journey through onboarding, backtesting and optimisation, giving users a clearer path from their first strategy to its results.",
-        },
-        {
-          heading: "One cohesive product",
-          body: "We brought the experience together with a consistent interface and design system across light and dark modes.",
+          heading: "Designed for everyday use",
+          body: "We refined key workflows and established a more consistent visual language across the experience.",
         },
       ],
       result:
-        "We delivered a cohesive product experience across the builder, testing tools and onboarding, supported by a design system for light and dark modes in **eight weeks**, ahead of Voren’s public launch.",
+        "A more cohesive product experience, built to support Perlon’s next stage of growth.",
     },
   },
   {
