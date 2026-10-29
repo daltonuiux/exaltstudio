@@ -105,6 +105,7 @@
 
   /* --- Sizing ------------------------------------------------------------ */
   --container-content: 46rem; /* comfortable measure for prose */
+  --container-article: 37rem; /* long-form body at text-lg (18px Asta Sans): ~70 characters a line */
   --container-site: 80rem; /* default page max width */
   --container-wide: 90rem; /* wide/full-bleed-ish sections */
 
