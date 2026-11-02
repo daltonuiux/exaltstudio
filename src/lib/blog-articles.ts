@@ -17,6 +17,216 @@ const luke: BlogAuthor = { name: "Luke Dalton", jobTitle: "Founder, Exalt Studio
 
 /** First published on deployment, 29 October 2026. Never backdate. */
 const launchDate = "2026-10-29";
+const agentApprovalDate = "2026-11-02";
+
+const agentApprovalArticle: BlogArticle = {
+  slug: "when-ai-agents-should-ask-for-approval",
+  title: "When should an AI agent ask for approval? A framework for B2B SaaS",
+  seoTitle: "When should an AI agent ask for approval?",
+  excerpt:
+    "A practical way to decide whether an AI feature should recommend, prepare, request approval for or execute an action, with the context a reviewer needs to make a real decision.",
+  description:
+    "A framework for deciding when an AI agent in a B2B product should recommend, prepare, request approval for or execute an action, including review states, fallbacks and audit trails.",
+  topic: "AI product design",
+  author: luke,
+  status: "published",
+  publishedAt: agentApprovalDate,
+  intro:
+    "An AI agent should ask for approval when it is about to create a meaningful side effect that a person needs to own, particularly when the action is hard to reverse, affects someone else, changes money, access or data, or relies on context the system cannot reliably see. The answer is not to put an approval button after every suggestion. It is to give each action an appropriate level of authority, then make the review step clear enough to use.",
+  body: [
+    {
+      type: "p",
+      text: "For a B2B product, that decision shapes the workflow more than the chat box does. It determines what the agent is allowed to do, what a person must decide, what evidence is shown at the moment of decision and what happens when the system cannot proceed.",
+    },
+    { type: "h2", id: "answer", text: "Start with the consequence, not the model" },
+    {
+      type: "p",
+      text: "Do not set approval rules by asking whether the model is ‘confident’. A confidence score can be useful signal, but it is not a product policy. Start with the consequence if the action is wrong, premature or applied to the wrong record. Then consider whether it can be undone, who is affected and whether the user has enough context to take responsibility for it.",
+    },
+    {
+      type: "p",
+      text: "This is consistent with the [NIST AI RMF Playbook’s guidance on human oversight](https://airc.nist.gov/airmf-resources/playbook/map/), which recommends defining the context of use and human roles, documenting oversight requirements and testing them in scenarios similar to deployment. The Playbook is voluntary guidance, not a substitute for your legal, security or sector-specific obligations.",
+    },
+    { type: "h2", id: "four-levels", text: "Use four levels of agent authority" },
+    {
+      type: "p",
+      text: "Assign an authority level to each action, not to the entire agent. One assistant may safely organise a queue without approval, draft a reply for review, and require a manager’s approval before changing an account. The table is a starting point for agreeing those boundaries with product, engineering, security and the people who do the work.",
+    },
+    {
+      type: "table",
+      caption: "Four levels of AI agent authority in a B2B workflow",
+      head: ["Level", "What the agent does", "Useful for", "What the interface must make clear"],
+      rows: [
+        [
+          "1. Recommend",
+          "Identifies an option or explains a likely next step. It changes nothing.",
+          "Prioritising a queue, suggesting a classification or flagging an anomaly.",
+          "Why the suggestion was made, the information used and a way to ignore it.",
+        ],
+        [
+          "2. Prepare",
+          "Creates a draft, plan or set of proposed changes. A person still submits it.",
+          "Drafting a customer email, preparing a report or proposing record updates.",
+          "What is draft versus final, the affected items and an obvious edit path.",
+        ],
+        [
+          "3. Request approval",
+          "Assembles the action but pauses before the side effect. A person approves, edits or rejects it.",
+          "Sending communications, changing permissions, issuing refunds or updating important records.",
+          "The exact action, its scope, consequences, supporting evidence and safe alternatives.",
+        ],
+        [
+          "4. Execute within a boundary",
+          "Acts without a per-action approval, under agreed rules, limits and monitoring.",
+          "Routine, reversible work such as adding standard tags or creating a follow-up task.",
+          "The boundary, a visible history, an undo or correction path and an escalation route.",
+        ],
+      ],
+    },
+    {
+      type: "p",
+      text: "Level 4 does not mean ‘fully autonomous’. It means the team has explicitly delegated a narrow action under known conditions. If the agent encounters a new condition, exceeds a limit or cannot validate required data, it should stop or move the action back to Level 3.",
+    },
+    { type: "h2", id: "approval-threshold", text: "Put approval at the side-effect boundary" },
+    {
+      type: "p",
+      text: "The important boundary is where the product changes the world: a message is sent, a payment is issued, access changes, data is deleted, a record is updated or a request is made in another system. An agent can investigate, summarise and prepare up to that point without pretending that preparation is execution.",
+    },
+    {
+      type: "p",
+      text: "[OpenAI’s guide to guardrails and human review](https://developers.openai.com/api/docs/guides/agents/guardrails-approvals) describes this pattern for tool calls: a run can pause until a person approves or rejects a sensitive action. The product-design implication is broader than any one SDK. The review screen should show the proposed side effect before it happens, rather than asking people to approve a vague instruction such as ‘continue’.",
+    },
+    {
+      type: "ul",
+      items: [
+        "Require approval for irreversible actions, or actions whose reversal causes more work than the action itself.",
+        "Require approval when the action creates an external commitment, such as a customer message, contract change, refund or regulatory submission.",
+        "Require approval when a person’s access, eligibility, account standing or personal data is affected.",
+        "Require approval when the agent has to infer an important fact, resolve an ambiguity or choose between plausible policies.",
+        "Consider automatic execution only when the action is bounded, observable, reversible where practical and has a clear owner for exceptions.",
+      ],
+    },
+    { type: "h2", id: "review-screen", text: "Make the review step worth using" },
+    {
+      type: "p",
+      text: "An approval gate is weak if the reviewer has to reconstruct the decision from a chat transcript. A usable review step gives them the information needed to check the action quickly, and the controls needed to change course without starting over.",
+    },
+    {
+      type: "dl",
+      items: [
+        ["Proposed action", "State the verb, object and scope in plain language: ‘Send this renewal notice to 18 customers’, not ‘Run workflow’."],
+        ["Reason and inputs", "Show the policy, source records and key assumptions that led to the proposal. Link to the records rather than claiming the agent is correct."],
+        ["Affected people and systems", "Name the recipients, accounts, permissions, integrations or queues that will change."],
+        ["Material uncertainty", "Surface missing fields, conflicting information, a low-quality source or an ambiguous instruction where it would change the decision."],
+        ["Controls", "Offer Approve, Edit, Reject and Escalate where each is meaningful. A reviewer should be able to fix a small issue without re-running the whole task."],
+        ["Afterward", "Confirm what happened, preserve a history of the decision and give a correction or undo path when the action allows one."],
+      ],
+    },
+    {
+      type: "p",
+      text: "NIST’s [Measure guidance](https://airc.nist.gov/airmf-resources/playbook/measure/) specifically suggests maintaining histories and audit logs, documenting the degree of human oversight and tracking outcomes such as overrides, reported errors and escalations. Use that as a prompt to decide what your own product needs to retain, subject to its privacy and retention requirements.",
+    },
+    { type: "h2", id: "worked-example", text: "Worked example: an agent preparing subscription changes" },
+    {
+      type: "callout",
+      label: "Illustrative example",
+      text: "This example is invented to show the framework. It is not based on an Exalt client or a real product.",
+    },
+    {
+      type: "p",
+      text: "Imagine an operations platform where account managers request subscription changes. An agent reads the request, finds the account, checks the current plan and prepares the change. The team should not decide ‘the agent can manage subscriptions’ in the abstract. It should assign authority to each step.",
+    },
+    {
+      type: "table",
+      caption: "Applying agent authority to a subscription-change workflow",
+      head: ["Step", "Authority", "Why"],
+      rows: [
+        ["Find the account and current plan", "Execute", "This is retrieval. The UI should still show which account was matched and let the manager correct it."],
+        ["Identify missing billing information", "Recommend", "The agent can flag the missing field, but it should not invent or substitute billing data."],
+        ["Prepare the plan change", "Prepare", "The agent can calculate a proposed effective date and summarise the change for the manager to edit."],
+        ["Apply a downgrade with a credit", "Request approval", "It changes a customer’s commercial position and may create a financial consequence."],
+        ["Add a routine internal follow-up task", "Execute within a boundary", "It is low consequence and reversible if the team has agreed the rule and the task history is visible."],
+      ],
+    },
+    {
+      type: "p",
+      text: "The approval panel for the downgrade could show the account, current and proposed plan, effective date, calculated credit, source request, any missing information and the downstream systems that will update. The manager can approve, adjust the date, reject it with a reason or escalate an exception. If the billing API times out after approval, the product reports ‘not applied yet’ rather than implying success, and gives the manager a safe retry path.",
+    },
+    { type: "h2", id: "failure-states", text: "Design the states around the approval, not just the happy path" },
+    {
+      type: "p",
+      text: "The most important moments often happen when the agent cannot complete a proposal cleanly. Treat these as product states, with ownership and next steps, rather than as model errors hidden in a log.",
+    },
+    {
+      type: "ul",
+      items: [
+        "**Needs information:** say which field or source is missing and who can provide it. Do not ask for approval on an action the reviewer cannot assess.",
+        "**Ambiguous match:** show the plausible records and require a person to choose. Never silently choose the first close match for a consequential action.",
+        "**Policy conflict:** explain which rule blocked the action and provide an escalation path, rather than encouraging people to work around it in a prompt.",
+        "**Approval expired or changed:** refresh the proposal when the underlying record or price has changed. A stale approval should not apply a different action from the one reviewed.",
+        "**Execution failed:** distinguish ‘not attempted’, ‘attempted but not confirmed’ and ‘completed’. Offer retry only when it will not create a duplicate action.",
+        "**Limit reached:** state the relevant boundary, such as a maximum amount, number of recipients or permitted system, and route the exception to an accountable person.",
+      ],
+    },
+    { type: "h2", id: "brief", text: "A brief you can copy before you build" },
+    {
+      type: "p",
+      text: "Use this to align product, engineering, security and operations before designing the interface. It will not replace implementation controls, but it exposes the decisions the workflow needs to make.",
+    },
+    {
+      type: "template",
+      label: "AI action authority brief",
+      text: `Workflow: [name the end-to-end task]
+
+User and accountable owner
+- User who asks for the work: [role]
+- Person accountable for approval or exceptions: [role]
+
+Proposed action
+- What can the agent recommend, prepare or execute?
+- Which systems, records and people can be affected?
+
+Authority level
+- Recommend / Prepare / Request approval / Execute within a boundary
+- Why is this level appropriate for the consequence and reversibility?
+
+Approval rule
+- Which exact side effect needs approval?
+- What change makes a prior approval stale?
+- Who may approve, edit, reject or escalate it?
+
+Reviewer context
+- Source records and policy used:
+- Assumptions or uncertainty to show:
+- Expected downstream changes:
+
+Boundaries and fallback
+- Limits: [amount, count, role, system, time]
+- What makes the agent stop or escalate?
+- What can be undone, and how?
+
+Evidence after action
+- What will be logged?
+- How will overrides, failures and complaints be reviewed?`,
+    },
+    { type: "h2", id: "test", text: "Test authority rules in realistic workflows" },
+    {
+      type: "p",
+      text: "Do not validate this only by checking whether the model returns an acceptable answer. Test whether people can identify what will happen, recognise when information is missing, correct a proposed action and recover from a failure. Include old or conflicting records, permission differences, partial success, stale approvals and integration timeouts. [A focused SaaS UX audit](/blog/saas-ux-audit) can help identify where a review flow makes a task harder to understand, while a [scoped workflow brief](/blog/how-to-scope-saas-redesign#project-brief) can turn the findings into buildable states and dependencies.",
+    },
+    {
+      type: "p",
+      text: "Approval is not a way to transfer every risk to a user. It is one control in a workflow with defined roles, clear boundaries, technical enforcement, monitoring and a way to learn from exceptions. When it is designed well, the agent moves routine work forward while people retain control over decisions that deserve judgement.",
+    },
+  ],
+  cta: {
+    heading: "Planning an AI-assisted workflow?",
+    body: "Share the task, the action your agent would take and the point where your team is unsure about control. We’ll review one key workflow and identify practical next steps.",
+    label: "Get a free UX audit",
+    destination: "free-audit",
+  },
+  related: ["saas-ux-audit", "how-to-scope-saas-redesign", "in-house-vs-agency-vs-embedded-design"],
+};
 
 const costArticle: BlogArticle = {
   slug: "saas-product-redesign-cost",
@@ -948,4 +1158,10 @@ Rollout
   related: ["saas-product-redesign-cost", "saas-ux-audit", "in-house-vs-agency-vs-embedded-design"],
 };
 
-export const articles: readonly BlogArticle[] = [costArticle, resourcingArticle, auditArticle, scopeArticle];
+export const articles: readonly BlogArticle[] = [
+  agentApprovalArticle,
+  costArticle,
+  resourcingArticle,
+  auditArticle,
+  scopeArticle,
+];
