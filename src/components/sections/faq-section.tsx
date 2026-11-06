@@ -36,7 +36,7 @@ const faqs: Faq[] = [
   {
     question: "What is your pricing?",
     answer: [
-      "Fixed-Price Projects start from $6,000, with the scope, timeline and fee agreed before kickoff. Embedded Design Partner starts at $7,000 per month, with support scoped around your team’s needs. Both engagements include Luke and one senior product designer. We confirm scope, availability and terms before work begins. Larger frontend builds are quoted separately.",
+      "Every engagement is priced to its scope. Fixed-Price Projects have the scope, timeline and fee agreed before kickoff. Embedded Design Partner is a monthly engagement, with support scoped around your team’s needs. Both engagements include Luke and one senior product designer. We confirm scope, availability and terms before work begins. Larger frontend builds are quoted separately. Book an intro call and we’ll put together a quote for your work.",
     ],
   },
   {

@@ -6,7 +6,7 @@ import type { BlogArticle, BlogAuthor } from "@/lib/blog";
  * Exalt facts in this copy (pricing, team, the free review, case studies) are
  * taken from the live site and lib/pricing.ts, lib/case-studies.ts and the FAQ.
  * If any of those change, update the matching sentences here too: search for
- * "$6,000", "$7,000", "senior product designer" and the case-study slugs.
+ * "Fixed-Price Project", "Embedded Design Partner", "senior product designer" and the case-study slugs.
  *
  * Examples marked as illustrative are invented to explain a point; they are
  * not client work and must stay labelled as such.
@@ -240,7 +240,7 @@ const costArticle: BlogArticle = {
   status: "published",
   publishedAt: launchDate,
   intro:
-    "The cost of a SaaS product redesign depends on how much of the product changes and how much has to be designed beneath the surface: roles, states, edge cases and the work to build it. At Exalt, a Fixed-Price Project starts from $6,000. That is a starting fee for a defined scope, not a quote for redesigning a whole platform.",
+    "The cost of a SaaS product redesign depends on how much of the product changes and how much has to be designed beneath the surface: roles, states, edge cases and the work to build it. At Exalt, a Fixed-Price Project is quoted for a defined scope, so the fee follows what actually needs to change rather than a flat rate for redesigning a whole platform.",
   body: [
     { type: "h2", id: "product-vs-website", text: "A product redesign is not a website redesign" },
     {
@@ -623,13 +623,13 @@ const resourcingArticle: BlogArticle = {
     {
       type: "ul",
       items: [
-        "**Fixed-Price Project**, from $6,000 per project. For defined work, from new features to full product redesigns, with the scope, timeline and fee agreed before kickoff.",
-        "**Embedded Design Partner**, from $7,000 per month. Ongoing product strategy, UX and UI against agreed priorities, with weekly planning and Slack collaboration, on a flexible monthly renewal.",
+        "**Fixed-Price Project**. For defined work, from new features to full product redesigns, with the scope, timeline and fee agreed before kickoff.",
+        "**Embedded Design Partner**, billed monthly. Ongoing product strategy, UX and UI against agreed priorities, with weekly planning and Slack collaboration, on a flexible monthly renewal.",
       ],
     },
     {
       type: "p",
-      text: "Both are starting prices, not quotes. In an ongoing engagement, how much gets done in a month depends on the size of each request: we estimate requests before starting them and flag early if priorities need to shift. Scope, availability and terms are confirmed before work begins, and larger front-end builds are quoted separately. The details are in the [pricing section](/#pricing) of our site.",
+      text: "Both are priced to the scope of the work. In an ongoing engagement, how much gets done in a month depends on the size of each request: we estimate requests before starting them and flag early if priorities need to shift. Scope, availability and terms are confirmed before work begins, and larger front-end builds are quoted separately. The details are in the [pricing section](/#pricing) of our site.",
     },
   ],
   cta: {

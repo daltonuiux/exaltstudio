@@ -1,6 +1,6 @@
 /**
  * The two engagements shown in the Pricing section. Both cards render from
- * the same shape, so they stay structurally identical (and their prices and
+ * the same shape, so they stay structurally identical (and their lists and
  * CTAs line up) by construction.
  */
 export type Package = {
@@ -9,11 +9,6 @@ export type Package = {
   readonly kind: string;
   readonly name: string;
   readonly description: string;
-  /** Small line above the price, e.g. "From". */
-  readonly priceLabel: string;
-  readonly price: string;
-  /** Sits beside the price, e.g. "/project" / "/month". */
-  readonly priceQualifier: string;
   readonly included: readonly string[];
   /** Scope / commitment note under the list. */
   readonly note: string;
@@ -27,9 +22,6 @@ export const packages: readonly Package[] = [
     name: "Fixed-Price Project",
     description:
       "From new features to full product redesigns. Clear scope, predictable costs and exceptional execution.",
-    priceLabel: "From",
-    price: "$6,000",
-    priceQualifier: "/project",
     included: [
       "Founder-led delivery with senior design support",
       "Product discovery and UX direction",
@@ -47,9 +39,6 @@ export const packages: readonly Package[] = [
     name: "Embedded Design Partner",
     description:
       "Senior design expertise, embedded in your team. Better workflows, new features and continuous product improvements.",
-    priceLabel: "From",
-    price: "$7,000",
-    priceQualifier: "/month",
     included: [
       "Founder-led collaboration, supported by a senior product designer",
       "Ongoing product strategy, UX and UI",
