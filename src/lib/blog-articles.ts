@@ -629,7 +629,7 @@ const resourcingArticle: BlogArticle = {
     },
     {
       type: "p",
-      text: "Both are priced to the scope of the work. In an ongoing engagement, how much gets done in a month depends on the size of each request: we estimate requests before starting them and flag early if priorities need to shift. Scope, availability and terms are confirmed before work begins, and larger front-end builds are quoted separately. The details are in the [pricing section](/#pricing) of our site.",
+      text: "Both are priced to the scope of the work. In an ongoing engagement, how much gets done in a month depends on the size of each request: we estimate requests before starting them and flag early if priorities need to shift. Scope, availability and terms are confirmed before work begins, and larger front-end builds are quoted separately. The details are in the [engagements section](/#pricing) of our site.",
     },
   ],
   cta: {

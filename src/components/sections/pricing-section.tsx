@@ -45,7 +45,7 @@ export function PricingSection() {
               // SectionHeader's eyebrow is hard-wired to the light-ground
               // tint; lift it for the dark ground.
               className="lg:col-span-6 [&>p:first-child]:text-background/50"
-              label="Pricing"
+              label="Engagements"
               titleId="pricing-heading"
               title="Two ways to work together"
               titleClassName="text-background"

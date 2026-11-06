@@ -22,7 +22,7 @@ const navGroups: { label: string; width?: string; links: FooterLink[] }[] = [
       { label: "Blog", href: "/blog" },
       { label: "Process", href: "/#process" },
       { label: "Services", href: "/#services" },
-      { label: "Pricing", href: "/#pricing" },
+      { label: "Engagements", href: "/#pricing" },
       { label: "Selected Work", href: "/#work-samples" },
       { label: "FAQ", href: "/#faq" },
     ],
