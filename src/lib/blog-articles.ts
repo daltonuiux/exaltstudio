@@ -18,6 +18,7 @@ const luke: BlogAuthor = { name: "Luke Dalton", jobTitle: "Founder, Exalt Studio
 /** First published on deployment, 29 October 2026. Never backdate. */
 const launchDate = "2026-10-29";
 const agentApprovalDate = "2026-11-02";
+const recoveryDate = "2026-11-18";
 
 const agentApprovalArticle: BlogArticle = {
   slug: "when-ai-agents-should-ask-for-approval",
@@ -225,7 +226,82 @@ Evidence after action
     label: "Get a free UX audit",
     destination: "free-audit",
   },
-  related: ["saas-ux-audit", "how-to-scope-saas-redesign", "in-house-vs-agency-vs-embedded-design"],
+  related: ["when-ai-workflow-partly-completes", "saas-ux-audit", "how-to-scope-saas-redesign"],
+};
+
+const recoveryArticle: BlogArticle = {
+  slug: "when-ai-workflow-partly-completes",
+  title: "When an AI workflow partly completes: the product states B2B users need to see",
+  seoTitle: "AI workflow recovery states for B2B SaaS",
+  excerpt: "How to design a clear recovery path when an AI-assisted workflow completes only some work, times out or leaves the outcome unknown.",
+  description: "A practical framework for designing recovery states in AI-assisted B2B workflows, including partial success, safe retries, unknown outcomes, escalation and accessible status updates.",
+  topic: "AI product design", author: luke, status: "published", publishedAt: recoveryDate,
+  intro: "When an AI-assisted workflow partly completes, do not show a generic error and ask the user to try again. Tell them what was attempted, what is known to have happened, what remains uncertain and the safest next action. In many B2B workflows, the correct next step is not an automatic retry. It may be to wait, check the outcome, correct missing information, retry one bounded step or escalate.",
+  body: [
+    { type: "p", text: "This matters whenever an agent works across records, tools or systems. A batch can succeed for some customers and fail for others. A request can time out after the system has already started work. The interface needs to help a person recover without repeating an action that may already have happened." },
+    { type: "h2", id: "unknown-is-a-state", text: "Treat an unknown outcome as a state, not an error message" },
+    { type: "p", text: "‘Something went wrong’ hides the decision a user now has to make. A useful recovery state separates the operation from its outcome: what the agent attempted, which steps completed, which did not, what the product cannot yet confirm and what the user can safely do next." },
+    { type: "p", text: "[OpenAI’s guidance on failed agent turns](https://developers.openai.com/api/docs/guides/agents-api/errors) notes that a failed turn may already have changed files or invoked tools, and recommends checking completed effects and saved work before repeating it. The same principle applies to any product that coordinates actions across systems: failure does not always mean nothing happened." },
+    { type: "h2", id: "five-paths", text: "Choose one of five recovery paths" },
+    { type: "p", text: "Give the user a next action that matches what is known, rather than one default Retry button. The matrix is a product decision tool, not a universal technical policy. Engineering still needs to define the guarantees behind each path." },
+    { type: "table", caption: "Recovery paths for an AI-assisted B2B workflow", head: ["What happened", "What the product shows", "Safe next action", "Avoid"], rows: [
+      ["Still running", "The task is in progress, when it started and its last confirmed step.", "Wait, follow status or cancel if cancellation is genuinely safe.", "Offering another Start button while the same work may still run."],
+      ["Some items completed", "Completed, failed and unattempted items, with counts and links to records.", "Retry only failed or unattempted items after checking the cause.", "Re-running the entire batch and creating duplicates."],
+      ["Outcome unknown", "What was submitted, which system is being checked and why completion cannot be confirmed.", "Check outcome or escalate before resubmitting.", "Calling it failed when an external action may already have succeeded."],
+      ["Input or policy needs attention", "The missing, conflicting or disallowed information and rule that needs review.", "Correct data, choose an alternative or escalate, then retry the affected step.", "Retrying unchanged input."],
+      ["Temporary service problem", "The blocked step and whether the product will retry automatically within a stated boundary.", "Wait for a bounded retry or retry once it is safe.", "Infinite silent retries or making users guess."],
+    ] },
+    { type: "p", text: "A retry is safe only if the system can tell that it is retrying the same logical action, rather than making a second one. [Google Cloud’s retry guidance](https://docs.cloud.google.com/storage/docs/retry-strategy) explains why immediate retries can cascade and why non-idempotent operations can create duplicate work or race conditions. The interface should never imply a retry is harmless when that has not been established." },
+    { type: "h2", id: "status-model", text: "Model the workflow status before designing the screen" },
+    { type: "p", text: "Agree the states that engineering can reliably expose, then give each one a clear user-facing meaning. Completed should mean the product has enough evidence to say intended work finished. Failed should mean a specific step did not complete. Unknown should mean the product cannot yet make either claim." },
+    { type: "dl", items: [["Queued", "The request is accepted but work has not started."], ["Running", "Work is underway. Show the current stage or last confirmed event."], ["Partly completed", "Some independent work finished and some did not."], ["Needs review", "Data, policy or a decision needs a person."], ["Outcome unknown", "The product is awaiting an external result or lost confirmation."], ["Completed", "The intended operation has finished, with a correction path where appropriate."]] },
+    { type: "p", text: "[OpenAI’s session guidance](https://developers.openai.com/api/docs/guides/agents-api/sessions) similarly distinguishes completed, failed and cancelled work, and cautions that an idle session does not itself prove success. A user should not have to infer an outcome from a chat response, loading indicator or absence of errors." },
+    { type: "h2", id: "example", text: "Worked example: a batch that creates customer follow-ups" },
+    { type: "callout", label: "Illustrative example", text: "This example is invented to show the recovery pattern. It is not based on an Exalt client or a real product." },
+    { type: "p", text: "An operations manager asks an assistant to create follow-up tasks for 40 accounts. Thirty-four are confirmed. Four accounts have no owner, one has a conflicting renewal date and the CRM connection times out before confirming the final task." },
+    { type: "ul", items: ["**34 tasks created:** link to the tasks, with the execution time and rule used.", "**4 accounts need an owner:** assign an owner or exclude them, then create tasks only for those four.", "**1 account needs a date decision:** show the two dates and their sources. Do not silently choose one.", "**1 task has an unknown outcome:** show the CRM request reference, offer Check status and explain why creating another task could duplicate the follow-up."] },
+    { type: "p", text: "Each group has a different recovery path. The manager can finish the work without losing the successful tasks or manually reconstructing what happened." },
+    { type: "h2", id: "history", text: "Give people an execution history, not a chat transcript" },
+    { type: "p", text: "A conversational summary can explain intent, but it is not sufficient evidence after a consequential action. A recovery view should show the request, records considered, rules applied, confirmed results, errors, retries and manual decisions. [OpenAI’s tracing documentation](https://developers.openai.com/api/docs/guides/agents-api/tracing) describes recording request details, results, outcomes and error information around tool activity. Decide which evidence belongs in the working view, an audit view or support tooling, subject to privacy requirements." },
+    { type: "h2", id: "accessibility", text: "Make status changes available to everyone" },
+    { type: "p", text: "[WCAG guidance on status messages](https://www.w3.org/WAI/WCAG21/Understanding/status-messages) explains that action results, waiting, progress and errors should be programmatically available to assistive technologies without unnecessary focus changes." },
+    { type: "ul", items: ["Use status names that match the product’s actual guarantees.", "Keep status available after an initial notification disappears.", "Give each recovery control an explicit label, such as Check CRM status for Acme.", "Do not move focus for routine progress updates; move it deliberately only when a person needs to decide."] },
+    { type: "h2", id: "brief", text: "A recovery brief you can copy" },
+    { type: "template", label: "AI workflow recovery brief", text: `Workflow: [name the end-to-end task]
+
+Intended outcome
+- What effect should be confirmed?
+- Which records, people or systems can be affected?
+
+Independent steps
+- Which steps can complete separately?
+- Which must succeed together, and why?
+
+States to expose
+- Queued / Running / Partly completed / Needs review / Outcome unknown / Completed
+- What evidence moves work into each state?
+
+Recovery paths
+- Wait: [when and how long?]
+- Retry safely: [which action, with which duplicate protection?]
+- Correct and retry: [what can a person change?]
+- Check outcome: [where is confirmation found?]
+- Escalate: [who owns exceptions?]
+
+User-facing evidence
+- What did the agent attempt?
+- What completed, failed or remains unknown?
+- Which request or system reference is visible?
+
+Accessibility
+- How are progress, completion and errors announced?
+- Can every affected item and recovery control be reached with a keyboard?` },
+    { type: "h2", id: "test", text: "Test recovery before you need it" },
+    { type: "p", text: "Test a batch where one item is invalid, an integration times out after accepting a request, a person lacks permission halfway through and a prior result changes while it is reviewed. Check whether a user can explain what happened, choose the right next step and avoid duplicating work. NIST’s voluntary [AI RMF Core](https://airc.nist.gov/airmf-resources/airmf/5-sec-core/) includes recovery, response, overrides and documented incident processes as part of managing AI risk. It does not prescribe your interface, but it is a useful prompt to define recovery ownership before launch." },
+    { type: "p", text: "If your team is unsure which failure states exist, map one complete task with engineering and support. [How to scope a SaaS redesign without rebuilding everything](/blog/how-to-scope-saas-redesign) covers states and dependencies, while [the AI approval framework](/blog/when-ai-agents-should-ask-for-approval) covers when an agent should pause before it acts." },
+  ],
+  cta: { heading: "Designing an AI-assisted workflow?", body: "Share the task and the point where it becomes hard to tell what happened. We’ll review one key workflow and identify practical next steps.", label: "Get a free UX audit", destination: "free-audit" },
+  related: ["when-ai-agents-should-ask-for-approval", "saas-ux-audit", "how-to-scope-saas-redesign"],
 };
 
 const costArticle: BlogArticle = {
@@ -1159,6 +1235,7 @@ Rollout
 };
 
 export const articles: readonly BlogArticle[] = [
+  recoveryArticle,
   agentApprovalArticle,
   costArticle,
   resourcingArticle,
